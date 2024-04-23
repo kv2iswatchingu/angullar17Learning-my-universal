@@ -1,0 +1,25 @@
+.main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+    flex-direction: column
+}
+.title{
+    font-size: 50px;
+    color: #09F;
+}
+.myAngular{
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: inherit;
+    position: relative;
+}
