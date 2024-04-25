@@ -1,14 +1,38 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button'
 import { MatRippleModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [ MatButtonModule,MatRippleModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    standalone: true,
+    imports: [ 
+        MatButtonModule, 
+        MatRippleModule, 
+        MatInputModule,
+        MatIconModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatMenuModule
+    ],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  mycolor = "#abc"
+    searchInput = "";
+    
+
+    searchFuntion(){
+        console.log(this.searchInput)
+    }
+    cdlistFuntion(){
+        console.log("cdlist")
+    }
+    collectionFuntion(){
+        console.log("mycollection")
+    }
 }

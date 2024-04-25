@@ -1,24 +1,105 @@
-.example-ripple-container {
-    cursor: pointer;
-    text-align: center;
+@import "@/styles.scss";
+
+.header{
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 3.5rem;
+  background-color: $mypink;
+  align-items: center;
+  justify-content: space-between;
   
-    width: 300px;
-    height: 300px;
-    line-height: 300px;
-  
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-  
-    -webkit-user-drag: none;
-    -webkit-tap-highlight-color: transparent;
+}
+.left{
+  margin-left: 2rem;
+  .headerTab{
+    border-radius: 0px;
+    font-size: 1.2rem;
+    ::ng-deep.material-icons{
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 1.5rem;
+    }
+  }
+}
+.right{
+  margin-right: 2rem;
+  display: flex;
+  align-items:center; 
+}
+.search{
+  display: flex;
+  align-items:center; 
+  .searchInput{
+      width: 15rem;
+    height:2rem;
+    background-color: transparent;
+    padding-left: 1rem;
+    font-size: 1rem;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 0px;
+  }
+  .searchInput:focus{
+    outline: none;
+  }
+  .searchBtn{
+    width: calc(2rem + 4px);
+    height: calc(2rem + 4px);
+    padding: 0px;
+    min-width: 0;
+    border: 1px solid #fff;
+    border-left: none;
+    border-radius: 0px;
+  }
+  ::ng-deep.mat-mdc-button>.mat-icon, .mat-mdc-unelevated-button>.mat-icon, .mat-mdc-raised-button>.mat-icon, .mat-mdc-outlined-button>.mat-icon{
+    margin: 0;
+  }
+}
+.userState{
+  display: flex;
+  align-items:center; 
+  margin-left: 2rem;
+  ::ng-deep.mat-icon{
+    color: $myred;
+  }
+  .userStateBtn{
+    width: 2.5rem;
+    height:2.5rem;
+    padding: 0px;
+    min-width: 0;
+    ::ng-deep.mat-icon{
+      color: $myred;
+      width: 2.5rem;
+      height:2.5rem;
+    }
+    ::ng-deep.material-icons{
+      font-size: 2.5rem;
+    }
   }
   
-  /** Styles to make the demo look better. */
-  .example-ripple-checkbox {
-    margin: 6px 12px 6px 0;
-  }
-  
-  .example-ripple-form-field {
-    margin: 0 12px 0 0;
-  }
+}
+
+
+
+
+/* .right-form{
+  height: 2rem;
+ 
+}
+
+:ng-deep.mat-mdc-form-field-flex{
+  height: 2rem;
+}
+::ng-deep.mat-mdc-text-field-wrapper{
+  height: 2rem !important;
+}
+::ng-deep.mat-mdc-form-field-subscript-wrapper, 
+.mat-mdc-form-field-bottom-align::before{
+    height: 0;
+}
+::ng-deep.mdc-text-field--outlined .mat-mdc-form-field-infix, 
+.mdc-text-field--no-label .mat-mdc-form-field-infix{
+  padding: 3px !important;
+  height: 2rem;
+} */

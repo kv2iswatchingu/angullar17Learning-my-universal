@@ -1,19 +1,61 @@
 <div class="header">
     <div class="left">
         <div class="musicLogo">
-            <button 
-                mat-button 
-                mat-ripple 
-                [matRippleCentered]="false"
-                [matRippleDisabled]="false"
-                [matRippleUnbounded]="false"
-                [matRippleRadius]="50"
-                [matRippleColor]="mycolor"
-                >歌单</button>
+           
         </div>
-        
+        <button 
+            class="headerTab" 
+            mat-flat-button 
+            color="accent" 
+            (click)="cdlistFuntion()">
+            <mat-icon>list</mat-icon>
+            <span>歌单</span>
+        </button>
+        <button 
+            class="headerTab" 
+            mat-flat-button color="accent"
+            (click)="collectionFuntion()">
+            <mat-icon>stars</mat-icon>
+            <span>收藏</span>
+        </button>
     </div>
     <div class="right">
-
+        <div class="search">
+            <input 
+                class="searchInput" 
+                placeholder="输入并搜索"
+                [(ngModel)]="searchInput"
+            />
+            <!--  <mat-form-field appearance="outline" class="right-form">
+                <input matInput type="text"  [(ngModel)]="searchInput"/>
+            </mat-form-field> -->
+            <button class="searchBtn" mat-flat-button color="accent" (click)="searchFuntion()">
+                <mat-icon>search</mat-icon>
+            </button> 
+        </div>
+        
+        <div class="userState">
+            <button 
+                class="userStateBtn"
+                mat-icon-button 
+                [matMenuTriggerFor]="menu" 
+                aria-label="Login">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                    <mat-icon>perm_identity</mat-icon>
+                    <span>登录</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>supervisor_account</mat-icon>
+                    <span>注册</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>assignment_returned</mat-icon>
+                    <span>本地</span>
+                </button>
+            </mat-menu>
+        </div>
     </div>
 </div>
