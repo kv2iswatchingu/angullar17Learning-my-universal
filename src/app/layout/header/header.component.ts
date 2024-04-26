@@ -35,4 +35,13 @@ export class HeaderComponent {
     collectionFuntion(){
         console.log("mycollection")
     }
+    loginFuntion(){
+        console.log("login")
+    }
+    registerFuntion(){
+        console.log("register")
+    }
+    localFunction(){
+        console.log("local")
+    }
 }

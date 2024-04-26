@@ -43,15 +43,15 @@
                 <mat-icon>account_circle</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item  (click)="loginFuntion()">
                     <mat-icon>perm_identity</mat-icon>
                     <span>登录</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item  (click)="registerFuntion()">
                     <mat-icon>supervisor_account</mat-icon>
                     <span>注册</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="localFunction()">
                     <mat-icon>assignment_returned</mat-icon>
                     <span>本地</span>
                 </button>
