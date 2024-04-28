@@ -25,7 +25,9 @@ import {MatMenuModule} from '@angular/material/menu';
 export class HeaderComponent {
     searchInput = "";
     
-
+    homepageFuntion(){
+        console.log("home")
+    }
     searchFuntion(){
         console.log(this.searchInput)
     }

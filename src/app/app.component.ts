@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { HeaderComponent } from './layout/header/header.component';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,

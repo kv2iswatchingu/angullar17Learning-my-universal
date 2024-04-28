@@ -12,6 +12,13 @@
 }
 .left{
   margin-left: 2rem;
+  .musicLogo{
+    ::ng-deep.material-icons{
+      width: 2rem;
+      height: 2rem;
+      font-size: 2rem;
+    }
+  }
   .headerTab{
     border-radius: 0px;
     font-size: 1.2rem;

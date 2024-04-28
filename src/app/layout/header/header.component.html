@@ -1,8 +1,14 @@
 <div class="header">
     <div class="left">
-        <div class="musicLogo">
-           
-        </div>
+
+        <button 
+            class="musicLogo"
+            mat-button 
+            color="accent" 
+            (click)="homepageFuntion()">
+            <mat-icon >music_video</mat-icon>
+            <span>Music</span>
+        </button>
         <button 
             class="headerTab" 
             mat-flat-button 
@@ -13,7 +19,8 @@
         </button>
         <button 
             class="headerTab" 
-            mat-flat-button color="accent"
+            mat-flat-button 
+            color="accent"
             (click)="collectionFuntion()">
             <mat-icon>stars</mat-icon>
             <span>收藏</span>
