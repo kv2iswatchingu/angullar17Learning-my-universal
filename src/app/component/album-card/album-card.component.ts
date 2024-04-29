@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 
+
 @Component({
   selector: 'app-album-card',
   standalone: true,
@@ -14,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './album-card.component.scss'
 })
 export class AlbumCardComponent {
-  @Input() ablumEasyInfo = null;
+  @Input() ablumEasyInfoImg = "";
+  @Input() ablumEasyInfoView = "";
+  @Input() ablumEasyInfoId = "";
+  @Input() ablumEasyInfoTitle = "";
 
 }

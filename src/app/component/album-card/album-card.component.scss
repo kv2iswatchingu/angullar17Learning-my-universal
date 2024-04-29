@@ -2,8 +2,21 @@
 
 }
 .albumCard-cover{
-
+    position: relative;
+    max-width: 150px;
+    aspect-ratio: 1;
+    background-color: #000;
 }
 .albumCard-cover-img{
-    
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.albumCard-state{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    background-color: #ffffff6f;
 }

@@ -7,6 +7,7 @@ import { MainService } from '@/app/service/main-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
+import { EasyAblumInfo } from '@/app/service/interface/main-interface.interface';
 
 @Component({
   selector: 'app-main-page',
@@ -26,6 +27,7 @@ import { AlbumListComponent } from '@/app/component/album-list/album-list.compon
 export class MainPageComponent implements OnInit{
   
   isLoading = false;
+  //mainPageAblumList:EasyAblumInfo[] = [];
 
   constructor(
     private mainService: MainService
@@ -34,10 +36,12 @@ export class MainPageComponent implements OnInit{
   }
   ngOnInit(): void {
       this.getBanner();
+      //this.getAblumMainPage();
   }
   getBanner(){
     this.mainService.getMainPageBanners().subscribe(res => {
       console.log(res);
     })
   }
+ 
 }

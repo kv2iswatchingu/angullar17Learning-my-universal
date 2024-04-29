@@ -1,8 +1,12 @@
 <p>album-list works!</p>
-<div>
-    @for(item of ablumEasyInfoArr; track $index){
-        <app-album-card>
-            ablumEasyInfo={{item.text}}
+<div class="album-list">
+    @for(item of mainPageAblumList; track $index){
+        <app-album-card
+            ablumEasyInfoId = "{{item.id}}"
+            ablumEasyInfoTitle="{{item.ablumName}}"
+            ablumEasyInfoImg="{{item.ablumCover}}"
+            ablumEasyInfoView="{{item.ablumView}}"
+        >
         </app-album-card>
     }
     

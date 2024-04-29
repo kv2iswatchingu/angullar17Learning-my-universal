@@ -2,17 +2,21 @@
     <div class="albumCard-cover">
         <img 
             class="albumCard-cover-img"
+            [src]="ablumEasyInfoImg" 
         >
         <div class="albumCard-state">
             <mat-icon></mat-icon>
-            <button
+            <span>
+                {{ablumEasyInfoView}}
+            </span>
+            <!-- <button
             
             >
             <mat-icon></mat-icon>
-            </button>
+            </button> -->
         </div>
     </div>
     <div class="albumCard-title">
-       {{ablumEasyInfo.text}}
+       {{ablumEasyInfoTitle}}
     </div>
 </div>

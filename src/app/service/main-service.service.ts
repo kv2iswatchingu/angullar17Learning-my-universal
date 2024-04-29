@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Banner } from './interface/main-interface.interface';
+import { Banner, EasyAblumInfo } from './interface/main-interface.interface';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -19,6 +19,11 @@ export class MainService {
   //获取首页轮播图数据
   getMainPageBanners():Observable<Banner[]>{
     return this.http.get<Banner[]>(this.myMockApi + "/getBanner")
+    .pipe(map(res => res));
+  }
+  //获取首页推荐音乐数据
+  getMainPageAblumList():Observable<EasyAblumInfo[]>{
+    return this.http.get<EasyAblumInfo[]>(this.myMockApi + "/getMainpageAblumList")
     .pipe(map(res => res));
   }
 }
