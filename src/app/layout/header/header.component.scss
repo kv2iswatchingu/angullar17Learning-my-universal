@@ -8,7 +8,8 @@
   background-color: $mypink;
   align-items: center;
   justify-content: space-between;
-  
+  z-index: 9999;
+  top:0;
 }
 .left{
   margin-left: 2rem;
