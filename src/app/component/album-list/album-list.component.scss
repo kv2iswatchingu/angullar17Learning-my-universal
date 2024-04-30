@@ -1,3 +1,5 @@
 .album-list{
-    display: grid;
+    display: inline-grid;
+    width: 60%;
+    grid-template-columns: repeat(4, 25%);
 }

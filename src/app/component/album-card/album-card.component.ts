@@ -20,4 +20,7 @@ export class AlbumCardComponent {
   @Input() ablumEasyInfoId = "";
   @Input() ablumEasyInfoTitle = "";
 
+  addSongtoPlayerList(){
+    console.log(this.ablumEasyInfoId)
+  }
 }

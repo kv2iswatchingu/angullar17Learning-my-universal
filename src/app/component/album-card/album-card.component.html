@@ -5,15 +5,24 @@
             [src]="ablumEasyInfoImg" 
         >
         <div class="albumCard-state">
-            <mat-icon></mat-icon>
-            <span>
-                {{ablumEasyInfoView}}
-            </span>
+            <div style="display: flex;">
+                <mat-icon class="leftIcon">headset</mat-icon>
+                <span class="leftNum">
+                    {{ablumEasyInfoView}}
+                </span>
+            </div>
+            
+            <mat-icon 
+                class="rightIcon"
+                (click)="addSongtoPlayerList()">
+                play_circle_outline
+            </mat-icon>
             <!-- <button
             
             >
             <mat-icon></mat-icon>
             </button> -->
+           
         </div>
     </div>
     <div class="albumCard-title">
