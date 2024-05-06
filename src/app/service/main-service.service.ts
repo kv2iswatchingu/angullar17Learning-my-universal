@@ -38,7 +38,7 @@ export class MainService {
 
 
   ////
-  getMainPageFullMusicInfoList(userId:string):Observable<MusicInfo[]>{
+  getMainPageFullMusicInfoList():Observable<MusicInfo[]>{
     return this.http.get<MusicInfo[]>(this.myMockApi + "/getLatestMusicList")
     .pipe(map(res => res));
   }

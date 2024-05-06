@@ -7,7 +7,7 @@ import { MainService } from '@/app/service/main-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
-import { Banner, CategoryInfo, EasyAblumInfo } from '@/app/service/interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '@/app/service/interface/main-interface.interface';
 import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
 import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
 
@@ -36,7 +36,7 @@ export class MainPageComponent implements OnInit{
   mainPageAblumList:EasyAblumInfo[] = [];
   personalAblumRecommend:EasyAblumInfo[] = [];
   recommendCategory:CategoryInfo[] = [];
-
+  latestMusicList: MusicInfo[] = [];
 
   constructor(
     private mainService: MainService
@@ -49,6 +49,7 @@ export class MainPageComponent implements OnInit{
       this.getAblumMainPage();
       this.getCategory();
       this.getPersonalRecommend();
+      this.getLatestMusic();
   }
   getAblumMainPage(){
     this.mainService.getMainPageAblumList().subscribe(res => {
@@ -74,5 +75,10 @@ export class MainPageComponent implements OnInit{
       this.personalAblumRecommend= res;
     })
   }
- 
+  getLatestMusic(){
+    this.mainService.getMainPageFullMusicInfoList().subscribe(res => {
+      console.log(res);
+      this.latestMusicList= res;
+    })
+  }
 }

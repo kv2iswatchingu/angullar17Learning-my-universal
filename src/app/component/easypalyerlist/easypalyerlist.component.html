@@ -1,1 +1,11 @@
-<p>easypalyerlist works!</p>
+<div>
+    @for(item of latestMusicList; track $index){
+        <audio 
+            controls 
+            src="{{item.musicUrl
+            }}" >
+         
+        </audio>
+    }
+</div>
+

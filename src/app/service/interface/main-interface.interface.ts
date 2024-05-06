@@ -11,7 +11,7 @@ export type EasyAblumInfo = {
 }
 
 export type CategoryInfo = {
-    category:string,
+    category:string
 }
 
 export type MusicInfo = {
