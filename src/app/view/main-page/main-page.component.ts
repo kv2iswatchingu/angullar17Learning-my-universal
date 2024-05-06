@@ -7,7 +7,9 @@ import { MainService } from '@/app/service/main-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
-import { Banner, EasyAblumInfo } from '@/app/service/interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo } from '@/app/service/interface/main-interface.interface';
+import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
+import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
 
 @Component({
   selector: 'app-main-page',
@@ -19,7 +21,9 @@ import { Banner, EasyAblumInfo } from '@/app/service/interface/main-interface.in
     NgOptimizedImage,
     HttpClientModule,
     CarouselComponent,
-    AlbumListComponent
+    AlbumListComponent,
+    MainPageRecommendTabComponent,
+    EasypalyerlistComponent
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
@@ -30,6 +34,10 @@ export class MainPageComponent implements OnInit{
   //mainPageAblumList:EasyAblumInfo[] = [];
   bannerData:Banner[] = [];
   mainPageAblumList:EasyAblumInfo[] = [];
+  personalAblumRecommend:EasyAblumInfo[] = [];
+  recommendCategory:CategoryInfo[] = [];
+
+
   constructor(
     private mainService: MainService
   ){
@@ -39,6 +47,8 @@ export class MainPageComponent implements OnInit{
       this.getBanner();
       //this.getAblumMainPage();
       this.getAblumMainPage();
+      this.getCategory();
+      this.getPersonalRecommend();
   }
   getAblumMainPage(){
     this.mainService.getMainPageAblumList().subscribe(res => {
@@ -50,6 +60,18 @@ export class MainPageComponent implements OnInit{
     this.mainService.getMainPageBanners().subscribe(res => {
       console.log(res);
       this.bannerData = res;
+    })
+  }
+  getCategory(){
+    this.mainService.getMainPageRecommendCategory().subscribe(res => {
+      console.log(res);
+      this.recommendCategory= res;
+    })
+  }
+  getPersonalRecommend(){
+    this.mainService.getpersonalRecommend().subscribe(res => {
+      console.log(res);
+      this.personalAblumRecommend= res;
     })
   }
  

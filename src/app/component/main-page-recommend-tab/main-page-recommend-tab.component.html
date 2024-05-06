@@ -1,0 +1,27 @@
+<div class="recommend">
+    <div>
+        <mat-icon>adjust</mat-icon>
+        <span>
+            {{recommendTitle}}
+        </span>
+        @for (item of recommendCategory; track $index) {
+            <button
+                mat-button
+                (click)="gotoCategory($index,item.category)"
+            >
+                {{item.category}}
+            </button>
+        }
+    </div>
+    <div>
+        @if (showMore) {
+            <button
+                mat-button
+                (click)="gotoMore()"
+            >
+                更多
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+        }
+    </div>
+</div>

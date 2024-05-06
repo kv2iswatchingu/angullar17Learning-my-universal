@@ -4,11 +4,39 @@
     >
 
     </app-carousel>
+    <app-main-page-recommend-tab
+        class="app-main-page-recommend-tab"
+        [recommendTitle]="'热门推荐'"
+        [recommendCategory]="recommendCategory"
+        [showMore]="true"
+    >
+
+    </app-main-page-recommend-tab>
     <app-album-list
         class="app-album-list"
         [mainPageListData]="mainPageAblumList"
     >
+    </app-album-list>
 
+    <app-main-page-recommend-tab
+        class="app-main-page-recommend-tab"
+        [recommendTitle]="'个人推荐'"
+        [showMore]="false"
+    >
+    </app-main-page-recommend-tab>
+    <app-album-list
+        class="app-album-list"
+        [mainPageListData]="personalAblumRecommend"
+    >
 
     </app-album-list>
+
+    <app-main-page-recommend-tab
+        class="app-main-page-recommend-tab"
+        [recommendTitle]="'最近在听'"
+        [showMore]="true"
+    ></app-main-page-recommend-tab>
+    <app-easypalyerlist>
+        
+    </app-easypalyerlist>
 </div>
