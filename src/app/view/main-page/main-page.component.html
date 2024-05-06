@@ -1,9 +1,12 @@
 <div class="mainPage">
-    <app-carousel>
+    <app-carousel
+        [bannerData]="bannerData"
+    >
 
     </app-carousel>
     <app-album-list
         class="app-album-list"
+        [mainPageListData]="mainPageAblumList"
     >
 
 

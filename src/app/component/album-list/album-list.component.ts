@@ -13,21 +13,13 @@ import { MainService } from '@/app/service/main-service.service';
   styleUrl: './album-list.component.scss'
 })
 export class AlbumListComponent {
-  mainPageAblumList:EasyAblumInfo[] = [];
+  @Input() mainPageListData:EasyAblumInfo[] = [];
+
   constructor(
     private mainService: MainService
   ){}
 
-  ngOnInit(): void {
-    this.getAblumMainPage();
-  }
-  getAblumMainPage(){
-    this.mainService.getMainPageAblumList().subscribe(res => {
-      console.log(res);
-      this.mainPageAblumList = res
-      console.log(this.mainPageAblumList)
-    })
-  }
+  
 
   //getMainpageAblumList
 }

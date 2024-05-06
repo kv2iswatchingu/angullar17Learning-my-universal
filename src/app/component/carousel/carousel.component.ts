@@ -1,6 +1,7 @@
+import { Banner } from '@/app/service/interface/main-interface.interface';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, Inject, Input, PLATFORM_ID, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs/internal/Observable';
@@ -43,12 +44,14 @@ export class CarouselComponent {
       url:"???????"
     }
   ]
+  @Input() bannerData:Banner[] = [];
 
   currentIndex = 0;
   changeCurrent(index:number){
     this.currentIndex = index;
     console.log(this.currentIndex)
   }
+  
   
   //
   /* private readonly delay = 3000;

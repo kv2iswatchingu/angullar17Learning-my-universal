@@ -13,7 +13,6 @@ export class MainService {
   constructor(private http:HttpClient) {
       
   }
-
   //首页接口 
   
   //获取首页轮播图数据

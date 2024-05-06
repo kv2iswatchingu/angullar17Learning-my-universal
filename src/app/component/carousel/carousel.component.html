@@ -1,6 +1,6 @@
 <div class="carousel">
     @defer(on viewport){
-        @for (item of carouselArr; track $index) {
+        @for (item of bannerData; track $index) {
             <div 
                 class="carousel-ImageFrame"
                 [@carousel]="$index == currentIndex ? 'show' : 'hide'"
@@ -8,11 +8,11 @@
                 <img 
                     class="carousel-img"
                     [src]="item.imageUrl" 
-                    alt="{{item.name}}">
+                    alt="{{item.imageUrl}}">
             </div> 
         }
         <div class="carousel-btnFrame">
-            @for (item of carouselArr; track $index) {
+            @for (item of bannerData; track $index) {
                 <button 
                     class="carousel-btn"
                     (click)="changeCurrent($index)">
