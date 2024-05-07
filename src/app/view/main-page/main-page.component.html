@@ -15,6 +15,7 @@
     <app-album-list
         class="app-album-list"
         [mainPageListData]="mainPageAblumList"
+        (onAddtoListMain)="getPlayList($event)"
     >
     </app-album-list>
 
@@ -27,6 +28,7 @@
     <app-album-list
         class="app-album-list"
         [mainPageListData]="personalAblumRecommend"
+        (onAddtoListMain)="getPlayList($event)"
     >
 
     </app-album-list>
@@ -43,3 +45,6 @@
     </app-easypalyerlist>
 
 </div>
+<app-footer-player>
+    
+</app-footer-player>

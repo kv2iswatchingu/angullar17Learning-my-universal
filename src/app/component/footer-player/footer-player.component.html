@@ -1,0 +1,107 @@
+<div class="footerPlayer">
+    <div class="hand">
+        <!-- 唤醒播放器显示 -->
+    </div>
+    <div class="lock">
+        <!-- 锁住播放器 -->
+    </div>
+    
+
+    <div class="container">
+        <div class="warp">
+            <div class="btns">
+                <!-- 按钮组 -->
+                <button
+                    class="btns-prev"
+                    mat-icon-button 
+                    >
+                    <mat-icon>skip_previous</mat-icon>
+                </button>
+                <button
+                    class="btns-play"
+                    mat-icon-button 
+                    (click)="playSong()"
+                    >
+                    <mat-icon>play_circle_outline</mat-icon>
+                </button>
+                <button
+                    class="btns-prev"
+                    mat-icon-button 
+                    >
+                    <mat-icon>skip_next</mat-icon>
+                </button>
+            </div>
+            <div class="cover">
+                <img 
+                    [src]="currentPlaySong?.ablumCover" 
+                    alt="cover" 
+                    class="coverImg"
+                >
+                <!-- 小的封面 -->
+            </div>
+            <div class="mainwork">
+                <div class="title">
+                    <!-- 标题 singger -->
+                </div>
+                <div class="bar">
+                    <div class="slider-warp">
+                        <!-- 进度条 -->
+                    </div>
+                </div>
+                <div class="time">
+                    <!-- 进度实际 -->
+                </div>
+            </div>
+            
+           
+            <div class="oper">
+                <button
+                    class="oper-collection"
+                    mat-icon-button 
+                    >
+                    <mat-icon>grade</mat-icon>
+                </button>
+                <button
+                    class="oper-lrcs"
+                    mat-icon-button 
+                    >
+                    <mat-icon>library_music</mat-icon>
+                </button>
+            </div>
+            <div class="ctrl">
+                <button
+                    class="ctrl-volume"
+                    mat-icon-button 
+                    >
+                    <mat-icon>volume_up</mat-icon>
+                </button>
+                <button
+                    class="ctrl-repeat"
+                    mat-icon-button 
+                    >
+                    <mat-icon>repeat_one</mat-icon>
+                </button>
+                <button
+                    class="ctrl-repeat"
+                    mat-icon-button 
+                    >
+                    <mat-icon>repeat</mat-icon>
+                </button><button
+                    class="ctrl-repeat"
+                    mat-icon-button 
+                    >
+                    <mat-icon>shuffle</mat-icon>
+                </button>
+                <button
+                    class="ctrl-list"
+                    mat-icon-button 
+                    >
+                    <mat-icon>queue_music</mat-icon>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!--  -->
+</div>

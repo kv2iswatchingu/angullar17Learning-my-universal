@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { FooterPlayerComponent } from './component/footer-player/footer-player.component';
 
 
 @Component({
@@ -10,7 +11,13 @@ import { HeaderComponent } from './layout/header/header.component';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, UserComponent,HeaderComponent]
+    imports: [
+      CommonModule, 
+      RouterOutlet, 
+      UserComponent,
+      HeaderComponent
+    ]
+
 })
 export class AppComponent {
   title = 'My-Angular-Universal';

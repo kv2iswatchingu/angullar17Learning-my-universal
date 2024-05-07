@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { AlbumCardComponent } from '../album-card/album-card.component';
 import { EasyAblumInfo } from '@/app/service/interface/main-interface.interface';
 import { MainService } from '@/app/service/main-service.service';
+
 
 @Component({
   selector: 'app-album-list',
@@ -14,12 +15,16 @@ import { MainService } from '@/app/service/main-service.service';
 })
 export class AlbumListComponent {
   @Input() mainPageListData:EasyAblumInfo[] = [];
+  @Output() onAddtoListMain= new EventEmitter<string>();
 
   constructor(
     private mainService: MainService
   ){}
 
-  
+  onAddtoList(id:string){
+    console.log(id)
+    this.onAddtoListMain.emit(id)
+  }
 
   //getMainpageAblumList
 }

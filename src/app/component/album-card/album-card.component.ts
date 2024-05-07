@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
 
 
 
@@ -19,8 +20,9 @@ export class AlbumCardComponent {
   @Input() ablumEasyInfoView = 0;
   @Input() ablumEasyInfoId = "";
   @Input() ablumEasyInfoTitle = "";
+  @Output() onAddtoList = new EventEmitter<string>();
 
   addSongtoPlayerList(){
-    console.log(this.ablumEasyInfoId)
+    this.onAddtoList.emit(this.ablumEasyInfoId)
   }
 }

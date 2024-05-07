@@ -1,7 +1,7 @@
 export type Banner = {
-    targetId:number;
-    url:string;
-    imageUrl:string;
+    targetId:number,
+    url:string,
+    imageUrl:string
 }
 export type EasyAblumInfo = {
     id:string,
@@ -28,5 +28,17 @@ export type MusicInfo = {
     musicBand:string,
     musicLatestTime:string,
     musicUploadTime:string,
-    musicLike:string
+    musicLike:string,
+    musicLong:string
+}
+
+export type EasyMusicInfo = {
+    id:string,
+    ablumName:string,
+    ablumCover:string,
+    ablumView:number,
+    musicName:string,
+    musicLong:string,
+    musicAuthor:string,
+    musicSinger:string
 }

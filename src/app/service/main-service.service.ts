@@ -35,8 +35,6 @@ export class MainService {
     return this.http.get<EasyAblumInfo[]>(this.myMockApi + "/getPersonalRecommend")
     .pipe(map(res => res));
   }
-
-
   ////
   getMainPageFullMusicInfoList():Observable<MusicInfo[]>{
     return this.http.get<MusicInfo[]>(this.myMockApi + "/getLatestMusicList")

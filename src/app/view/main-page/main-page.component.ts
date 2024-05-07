@@ -10,6 +10,8 @@ import { AlbumListComponent } from '@/app/component/album-list/album-list.compon
 import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '@/app/service/interface/main-interface.interface';
 import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
 import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
+import { FooterPlayerComponent } from '@/app/component/footer-player/footer-player.component';
+import { FooterPlayerService } from '@/app/service/footpalyer.service';
 
 @Component({
   selector: 'app-main-page',
@@ -23,7 +25,8 @@ import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypaly
     CarouselComponent,
     AlbumListComponent,
     MainPageRecommendTabComponent,
-    EasypalyerlistComponent
+    EasypalyerlistComponent,
+    FooterPlayerComponent
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
@@ -38,8 +41,11 @@ export class MainPageComponent implements OnInit{
   recommendCategory:CategoryInfo[] = [];
   latestMusicList: MusicInfo[] = [];
 
+  playerListMainPageId:string = ""
+
   constructor(
-    private mainService: MainService
+    private mainService: MainService,
+    private footerplayerService: FooterPlayerService,
   ){
    
   }
@@ -50,6 +56,10 @@ export class MainPageComponent implements OnInit{
       this.getCategory();
       this.getPersonalRecommend();
       this.getLatestMusic();
+      /* this.route.data.subscribe(res =>{
+        const what:EasyAblumInfo[]  = res['']
+        this.mainPageAblumList = res
+      }) */
   }
   getAblumMainPage(){
     this.mainService.getMainPageAblumList().subscribe(res => {
@@ -79,6 +89,16 @@ export class MainPageComponent implements OnInit{
     this.mainService.getMainPageFullMusicInfoList().subscribe(res => {
       console.log(res);
       this.latestMusicList= res;
+    })
+  }
+
+
+  getPlayList(id:string){
+    console.log(id)
+    this.playerListMainPageId = id;
+    this.footerplayerService.getMusicList().subscribe(res => {
+      console.log(res);
+      
     })
   }
 }
