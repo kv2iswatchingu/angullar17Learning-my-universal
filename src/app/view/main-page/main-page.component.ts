@@ -1,17 +1,19 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { NgOptimizedImage } from '@angular/common'
 import { MainService } from '@/app/service/main-service.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
-import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '@/app/service/interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo, EasyMusicInfo, MusicInfo } from '@/app/service/interface/main-interface.interface';
 import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
 import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
 import { FooterPlayerComponent } from '@/app/component/footer-player/footer-player.component';
 import { FooterPlayerService } from '@/app/service/footpalyer.service';
+import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-main-page',
@@ -26,13 +28,16 @@ import { FooterPlayerService } from '@/app/service/footpalyer.service';
     AlbumListComponent,
     MainPageRecommendTabComponent,
     EasypalyerlistComponent,
-    FooterPlayerComponent
+    FooterPlayerComponent,
+    HttpClientModule
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent implements OnInit{
-  
+  @ViewChild(FooterPlayerComponent) footerPlayerComponent!:FooterPlayerComponent;
+
+
   isLoading = false;
   //mainPageAblumList:EasyAblumInfo[] = [];
   bannerData:Banner[] = [];
@@ -42,10 +47,12 @@ export class MainPageComponent implements OnInit{
   latestMusicList: MusicInfo[] = [];
 
   playerListMainPageId:string = ""
+  playerMusicList:EasyMusicInfo[] = []
 
   constructor(
+    private http:HttpClient,
     private mainService: MainService,
-    private footerplayerService: FooterPlayerService,
+    private footerplayerService: FooterPlayerService
   ){
    
   }
@@ -63,31 +70,31 @@ export class MainPageComponent implements OnInit{
   }
   getAblumMainPage(){
     this.mainService.getMainPageAblumList().subscribe(res => {
-      console.log(res);
+      //console.log(res);
       this.mainPageAblumList = res
     })
   }
   getBanner(){
     this.mainService.getMainPageBanners().subscribe(res => {
-      console.log(res);
+      //console.log(res);
       this.bannerData = res;
     })
   }
   getCategory(){
     this.mainService.getMainPageRecommendCategory().subscribe(res => {
-      console.log(res);
+      //console.log(res);
       this.recommendCategory= res;
     })
   }
   getPersonalRecommend(){
     this.mainService.getpersonalRecommend().subscribe(res => {
-      console.log(res);
+      //console.log(res);
       this.personalAblumRecommend= res;
     })
   }
   getLatestMusic(){
     this.mainService.getMainPageFullMusicInfoList().subscribe(res => {
-      console.log(res);
+      //console.log(res);
       this.latestMusicList= res;
     })
   }
@@ -97,8 +104,9 @@ export class MainPageComponent implements OnInit{
     console.log(id)
     this.playerListMainPageId = id;
     this.footerplayerService.getMusicList().subscribe(res => {
-      console.log(res);
-      
+      //console.log(res);
+      this.playerMusicList = res;
     })
   }
+    
 }

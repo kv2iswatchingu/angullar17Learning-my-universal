@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -25,6 +26,9 @@ import {MatMenuModule} from '@angular/material/menu';
 export class HeaderComponent {
     searchInput = "";
     
+    constructor(private router: Router) {
+    }
+
     homepageFuntion(){
         console.log("home")
     }
@@ -36,6 +40,7 @@ export class HeaderComponent {
     }
     collectionFuntion(){
         console.log("mycollection")
+        this.router.navigate(['/test']);
     }
     loginFuntion(){
         console.log("login")

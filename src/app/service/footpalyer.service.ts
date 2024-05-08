@@ -15,9 +15,10 @@ export class FooterPlayerService {
   }
    
   getMusicList():Observable<EasyMusicInfo[]>{
-    return this.http.get<MusicInfo[]>(this.myMockApi + "/getFooterMusicList")
+    return this.http.get<EasyMusicInfo[]>(this.myMockApi + "/getFooterMusicList")
     .pipe(map(res => res));
   }
+  
   getCurentMusicRaw(id:string,fake?:string):Observable<MusicInfo>{
     let url =  this.myMockApi + `/getFooterMusic/${id}`
     if(fake !== undefined){

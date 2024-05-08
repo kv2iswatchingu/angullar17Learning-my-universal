@@ -1,8 +1,11 @@
-import { FooterPlayerService } from '@/app/service/footpalyer.service';
+
 import { EasyMusicInfo, MusicInfo } from '@/app/service/interface/main-interface.interface';
-import { Component, Input } from '@angular/core';
+import { MainPageComponent } from '@/app/view/main-page/main-page.component';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @Component({
@@ -10,7 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [
     MatButtonModule, 
-    MatIconModule
+    MatIconModule,
+    MatSliderModule,
+    FormsModule
   ],
   templateUrl: './footer-player.component.html',
   styleUrl: './footer-player.component.scss'
@@ -18,18 +23,22 @@ import { MatIconModule } from '@angular/material/icon';
 export class FooterPlayerComponent {
   //@Input() myplayList = [];
   @Input() playerListMainPageId = "";
+/*   @Input() playerList:EasyMusicInfo[] = []; */
+  //playerList:EasyMusicInfo[] = [];
 
   currentIndex = 0;
   currentPlaySong:MusicInfo | undefined;
   playMusicListEasyInfo:EasyMusicInfo[] = [];
+  //@ViewChild('audioSlider',{static:false})  audioSlider!:ElementRef;
 
   constructor(
-    private footerplayerService: FooterPlayerService
+    private mainPageView:MainPageComponent,
+    
   ){
    
   }
   ngOnInit(): void {
-    //this.getPlayeList();
+    
   }
   /* getPlayeList(){
     this.footerplayerService.getMusicList().subscribe(res => {
@@ -37,16 +46,22 @@ export class FooterPlayerComponent {
       this.playMusicListEasyInfo = res
     })
   } */
+  
   getPlaySong(){
     //this.mainService.getMainPageAblumList().subscribe(res => {
-     // console.log(res);
-     // this.mainPageAblumList = res
-    //})
-    
+      
   }
   playSong(){
     this.getPlaySong();
-
+    //console.log(this.audioSlider.nativeElement)
 
   }
+
+  showMusicList(){
+  
+    this.playMusicListEasyInfo = this.mainPageView.playerMusicList
+    console.log(this.playMusicListEasyInfo)
+  }
+
+  value = 0;
 }
