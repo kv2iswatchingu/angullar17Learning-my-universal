@@ -11,9 +11,12 @@
         <div class="warp">
             <div class="btns">
                 <!-- 按钮组 -->
+                 <!-- (click)="increment()" (click)="decrement()" -->
+                <div>Current Count: {{ count$  }}</div>
                 <button
                     class="btns-prev"
                     mat-icon-button 
+                   
                     >
                     <mat-icon>skip_previous</mat-icon>
                 </button>
@@ -27,6 +30,7 @@
                 <button
                     class="btns-prev"
                     mat-icon-button 
+                   
                     >
                     <mat-icon>skip_next</mat-icon>
                 </button>
@@ -50,9 +54,18 @@
                         <mat-slider
                          
                             class="example-margin"
-                
-                            [discrete]="true">
-                        <input matSliderThumb [(ngModel)]="value" #slider>
+
+                            [discrete]="true"
+                            
+                            >
+                            <input 
+                                matSliderThumb 
+                                #slider
+                                [(ngModel)]="value" 
+                                (dragStart)="dragStartFunction()"
+                                (dragEnd)="dragEndFunction()"
+                                (valueChange)="changeFunction()"
+                            >
                         </mat-slider>
 
                     </div>

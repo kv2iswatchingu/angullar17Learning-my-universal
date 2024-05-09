@@ -12,7 +12,11 @@ import { MainPageRecommendTabComponent } from '@/app/component/main-page-recomme
 import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
 import { FooterPlayerComponent } from '@/app/component/footer-player/footer-player.component';
 import { FooterPlayerService } from '@/app/service/footpalyer.service';
-import { map } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { setCurrentIndex, setPlayList, setSongList } from '@/app/store/actions/player.action';
+import { getCurrentIndex, getSongList } from '@/app/store/selectors/player.selector';
+import { playerState } from '@/app/store/reducers/player.reducer';
+
 
 
 @Component({
@@ -30,12 +34,14 @@ import { map } from 'rxjs';
     EasypalyerlistComponent,
     FooterPlayerComponent,
     HttpClientModule
+
+
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent implements OnInit{
-  @ViewChild(FooterPlayerComponent) footerPlayerComponent!:FooterPlayerComponent;
+  //@ViewChild(FooterPlayerComponent) footerPlayerComponent!:FooterPlayerComponent;
 
 
   isLoading = false;
@@ -52,7 +58,8 @@ export class MainPageComponent implements OnInit{
   constructor(
     private http:HttpClient,
     private mainService: MainService,
-    private footerplayerService: FooterPlayerService
+    private footerplayerService: FooterPlayerService,
+    private stroe$:Store<playerState>
   ){
    
   }
@@ -103,9 +110,21 @@ export class MainPageComponent implements OnInit{
   getPlayList(id:string){
     console.log(id)
     this.playerListMainPageId = id;
+    
     this.footerplayerService.getMusicList().subscribe(res => {
-      //console.log(res);
+      console.log(res);
       this.playerMusicList = res;
+      this.stroe$.dispatch(setSongList({songList:res}))
+      this.stroe$.dispatch(setPlayList({playingList:res}))
+      this.stroe$.dispatch(setCurrentIndex({currentIndex:0}))
+
+      
+    })
+    this.stroe$.select(getCurrentIndex).subscribe(res=>{
+      console.log(res)
+    })
+    this.stroe$.select(getSongList).subscribe(res=>{
+      console.log(res)
     })
   }
     

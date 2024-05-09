@@ -29,7 +29,7 @@ export type MusicInfo = {
     musicLatestTime:string,
     musicUploadTime:string,
     musicLike:string,
-    musicLong:string
+    musicLong:number
 }
 
 export type EasyMusicInfo = {
@@ -38,7 +38,7 @@ export type EasyMusicInfo = {
     ablumCover:string,
     ablumView:number,
     musicName:string,
-    musicLong:string,
+    musicLong:number,
     musicAuthor:string,
     musicSinger:string
 }

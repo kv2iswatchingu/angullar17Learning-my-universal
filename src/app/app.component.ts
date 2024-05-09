@@ -6,6 +6,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterPlayerComponent } from './component/footer-player/footer-player.component';
 
 
+
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -15,7 +16,8 @@ import { FooterPlayerComponent } from './component/footer-player/footer-player.c
       CommonModule, 
       RouterOutlet, 
       UserComponent,
-      HeaderComponent
+      HeaderComponent,
+      FooterPlayerComponent
     ]
 
 })
