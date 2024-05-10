@@ -6,6 +6,7 @@
 }
 .container{
     width: 100%;
+    
     background:linear-gradient(to bottom,#ffa0c0,#ff4081) ;
 }
 .warp{
@@ -99,11 +100,45 @@
         }
     }
 }
-
 .cover{
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 4px;
+    background-color: black;
+    margin-left: 2rem;
+    //border:1px solid #fff;
     .coverImg{
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
+}
+
+.mainwork{
+    width: 60%;
+    margin:0rem 2rem ;
+    .title{
+        font-size: 1.1rem;
+        color: #fff;
+        padding: 0.5rem 0.5rem 0rem 0.5rem;
+    }
+    .singger{
+        margin-left: 1rem;
+        color: #ccc;
+    }
+    .slider-warp{
+        display: flex;
+        width: 100%;
+    }
+    .time{
+        margin-left: 1rem;
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #fff;
+    }
+}
+
+.musicSlider{
+    width: 90%;
+    
 }

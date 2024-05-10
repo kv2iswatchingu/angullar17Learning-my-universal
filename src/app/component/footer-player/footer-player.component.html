@@ -12,67 +12,89 @@
             <div class="btns">
                 <!-- 按钮组 -->
                  <!-- (click)="increment()" (click)="decrement()" -->
-                <div>Current Count: {{ count$  }}</div>
                 <button
                     class="btns-prev"
                     mat-icon-button 
-                   
+                    (click)="onPrevSong(currentIndex - 1)"
                     >
                     <mat-icon>skip_previous</mat-icon>
                 </button>
-                <button
+                @if(!isPlaying){
+                    <button
                     class="btns-play"
                     mat-icon-button 
+                    [disabled]="!songReady"
                     (click)="playSong()"
                     >
                     <mat-icon>play_circle_outline</mat-icon>
                 </button>
+                }
+                @else{
+                    <button
+                        class="btns-play"
+                        mat-icon-button 
+                        [disabled]="!songReady"
+                        (click)="playSong()"
+                        >
+                        <mat-icon>pause_circle_outline</mat-icon>
+                    </button>
+                }
                 <button
                     class="btns-prev"
                     mat-icon-button 
-                   
+                    (click)="onPrevSong(currentIndex + 1)"
                     >
                     <mat-icon>skip_next</mat-icon>
                 </button>
             </div>
             <div class="cover">
                 <img 
-                    [src]="currentPlaySong?.ablumCover" 
+                    src="{{currentPlaySong != undefined ? currentPlaySong.ablumCover : defalutSrc?.src}}" 
                     alt="cover" 
                     class="coverImg"
                 >
                 <!-- 小的封面 -->
             </div>
             <div class="mainwork">
+                <audio 
+                    #audioPlayer
+                    [src]="currentPlaySong?.musicUrl"
+                    (canplay)="canPlay($event)"
+                    (timeupdate)="onTimeUpdate($event)"
+                    >
+                </audio>
+
                 <div class="title">
                     <!-- 标题 singger -->
+                    <span >{{currentPlaySong != undefined ? currentPlaySong.musicName : "暂无播放歌曲"}}</span>
+                    <span class="singger">{{currentPlaySong?.musicSinger}}</span>
+                    <span class="singger">{{currentPlaySong?.musicAuthor}}</span>
                 </div>
                 <div class="bar">
                     <div class="slider-warp">
                         <!-- 进度条 -->
                        <!--  <div    #audioSlider></div> -->
                         <mat-slider
-                         
-                            class="example-margin"
-
+                            class="musicSlider"
                             [discrete]="true"
-                            
                             >
                             <input 
                                 matSliderThumb 
                                 #slider
                                 [(ngModel)]="value" 
                                 (dragStart)="dragStartFunction()"
-                                (dragEnd)="dragEndFunction()"
-                                (valueChange)="changeFunction()"
+                                (dragEnd)="dragEndFunction($event)"
+                                (valueChange)="changeFunction($event)"
                             >
                         </mat-slider>
-
+                        <div class="time">
+                            <span>{{currentTime | playerTimeFormat}}</span>
+                            <span>/</span>
+                            <span>{{durationTime | playerTimeFormat}}</span>
+                        </div>
                     </div>
                 </div>
-                <div class="time">
-                    <!-- 进度实际 -->
-                </div>
+                
             </div>
             
            

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Banner, CategoryInfo, EasyAblumInfo, EasyMusicInfo, MusicInfo } from './interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo, EasyMusicInfo, MusicInfo, defalutSrc } from './interface/main-interface.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 
@@ -20,11 +20,15 @@ export class FooterPlayerService {
   }
   
   getCurentMusicRaw(id:string,fake?:string):Observable<MusicInfo>{
-    let url =  this.myMockApi + `/getFooterMusic/${id}`
+    let url =  this.myMockApi + `/getFooterMusic?id=${id}`
     if(fake !== undefined){
       url += `?fake=${fake ? 'true' : 'false'}`
     }
     return this.http.get<MusicInfo>(url).pipe(map(res => res));
+  }
+  getMusicCoverDefalut():Observable<defalutSrc>{
+    return this.http.get<defalutSrc>(this.myMockApi + "/getDefalutSrc")
+    .pipe(map(res => res));
   }
 
 }

@@ -69,7 +69,7 @@ export class MainPageComponent implements OnInit{
       this.getAblumMainPage();
       this.getCategory();
       this.getPersonalRecommend();
-      this.getLatestMusic();
+      //this.getLatestMusic();
       /* this.route.data.subscribe(res =>{
         const what:EasyAblumInfo[]  = res['']
         this.mainPageAblumList = res
@@ -120,12 +120,12 @@ export class MainPageComponent implements OnInit{
 
       
     })
-    this.stroe$.select(getCurrentIndex).subscribe(res=>{
+    /* this.stroe$.select(getCurrentIndex).subscribe(res=>{
       console.log(res)
     })
     this.stroe$.select(getSongList).subscribe(res=>{
       console.log(res)
-    })
+    }) */
   }
     
 }

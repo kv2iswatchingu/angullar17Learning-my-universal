@@ -42,3 +42,7 @@ export type EasyMusicInfo = {
     musicAuthor:string,
     musicSinger:string
 }
+
+export type defalutSrc = {
+    src:string
+}
