@@ -111,7 +111,7 @@ export class MainPageComponent implements OnInit{
     console.log(id)
     this.playerListMainPageId = id;
     
-    this.footerplayerService.getMusicList().subscribe(res => {
+    this.footerplayerService.getMusicList('true').subscribe(res => {
       console.log(res);
       this.playerMusicList = res;
       this.stroe$.dispatch(setSongList({songList:res}))

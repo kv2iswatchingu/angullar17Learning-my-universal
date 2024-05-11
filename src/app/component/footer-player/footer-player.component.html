@@ -1,4 +1,6 @@
-<div class="footerPlayer">
+<div 
+    class="footerPlayer" 
+    (click)="selfClick = true">
     <div class="hand">
         <!-- 唤醒播放器显示 -->
     </div>
@@ -42,7 +44,7 @@
                 <button
                     class="btns-prev"
                     mat-icon-button 
-                    (click)="onPrevSong(currentIndex + 1)"
+                    (click)="onNextSong(currentIndex + 1)"
                     >
                     <mat-icon>skip_next</mat-icon>
                 </button>
@@ -61,6 +63,7 @@
                     [src]="currentPlaySong?.musicUrl"
                     (canplay)="canPlay($event)"
                     (timeupdate)="onTimeUpdate($event)"
+                    (ended)="onEnded()"
                     >
                 </audio>
 
@@ -76,15 +79,13 @@
                        <!--  <div    #audioSlider></div> -->
                         <mat-slider
                             class="musicSlider"
-                            [discrete]="true"
                             >
                             <input 
                                 matSliderThumb 
                                 #slider
-                                [(ngModel)]="value" 
+                                [(ngModel)]="songPercent" 
                                 (dragStart)="dragStartFunction()"
                                 (dragEnd)="dragEndFunction($event)"
-                                (valueChange)="changeFunction($event)"
                             >
                         </mat-slider>
                         <div class="time">
@@ -116,26 +117,25 @@
                 <button
                     class="ctrl-volume"
                     mat-icon-button 
+                    (click)="onShowVolumeSlider($event)"
                     >
                     <mat-icon>volume_up</mat-icon>
                 </button>
+                
                 <button
                     class="ctrl-repeat"
                     mat-icon-button 
+                    (click)="modeChange()"
                     >
-                    <mat-icon>repeat_one</mat-icon>
+                    <mat-icon>{{currentModeIcon}}</mat-icon>
+                    <!-- 
+                        <mat-icon>repeat_one</mat-icon>
+                        <mat-icon>shuffle</mat-icon>
+                        <mat-icon>repeat</mat-icon> 
+                    -->
                 </button>
-                <button
-                    class="ctrl-repeat"
-                    mat-icon-button 
-                    >
-                    <mat-icon>repeat</mat-icon>
-                </button><button
-                    class="ctrl-repeat"
-                    mat-icon-button 
-                    >
-                    <mat-icon>shuffle</mat-icon>
-                </button>
+                
+
                 <button
                     class="ctrl-list"
                     mat-icon-button 
@@ -145,6 +145,24 @@
                 </button>
             </div>
 
+            <div class="floating">
+                <div 
+                    class="volume-slider-frame" 
+                    [hidden]="!volumeSlider">
+                    <mat-slider
+                        class="volume-slider"
+                        [discrete]="true"
+                        >
+                        <input 
+                            matSliderThumb 
+                            #slider
+                            [(ngModel)]="volumeValue" 
+                            (valueChange)="volumeChange($event)"
+                        >
+                    </mat-slider>
+                </div>
+                
+            </div>
         </div>
     </div>
 

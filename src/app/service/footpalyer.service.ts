@@ -14,15 +14,20 @@ export class FooterPlayerService {
       
   }
    
-  getMusicList():Observable<EasyMusicInfo[]>{
-    return this.http.get<EasyMusicInfo[]>(this.myMockApi + "/getFooterMusicList")
-    .pipe(map(res => res));
+  getMusicList(fake?:string):Observable<EasyMusicInfo[]>{
+    let url =  this.myMockApi + `/getFooterMusicList`
+    if(fake){
+      url += `?fake=${fake}`
+    }
+    return this.http.get<EasyMusicInfo[]>(url).pipe(map(res => res));
+    /* return this.http.get<EasyMusicInfo[]>(this.myMockApi + "/getFooterMusicList")
+    .pipe(map(res => res)); */
   }
   
   getCurentMusicRaw(id:string,fake?:string):Observable<MusicInfo>{
     let url =  this.myMockApi + `/getFooterMusic?id=${id}`
-    if(fake !== undefined){
-      url += `?fake=${fake ? 'true' : 'false'}`
+    if(fake){
+      url += `&fake=${fake}`
     }
     return this.http.get<MusicInfo>(url).pipe(map(res => res));
   }
