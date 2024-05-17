@@ -76,7 +76,7 @@ export class MainPageComponent implements OnInit{
       }) */
   }
   getAblumMainPage(){
-    this.mainService.getMainPageAblumList().subscribe(res => {
+    this.mainService.getMainPageAblumList('true').subscribe(res => {
       //console.log(res);
       this.mainPageAblumList = res
     })
@@ -88,7 +88,7 @@ export class MainPageComponent implements OnInit{
     })
   }
   getCategory(){
-    this.mainService.getMainPageRecommendCategory().subscribe(res => {
+    this.mainService.getMainPageRecommendCategory('true').subscribe(res => {
       //console.log(res);
       this.recommendCategory= res;
     })
@@ -111,7 +111,7 @@ export class MainPageComponent implements OnInit{
     console.log(id)
     this.playerListMainPageId = id;
     
-    this.footerplayerService.getMusicList('true').subscribe(res => {
+    this.footerplayerService.getMusicList(id,'true').subscribe(res => {
       console.log(res);
       this.playerMusicList = res;
       this.stroe$.dispatch(setSongList({songList:res}))

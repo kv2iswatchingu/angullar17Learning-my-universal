@@ -14,10 +14,10 @@ export class FooterPlayerService {
       
   }
    
-  getMusicList(fake?:string):Observable<EasyMusicInfo[]>{
-    let url =  this.myMockApi + `/getFooterMusicList`
+  getMusicList(ablumId:string,fake?:string):Observable<EasyMusicInfo[]>{
+    let url =  this.myMockApi + `/getFooterMusicList?ablumId=${ablumId}`
     if(fake){
-      url += `?fake=${fake}`
+      url += `&fake=${fake}`
     }
     return this.http.get<EasyMusicInfo[]>(url).pipe(map(res => res));
     /* return this.http.get<EasyMusicInfo[]>(this.myMockApi + "/getFooterMusicList")
@@ -35,5 +35,4 @@ export class FooterPlayerService {
     return this.http.get<defalutSrc>(this.myMockApi + "/getDefalutSrc")
     .pipe(map(res => res));
   }
-
 }

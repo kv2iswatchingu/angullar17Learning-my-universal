@@ -21,23 +21,38 @@ export class MainService {
     .pipe(map(res => res));
   }
   //获取首页推荐音乐数据
-  getMainPageAblumList():Observable<EasyAblumInfo[]>{
-    return this.http.get<EasyAblumInfo[]>(this.myMockApi + "/getMainpageAblumList")
-    .pipe(map(res => res));
+  getMainPageAblumList(fake?:string):Observable<EasyAblumInfo[]>{
+    let url =  this.myMockApi + `/getMainpageAblumList`
+    if(fake != undefined){
+      url += `?fake=${fake}`
+    }
+    return this.http.get<EasyAblumInfo[]>(url).pipe(map(res => res));
   }
-  //获取首页分页信息
-  getMainPageRecommendCategory():Observable<CategoryInfo[]>{
-    return this.http.get<CategoryInfo[]>(this.myMockApi + "/getMainpageCategory")
-    .pipe(map(res => res));
+  //获取首页分类信息
+  getMainPageRecommendCategory(fake?:string):Observable<CategoryInfo[]>{
+    let url =  this.myMockApi + `/getMainpageCategory`
+    if(fake != undefined){
+      url += `?fake=${fake}`
+    }
+    return this.http.get<CategoryInfo[]>(url).pipe(map(res => res));
+
+    /* return this.http.get<CategoryInfo[]>(this.myMockApi + "/getMainpageCategory")
+    .pipe(map(res => res)); */
   }
   //
-  getpersonalRecommend():Observable<EasyAblumInfo[]>{
-    return this.http.get<EasyAblumInfo[]>(this.myMockApi + "/getPersonalRecommend")
-    .pipe(map(res => res));
+  getpersonalRecommend(fake?:string):Observable<EasyAblumInfo[]>{
+    let url =  this.myMockApi + `/getPersonalRecommend`
+    if(fake != undefined){
+      url += `?fake=${fake}`
+    }
+    return this.http.get<EasyAblumInfo[]>(url).pipe(map(res => res));
   }
   ////
-  getMainPageFullMusicInfoList():Observable<MusicInfo[]>{
-    return this.http.get<MusicInfo[]>(this.myMockApi + "/getLatestMusicList")
-    .pipe(map(res => res));
+  getMainPageFullMusicInfoList(fake?:string):Observable<MusicInfo[]>{
+    let url =  this.myMockApi + `/getLatestMusicList`
+    if(fake != undefined){
+      url += `?fake=${fake}`
+    }
+    return this.http.get<MusicInfo[]>(url).pipe(map(res => res));
   }
 }
