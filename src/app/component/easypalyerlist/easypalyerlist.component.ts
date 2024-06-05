@@ -1,4 +1,4 @@
-import { MusicInfo } from '@/app/service/interface/main-interface.interface';
+import { MusicInfo } from '@/app/interface/main-interface.interface';
 import { Component, Input } from '@angular/core';
 
 @Component({

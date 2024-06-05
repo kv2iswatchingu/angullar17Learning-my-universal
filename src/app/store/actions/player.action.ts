@@ -1,4 +1,4 @@
-import { EasyMusicInfo } from "@/app/service/interface/main-interface.interface";
+import { MusicInfo } from "@/app/interface/main-interface.interface";
 import { createAction, props } from "@ngrx/store";
 import { playMode } from "../reducers/player.reducer";
 
@@ -8,11 +8,11 @@ export const  setPlaying = createAction(
 )
 export const  setPlayList = createAction(
     '[player] set playList',
-    props<{playingList:EasyMusicInfo[]}>()
+    props<{playingList:MusicInfo[]}>()
 )
 export const  setSongList = createAction(
     '[player] set songList',
-    props<{songList:EasyMusicInfo[]}>()
+    props<{songList:MusicInfo[]}>()
 )
 export const  setPlayMode = createAction(
     '[player] set playmode',

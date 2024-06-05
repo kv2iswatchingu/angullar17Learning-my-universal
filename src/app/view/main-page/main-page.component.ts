@@ -3,15 +3,15 @@ import { HeaderComponent } from '../../layout/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { NgOptimizedImage } from '@angular/common'
-import { MainService } from '@/app/service/main-service.service';
+import { MainService } from '@/app/service/main.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
-import { Banner, CategoryInfo, EasyAblumInfo, EasyMusicInfo, MusicInfo } from '@/app/service/interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '@/app/interface/main-interface.interface';
 import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
 import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
-import { FooterPlayerComponent } from '@/app/component/footer-player/footer-player.component';
-import { FooterPlayerService } from '@/app/service/footpalyer.service';
+import { AudioPlayerComponent } from '@/app/component/audioPlayer/player.component';
+import { PlayerService } from '@/app/service/player.service';
 import { Store } from '@ngrx/store';
 import { setCurrentIndex, setPlayList, setSongList } from '@/app/store/actions/player.action';
 import { getCurrentIndex, getSongList } from '@/app/store/selectors/player.selector';
@@ -32,7 +32,7 @@ import { playerState } from '@/app/store/reducers/player.reducer';
     AlbumListComponent,
     MainPageRecommendTabComponent,
     EasypalyerlistComponent,
-    FooterPlayerComponent,
+    AudioPlayerComponent,
     HttpClientModule
 
 
@@ -53,12 +53,12 @@ export class MainPageComponent implements OnInit{
   latestMusicList: MusicInfo[] = [];
 
   playerListMainPageId:string = ""
-  playerMusicList:EasyMusicInfo[] = []
+  playerMusicList:MusicInfo[] = []
 
   constructor(
     private http:HttpClient,
     private mainService: MainService,
-    private footerplayerService: FooterPlayerService,
+    private playerService: PlayerService,
     private stroe$:Store<playerState>
   ){
    
@@ -111,7 +111,7 @@ export class MainPageComponent implements OnInit{
     console.log(id)
     this.playerListMainPageId = id;
     
-    this.footerplayerService.getMusicList(id,'true').subscribe(res => {
+    this.playerService.getMusicList(id,'true').subscribe(res => {
       console.log(res);
       this.playerMusicList = res;
       this.stroe$.dispatch(setSongList({songList:res}))

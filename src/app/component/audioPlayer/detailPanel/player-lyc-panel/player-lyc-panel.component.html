@@ -1,0 +1,126 @@
+<div class="lyc-panel">
+    <div class="left-panel">
+        <div class="headerleft">
+            <div>
+                 <h4>
+                播放列表
+                    <span>({{songList?.length}})</span>
+                </h4>
+            </div>
+            <div class="headerbtngroup">
+                <button mat-button class="btn-collcall">
+                    <mat-icon>
+                        grade
+                    </mat-icon>
+                    收藏全部
+                </button>
+                <button mat-button class="btn-clearall">
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                    清除
+                </button>
+            </div>
+        </div>
+        <div class="listleft">
+            <mat-list>
+                <mat-list-item 
+                    class="list-item"
+                    *ngFor="let item of songList; index as i"
+                    >
+                    <div 
+                        class="first-icon"
+                        [class.current]="currentIndex == i">
+                        <mat-icon>
+                            play_arrow
+                        </mat-icon>
+                    </div>
+                    <div class="main-content">
+                        <div class="title" (click)="onChangeSong(item)">
+                            <span>
+                                {{item.musicName}}
+                            </span>
+                        </div>
+                        <div class="btngroup">
+                            <button mat-icon-button class="icon">
+                                <mat-icon>
+                                    share
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button class="icon">
+                                <mat-icon>
+                                    grade
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button class="icon">
+                                <mat-icon>
+                                    download
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button class="icon">
+                                <mat-icon>
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="author">
+
+                        <span>
+                            {{item.musicAuthor}}
+                            {{item.musicSinger}}
+                        </span>
+                    </div>
+                  
+                    <div class="share">
+                        <div>
+                            <span>
+                                {{item.musicLong | playerTimeFormat}}
+                            </span>
+                        </div>
+                        
+                        <button mat-icon-button class="icon-link">
+                            <mat-icon>
+                                insert_link
+                            </mat-icon>
+                        </button>
+                    </div>
+                    
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </div>
+    <div class="right-panel">
+        <div class="headerright">
+            <div class="header-title">
+                 {{currentSong?.musicName}}
+             </div>
+            <button 
+                mat-icon-button 
+                class="close"
+                (click)="closePanel()">
+                <mat-icon>highlight_off</mat-icon>
+            </button>
+        </div>
+        <div class="lyricPanel">
+            <!--  -->
+            <app-scroll #lyric [data]="currentLyric">
+                <mat-list>
+                    <mat-list-item 
+                        *ngFor = "let item of currentLyric;index as i"
+                        [class.current] = "currentLyricLineNum == i"
+                    >
+                        {{item.lyricText}}
+                    </mat-list-item>
+                </mat-list>
+            </app-scroll>
+        </div>
+        <!-- 
+
+         -->
+
+         
+    </div>
+    
+</div>

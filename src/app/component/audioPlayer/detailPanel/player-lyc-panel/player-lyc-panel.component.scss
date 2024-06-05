@@ -1,0 +1,195 @@
+.lyc-panel{
+    width: 100%;
+    height: 100%;
+    background-color: #ffcfdb;
+    display: flex;
+    border-radius: 5px 5px 0 0;
+}
+.left-panel{
+    width: 60%;
+    color: #fff;
+}
+
+.right-panel{
+    width: 40%;
+    color: #fff;
+}
+
+.headerleft{
+    padding:1rem 2rem 0rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #ff6699;
+    height: 2.5rem;
+    border-radius: 5px 0 0 0;
+    //border-right: #ff4d88 1px solid;
+    .headerbtngroup{
+        display: flex;
+    }
+    .btn-collcall,
+    .btn-clearall{
+        color: #FFF;
+        height: 1.6rem;
+        font-size: 1rem;
+    }
+    
+}
+.headerright{
+    padding:1rem 2rem 0rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color:#ff6699;
+    height: 2.5rem;
+    border-radius: 0 5px 0 0;
+    .header-title{
+        width: 100%;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    .close{
+        position: absolute;
+        right: 1.5rem;
+        top:1rem;
+        width: 1.6rem;
+        height:1.6rem;
+        padding: 0px;
+        min-width: 0;
+        ::ng-deep.mat-icon{
+            color: #fff;
+            width: 1.6rem;
+            height:1.6rem;
+        }
+        ::ng-deep.material-icons{
+            font-size: 1.6rem;
+        }
+    }
+}
+.listleft{
+    overflow: auto;
+    height: 16.5rem;
+    ::ng-deep .mdc-list{
+        padding: 0;
+        overflow: auto;
+    }
+    
+}
+.list-item{
+    ::ng-deep .mdc-list-item__primary-text{
+        display: flex;
+        width: 100%;
+        height: 2rem;
+        align-items: center;
+    }
+    .icon{
+        width: 2rem;
+        height:2rem;
+        padding: 0px;
+        min-width: 0;
+        margin-right: 0.5rem;
+        border-radius: 5px;
+        ::ng-deep.mat-icon{
+            color: #fff;
+            width: 2rem;
+            height:2rem;
+        }
+        ::ng-deep.material-icons{
+            font-size: 2rem;
+        }
+    }
+    .icon-link{
+        width: 2rem;
+        height:2rem;
+        padding: 0px;
+        min-width: 0;
+        margin-right: 0.5rem;
+        border-radius: 5px;
+        ::ng-deep.mat-icon{
+            color: #7d0032;
+            width: 2rem;
+            height:2rem;
+        }
+        ::ng-deep.material-icons{
+            font-size: 2rem;
+        }
+    }
+    .first-icon{
+        width: 5%;
+        opacity: 0;
+        color: red;
+        margin-top: 0.25rem;
+    }
+    .first-icon.current{
+      opacity: 1;
+    }
+    .main-content{
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .title{
+        display: inline-flex;
+        align-items: center;
+        color: #7d0032;
+    }
+    .btngroup{
+        display: flex;
+        opacity: 0;
+
+    }
+    .author{
+        width: 25%;
+        height: 2rem;
+        color: #7d0032;
+        display: inline-flex;
+        align-items: center;
+    }
+    .author > span{
+        padding: 0 1rem;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis;
+    }
+    
+    .share{
+        display: flex;
+        justify-content: space-between;
+        width: 10%;
+        height: 2rem;
+        align-items:center;
+    }
+}
+.list-item:hover{
+    background-color: #ff77aa;
+
+    .btngroup{
+        opacity: 1;
+        
+    }
+    .title{
+        color: #fff;
+        cursor: pointer;
+    }
+    .author{
+        color: #fff;
+    }
+    .share{
+        color: #fff;
+    }
+    .icon-link{
+        ::ng-deep.mat-icon{
+           color: #fff;
+        }
+    }
+}
+
+.lyricPanel{
+    height: 16.5rem;
+    .current{
+        ::ng-deep .mdc-list-item__primary-text{
+            color: #FFF;
+        }
+    }
+}

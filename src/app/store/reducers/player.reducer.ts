@@ -1,4 +1,4 @@
-import { EasyMusicInfo } from "@/app/service/interface/main-interface.interface"
+import { MusicInfo } from "@/app/interface/main-interface.interface"
 import { Action, createReducer, on } from "@ngrx/store"
 import { setCurrentIndex, setPlayList, setPlayMode, setPlaying, setSongList } from "../actions/player.action"
 
@@ -6,8 +6,8 @@ export const playerFeatureKey = "player";
 export type playerState = {
     isPlaying:boolean,
     playMode:playMode,
-    songList:EasyMusicInfo[] ,
-    playingList:EasyMusicInfo[],
+    songList:MusicInfo[] ,
+    playingList:MusicInfo[],
     currentIndex:number
 }
 export type playMode = {

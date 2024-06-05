@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from './interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '../interface/main-interface.interface';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MainService {
-  myMockApi = "https://mock.apifox.com/m1/2316549-2454116-default"
+  myMockApi = "https://mock.apifox.cn/m1/2316549-2454116-default"
 
   constructor(private http:HttpClient) {
       

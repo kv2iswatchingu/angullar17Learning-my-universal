@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    
+    z-index: 9999;
 }
 .container{
     width: 100%;
@@ -119,16 +119,30 @@
 }
 
 .mainwork{
-    width: 60%;
+    width: 65%;
     margin:0rem 2rem ;
     .title{
+        display: flex;
         font-size: 1.1rem;
         color: #fff;
         padding: 0.5rem 0.5rem 0rem 0.5rem;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis;    
+        .name{
+            max-width: 20rem;
+            white-space: nowrap;
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
     }
     .singger{
+        max-width: 7rem;
         margin-left: 1rem;
         color: #ccc;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis;
     }
     .slider-warp{
         display: flex;
@@ -150,15 +164,15 @@
 .volume-slider-frame{
     position: absolute;
     bottom: 5rem;
-    padding: 14px;
-    width: 4rem;
-    height: 120px;
-    right: 23.5rem;
+    padding: 1rem;
+    padding-bottom: 0rem;
+    width: 10rem;
+    height: 3rem;
+    right: 15rem;
     background:linear-gradient(to top,#ffa0c0,#ff4081) ;
-    z-index: 1;
+    z-index: 1999;
     .volume-slider{
-        margin-top: 2.5rem;
-        transform: rotate(-90deg) translate(0, -40%);
+        width: 90%;
     }
     ::ng-deep .mat-mdc-slider .mdc-slider__value-indicator{
         background-color: transparent;
@@ -168,9 +182,9 @@
         border-top-color: #fff;
     }
     ::ng-deep .mdc-slider__value-indicator-text{
-        transform: rotate(90deg); 
         font-size: 1rem;
         color: #fff;
+        margin-top: 0.5rem;
     }
     ::ng-deep .mat-mdc-slider .mdc-slider__thumb-knob{
         background-color: #fff;
@@ -179,4 +193,17 @@
     ::ng-deep .mat-mdc-slider .mdc-slider__track--active_fill{
         border-color: #fff;
     }
+    ::ng-deep .mat-mdc-slider-visual-thumb .mat-ripple{
+        width: 0;
+        height: 0;
+    }
+  }
+
+  .lyc-panel-frame{
+    position: absolute;
+    bottom: 5rem;
+    width: 80%;
+    height: 20rem;
+    left:10%;
+    //right: 23.5rem;
   }

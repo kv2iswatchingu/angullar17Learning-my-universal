@@ -1,0 +1,123 @@
+<div class="localPage">
+    <div class="localPage-title">
+        本地音乐
+    </div>
+    <div class="localPage-tips">
+        可以播放本地歌曲
+    </div>
+    <div class="mainLocal">
+        <div class="left">
+            <div class="uploadLocal"> 
+                <!--  -->
+                <label class="inputFile">
+                    <span>选择本地音乐</span>
+                    <input 
+                        class="inputF"
+                        type="file" 
+                        multiple 
+                        (change)="uploadLocalMusic($event)" 
+                    />
+                </label>
+            </div>
+            <div class="currentSongInfo">
+                <div class="leftImg">
+                    <img [src]="localCurrentSong?.ablumCover" class="currentSongImg">
+                </div>
+                
+                <div class="rightInfo">
+                    <div class="label"> 
+                        文件名: <span>
+                            {{files[localplayIndex]?.name}}
+                        </span>
+                    </div>
+                    <div class="title">
+                        {{localCurrentSong?.musicName}}
+                    </div>
+                    <div class="label">
+                        歌手: <span>
+                            {{localCurrentSong?.musicSinger}}
+                        </span>
+                    </div>
+                    <div class="label">
+                        流派: 
+                        <span>
+                            {{localCurrentSong?.musicStyle}}
+                        </span>
+                    </div>
+                    <div class="ablum">
+                        所属专辑: 
+                        <span>
+                            {{localCurrentSong?.ablumName}}
+                        </span>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+            <div class="toptext">
+                当前载入的本地列表：
+            </div>
+            <div class="songListInfo">
+                
+                <mat-list>
+                    <mat-list-item 
+                        class="list-item"
+                        *ngFor="let item of localSongList; index as i"
+                        (click)="onChangeSong(item)"
+                        >
+                        <div 
+                            class="first-icon"
+                            [class.current]="localplayIndex == i">
+                            <mat-icon>
+                                play_arrow
+                            </mat-icon>
+                        </div>
+                        <div class="title">
+                            <span>
+                                {{item.musicName}}
+                            </span>
+                        </div>
+                        <div class="author">
+                            <span>
+                                {{item.musicAuthor}}
+                                {{item.musicSinger}}
+                            </span>
+                        </div>
+                        <div class="share">
+                            <div>
+                                <span>
+                                    {{item.musicLong | playerTimeFormat}}
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+        <div class="right">
+            <div class="uploadLocal"> 
+                <label class="inputFile">
+                    <span>选择本地歌词</span>
+                    <input 
+                        class="inputF"
+                        type="file" 
+                        multiple 
+                        (change)="uploadLocalLyric($event)" 
+                    />
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    
+     <!-- <img ngSrc="{{test}}" priority> -->
+     <!-- <audio controls src="{{audio}}" >-->
+         
+     
+    
+
+
+</div>

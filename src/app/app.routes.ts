@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { ShowcaseComponent } from './showcase/showcase.component';
 import { MainPageComponent } from './view/main-page/main-page.component';
 import { TestComponent } from './view/test/test.component';
+import { CdPlayerCustomPageComponent } from './view/cd-player-custom-page/cd-player-custom-page.component';
 
 export const routes: Routes = [
     {
@@ -13,7 +13,7 @@ export const routes: Routes = [
         component:MainPageComponent
     },
     {
-        path:'showcase',
-        component:ShowcaseComponent
+        path:'local',
+        component:CdPlayerCustomPageComponent
     },
 ];

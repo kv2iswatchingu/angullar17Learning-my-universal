@@ -1,15 +1,9 @@
-import { Banner } from '@/app/service/interface/main-interface.interface';
+import { Banner } from '@/app/interface/main-interface.interface';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, Input, PLATFORM_ID, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
-import { timer } from 'rxjs/internal/observable/timer';
-import { concatMap } from 'rxjs/internal/operators/concatMap';
-import { switchMap } from 'rxjs/internal/operators/switchMap';
-import { take } from 'rxjs/internal/operators/take';
+
 
 @Component({
   selector: 'app-carousel',

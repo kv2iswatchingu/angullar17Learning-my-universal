@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { FooterPlayerComponent } from './component/footer-player/footer-player.component';
+import { AudioPlayerComponent } from '@/app/component/audioPlayer/player.component';
 
 
 
@@ -17,7 +17,7 @@ import { FooterPlayerComponent } from './component/footer-player/footer-player.c
       RouterOutlet, 
       UserComponent,
       HeaderComponent,
-      FooterPlayerComponent
+      AudioPlayerComponent
     ]
 
 })

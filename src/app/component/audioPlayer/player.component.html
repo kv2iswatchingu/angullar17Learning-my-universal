@@ -166,5 +166,18 @@
         </div>
     </div>
 
+    <div 
+        class="lyc-panel-frame"
+        [hidden]="!lycPanelshow">
+        <app-player-lyc-panel
+            [songList]="songList"
+            [currentSong]="currentPlaySong"
+            [show]="lycPanelshow"
+            [playing]="isPlaying"
+            (outputClosePanel)="showMusicList()"
+            (outputOnChangeSong)="onChangeSong($event)"
+        >
+        </app-player-lyc-panel>
+    </div> 
     <!--  -->
 </div>

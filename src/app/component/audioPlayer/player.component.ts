@@ -1,6 +1,6 @@
 
-import { FooterPlayerService } from '@/app/service/footpalyer.service';
-import { EasyMusicInfo, MusicInfo, defalutSrc } from '@/app/service/interface/main-interface.interface';
+import { PlayerService } from '@/app/service/player.service';
+import { MusicInfo, defalutSrc } from '@/app/interface/main-interface.interface';
 import { playMode } from '@/app/store/reducers/player.reducer';
 import { getCurrentIndex, getPlayList, getPlayMode, getPlaying, getRawSong, getSongList } from '@/app/store/selectors/player.selector';
 import { Component, ElementRef, Inject, InjectFlags, Input, ViewChild } from '@angular/core';
@@ -13,7 +13,7 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { playerTimeFormat } from './playerTimeFormat.pipe';
 import { setCurrentIndex, setPlayList, setPlayMode } from '@/app/store/actions/player.action';
 import { DOCUMENT } from '@angular/common';
-import { getRandomValues } from 'crypto';
+import { PlayerLycPanelComponent } from './detailPanel/player-lyc-panel/player-lyc-panel.component';
 
 const REPEAT_ONE = "repeat_one"
 const MODE_TYPE:playMode[] = [
@@ -30,24 +30,20 @@ const MODE_TYPE:playMode[] = [
 ]
 
 @Component({
-  selector: 'app-footer-player',
+  selector: 'app-player',
   standalone: true,
   imports: [
     MatButtonModule, 
     MatIconModule,
     MatSliderModule,
     FormsModule,
-    playerTimeFormat
+    playerTimeFormat,
+    PlayerLycPanelComponent
   ],
-  templateUrl: './footer-player.component.html',
-  styleUrl: './footer-player.component.scss'
+  templateUrl: './player.component.html',
+  styleUrl: './player.component.scss'
 })
-export class FooterPlayerComponent {
-  //@Input() myplayList = [];
-  /*   @Input() playerList:EasyMusicInfo[] = []; */
-  //playerList:EasyMusicInfo[] = [];
-  //@ViewChild('audioSlider',{static:false})  audioSlider!:ElementRef;
-
+export class AudioPlayerComponent {
 
   @Input() playerListMainPageId = "";
 
@@ -55,13 +51,14 @@ export class FooterPlayerComponent {
   defalutSrc:defalutSrc | undefined
   currentPlaySong:MusicInfo | undefined;
 
-  playList:EasyMusicInfo[] = [];
-  songList:EasyMusicInfo[] = [];
+  playList:MusicInfo[] = [];
+  songList:MusicInfo[] = [];
   currentIndex:number = 0;
 
   songPercent = 0;
   songBuffer = 0;
   @ViewChild('audioPlayer',{static:false}) audioPlayer!: ElementRef;
+  @ViewChild(PlayerLycPanelComponent,{static: false }) lyricPanel: PlayerLycPanelComponent | undefined;
 
   durationTime:number | undefined
   currentTime:number | undefined
@@ -70,6 +67,7 @@ export class FooterPlayerComponent {
   isPlaying = false;
   songReady = false;
   volumeSlider = false;
+  lycPanelshow = false;
   volumeValue:number = 20;
 
 
@@ -87,7 +85,7 @@ export class FooterPlayerComponent {
   constructor(
     //private mainPageView:MainPageComponent,
     private store$ : Store,
-    private footservice:FooterPlayerService,
+    private footservice:PlayerService,
     @Inject(DOCUMENT) private doc:Document
   ){
 
@@ -104,23 +102,17 @@ export class FooterPlayerComponent {
     this.store$.select(getPlayMode).subscribe(mode =>{
       this.watchPlayMode(mode)
     })
-    this.store$.select(getPlaying).subscribe(isplay =>{
-      this.watchIsPlaying(isplay)
-    })
     this.store$.select(getRawSong).subscribe(raw =>{
       this.watchRawSong(raw)
     })
-    
-    
-    
   }
 
 
-  private watchSongList(songList:EasyMusicInfo[]){
+  private watchSongList(songList:MusicInfo[]){
     console.log('songlist',songList)
     this.songList = songList;
   }
-  private watchPlayList(playList:EasyMusicInfo[]){
+  private watchPlayList(playList:MusicInfo[]){
     console.log('playList',playList)
     this.playList = playList;
   }
@@ -128,8 +120,7 @@ export class FooterPlayerComponent {
     console.log('currentIndex',currentIndex)
     this.currentIndex = currentIndex;
   }
-  private watchIsPlaying(isplay:boolean){
-  }
+  
   private watchPlayMode(mode:playMode){
     this.currentMode = mode;
     this.getModeIcon(this.currentMode.type)
@@ -147,16 +138,16 @@ export class FooterPlayerComponent {
 
 
   }
-  private watchRawSong(raw:EasyMusicInfo){
+  
+  private watchRawSong(raw:MusicInfo){
     if(this.currentIndex != -1){
-      //console.log('raw',raw)
-      console.log(raw.id)
-      this.footservice.getCurentMusicRaw(raw.id,'true').subscribe(res=>{
-        this.currentPlaySong = res;
-        console.log("raw",this.currentPlaySong)
-        
-      })
+      console.log('raw',raw)
+      this.currentPlaySong = raw
+      //this.loadEnd = false
     }
+  }
+
+  ngOnInit(): void {
     
   }
   
@@ -184,37 +175,28 @@ export class FooterPlayerComponent {
   getRandomInt(range:[number,number]):number{
     return Math.floor(Math.random() * (range[1]- range[0] + 1) + range[0]);
   }
-
-  updateShuffleCurrentIndex(list:EasyMusicInfo[],song:MusicInfo){
+  updateShuffleCurrentIndex(list:MusicInfo[],song:MusicInfo){
     const newIndex = list.findIndex(item => item.id == song.id)
     this.store$.dispatch(setCurrentIndex({currentIndex:newIndex}))
   }
 
-  ngOnInit(): void {
-    
-  }
-
-  
   canPlay(event:Event){
     const audio = event.target as HTMLAudioElement
     this.durationTime = audio.duration;
-
     this.songReady = true;
     this.isPlaying = true;
     audio.volume = this.volumeValue / 100;
     audio.play();
-    
-    
   }
   onTimeUpdate(event:Event){
     const audio = event.target as HTMLAudioElement
     this.currentTime = audio.currentTime;
     if(this.currentTime && this.durationTime){
       this.songPercent = this.currentTime / this.durationTime * 100;
-      const buffered = this.audioPlayer.nativeElement.buffered;
+      /* const buffered = this.audioPlayer.nativeElement.buffered;
       if(buffered.length && this.songBuffer < 100){
         this.songBuffer =  (buffered.end(0) / this.durationTime) * 100
-      }
+      } */
     }
   }
   onEnded(){
@@ -227,8 +209,6 @@ export class FooterPlayerComponent {
   }
 
   getPlaySong(){
-    //this.mainService.getMainPageAblumList().subscribe(res => {
-      
   }
   playSong(){
     if(!this.currentPlaySong){
@@ -249,69 +229,48 @@ export class FooterPlayerComponent {
     }
   }
   onPrevSong(index:number){
-    //if(!this.songReady){return;}
     if(this.playList.length === 1){
       this.loopSong();
     }else{
-      console.log(index)
-      const newIndex = index <= 0 ? this.playList.length : index;
+      const newIndex = index < 0 ? this.playList.length - 1 : index;
       this.store$.dispatch(setCurrentIndex({currentIndex:newIndex}));
-      //this.songReady = false;
     }
   }
   onNextSong(index:number){
-    //if(!this.songReady){return;}
     if(this.playList.length === 1){
       this.loopSong();
     }else{
-      console.log(index)
-      console.log(index >= this.playList.length)
       const newIndex = index >= this.playList.length ? 0 : index;
-      
       this.store$.dispatch(setCurrentIndex({currentIndex:newIndex}));
-      //this.songReady = false;
     }
-    
   }
 
   loopSong(){
     this.audioPlayer.nativeElement.currentTime = 0;
     this.isPlaying = true;
     this.audioPlayer.nativeElement.play();
-  
+    if(this.lyricPanel){
+      this.lyricPanel.seekLyric(0)
+    }
   }
 
-  /* showPlaying(value:number):string{
-    if(this.durationTime != undefined){
-      const nowtime = value / 100 * this.durationTime;
-      const temp = nowtime | 0;
-      const mins = temp / 60 | 0;
-      const second = (temp % 60).toString().padStart(2,'0');
-      return `${mins}:${second}`;
-    }else{
-      return "00:00"
-    }
-  } */
+
 
 
   showMusicList(){
-  
-    //this.playMusicListEasyInfo = this.mainPageView.playerMusicList
-    //console.log(this.playMusicListEasyInfo)
+    this.lycPanelshow = !this.lycPanelshow;
   }
   dragStartFunction(){
 
   }
   dragEndFunction(event: any){
-    console.log(event.value)
     if(this.durationTime != undefined){
-      this.audioPlayer.nativeElement.currentTime =
-        this.durationTime * event.value / 100
+      this.audioPlayer.nativeElement.currentTime = this.durationTime * event.value / 100
+      if(this.lyricPanel){
+        this.lyricPanel.seekLyric(this.durationTime * event.value / 100 * 1000)
+      }
     }
-
   }
-
-
 
   onShowVolumeSlider(event:MouseEvent){
     event.stopPropagation();
@@ -346,10 +305,13 @@ export class FooterPlayerComponent {
   volumeChange(value:number){
     this.audioPlayer.nativeElement.volume = value / 100;
   }
-  
-
   modeChange(){
     const temp = MODE_TYPE[++this.modeCount % 3];
     this.store$.dispatch(setPlayMode({playMode:temp}))
+  }
+
+  onChangeSong(song:MusicInfo){
+    this.currentPlaySong = song;
+    this.updateShuffleCurrentIndex(this.playList,this.currentPlaySong!)
   }
 }

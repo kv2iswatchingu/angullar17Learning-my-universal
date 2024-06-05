@@ -1,7 +1,7 @@
 import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { AlbumCardComponent } from '../album-card/album-card.component';
-import { EasyAblumInfo } from '@/app/service/interface/main-interface.interface';
-import { MainService } from '@/app/service/main-service.service';
+import { EasyAblumInfo } from '@/app/interface/main-interface.interface';
+import { MainService } from '@/app/service/main.service';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { CategoryInfo } from '@/app/service/interface/main-interface.interface';
+import { CategoryInfo } from '@/app/interface/main-interface.interface';
 import { Component, Input} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
