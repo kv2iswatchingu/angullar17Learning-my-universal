@@ -14,7 +14,7 @@
     </app-main-page-recommend-tab>
     <app-album-list
         class="app-album-list"
-        [mainPageListData]="mainPageAblumList"
+        [mainPageListData]="songListMainPage"
         (onAddtoListMain)="getPlayList($event)"
     >
     </app-album-list>
@@ -25,14 +25,14 @@
         [showMore]="false"
     >
     </app-main-page-recommend-tab>
-    <app-album-list
+    <!-- <app-album-list
         class="app-album-list"
         [mainPageListData]="personalAblumRecommend"
         (onAddtoListMain)="getPlayList($event)"
     >
-
-    </app-album-list>
-
+        
+    </app-album-list> -->
+    
 
 
 

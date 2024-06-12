@@ -2,10 +2,9 @@
 <div class="album-list">
     @for(item of mainPageListData; track $index){
         <app-album-card
-            [ablumEasyInfoId] = "item.id"
-            [ablumEasyInfoTitle] ="item.ablumName"
-            [ablumEasyInfoImg] ="item.ablumCover"
-            [ablumEasyInfoView] ="item.ablumView"
+            [ablumEasyInfoId] = "item._id"
+            [ablumEasyInfoTitle] ="item.songListName"
+            [ablumEasyInfoImg] ="item.ImgRaw"
             (onAddtoList)="onAddtoList($event)"
         >
         </app-album-card>

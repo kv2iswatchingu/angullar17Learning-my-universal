@@ -18,11 +18,17 @@
        <br>
        <br>
        <br>
+       <input type="file" multiple (change)="uploadSongList($event)" />
        <input type="file" multiple (change)="uploadLocalMusic($event)" />
+       <input type="file" multiple (change)="uploadLocalImg($event)" />
        <audio #audioPlayer controls preload="none">
          Your browser does not support the audio element.
        </audio>
 
+       <button (click)="getLIST()">
+          getMucsclllllll
+       </button>
 
-       <button (click)="myfun()">4444444444</button>
+      
+     
   </div>

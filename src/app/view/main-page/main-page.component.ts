@@ -14,9 +14,9 @@ import { AudioPlayerComponent } from '@/app/component/audioPlayer/player.compone
 import { PlayerService } from '@/app/service/player.service';
 import { Store } from '@ngrx/store';
 import { setCurrentIndex, setPlayList, setSongList } from '@/app/store/actions/player.action';
-import { getCurrentIndex, getSongList } from '@/app/store/selectors/player.selector';
 import { playerState } from '@/app/store/reducers/player.reducer';
-
+import { ApiService } from '@/app/service/api.service';
+import { SongList } from '@/app/interface/type.interface';
 
 
 @Component({
@@ -45,42 +45,43 @@ export class MainPageComponent implements OnInit{
 
 
   isLoading = false;
-  //mainPageAblumList:EasyAblumInfo[] = [];
   bannerData:Banner[] = [];
-  mainPageAblumList:EasyAblumInfo[] = [];
+  //mainPageAblumList:EasyAblumInfo[] = [];
+  songListMainPage:SongList[] = [];
+  
   personalAblumRecommend:EasyAblumInfo[] = [];
   recommendCategory:CategoryInfo[] = [];
   latestMusicList: MusicInfo[] = [];
 
-  playerListMainPageId:string = ""
+  //playerListMainPageId:string = ""
+  songListIdCurrent:string= ""
   playerMusicList:MusicInfo[] = []
 
   constructor(
     private http:HttpClient,
     private mainService: MainService,
     private playerService: PlayerService,
+    private apiService:ApiService,
     private stroe$:Store<playerState>
   ){
    
   }
   ngOnInit(): void {
       this.getBanner();
-      //this.getAblumMainPage();
-      this.getAblumMainPage();
+      this.getSongListMainPage();
       this.getCategory();
       this.getPersonalRecommend();
-      //this.getLatestMusic();
-      /* this.route.data.subscribe(res =>{
-        const what:EasyAblumInfo[]  = res['']
-        this.mainPageAblumList = res
-      }) */
+      
   }
-  getAblumMainPage(){
-    this.mainService.getMainPageAblumList('true').subscribe(res => {
-      //console.log(res);
-      this.mainPageAblumList = res
+  //获取全部歌单数据
+  getSongListMainPage(){
+    this.apiService.getAllSongList().subscribe(res => {
+      if(res){
+        this.songListMainPage = res;
+      }
     })
   }
+
   getBanner(){
     this.mainService.getMainPageBanners().subscribe(res => {
       //console.log(res);
@@ -106,12 +107,12 @@ export class MainPageComponent implements OnInit{
     })
   }
 
-
-  getPlayList(id:string){
-    console.log(id)
-    this.playerListMainPageId = id;
+  //获取歌单内数据
+  getPlayList(songListId:string){
+    //console.log(id)
+    this.songListIdCurrent = songListId;
     
-    this.playerService.getMusicList(id,'true').subscribe(res => {
+    /* this.playerService.getMusicList(,'true').subscribe(res => {
       console.log(res);
       this.playerMusicList = res;
       this.stroe$.dispatch(setSongList({songList:res}))
@@ -119,13 +120,13 @@ export class MainPageComponent implements OnInit{
       this.stroe$.dispatch(setCurrentIndex({currentIndex:0}))
 
       
-    })
-    /* this.stroe$.select(getCurrentIndex).subscribe(res=>{
-      console.log(res)
-    })
-    this.stroe$.select(getSongList).subscribe(res=>{
-      console.log(res)
     }) */
+    this.apiService.getMusicInfoBySongList(songListId).subscribe(res =>{
+      /* this.stroe$.dispatch(setSongList({songList:res}))
+      this.stroe$.dispatch(setPlayList({playingList:res}))
+      this.stroe$.dispatch(setCurrentIndex({currentIndex:0})) */
+      console.log(res)
+    })
   }
     
 }

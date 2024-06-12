@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AlbumCardComponent {
   @Input() ablumEasyInfoImg = "";
-  @Input() ablumEasyInfoView = 0;
   @Input() ablumEasyInfoId = "";
   @Input() ablumEasyInfoTitle = "";
   @Output() onAddtoList = new EventEmitter<string>();

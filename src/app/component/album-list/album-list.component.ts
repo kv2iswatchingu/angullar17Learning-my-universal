@@ -2,6 +2,7 @@ import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { AlbumCardComponent } from '../album-card/album-card.component';
 import { EasyAblumInfo } from '@/app/interface/main-interface.interface';
 import { MainService } from '@/app/service/main.service';
+import { SongList } from '@/app/interface/type.interface';
 
 
 @Component({
@@ -14,12 +15,10 @@ import { MainService } from '@/app/service/main.service';
   styleUrl: './album-list.component.scss'
 })
 export class AlbumListComponent {
-  @Input() mainPageListData:EasyAblumInfo[] = [];
+  @Input() mainPageListData:SongList[] = [];
   @Output() onAddtoListMain= new EventEmitter<string>();
 
-  constructor(
-    private mainService: MainService
-  ){}
+  constructor(){}
 
   onAddtoList(id:string){
     console.log(id)

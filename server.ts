@@ -26,8 +26,24 @@ export function app(): express.Express {
 
 
   
+  server.get('/', (req, res, next) => {
+    /* const { protocol, originalUrl, baseUrl, headers } = req;
+
+    commonEngine
+      .render({
+        bootstrap,
+        documentFilePath: indexHtml,
+        url: `${protocol}://${headers.host}${originalUrl}`,
+        publicPath: browserDistFolder,
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+      })
+      .then((html) => res.send(html))
+      .catch((err) => next(err)); */
+      res.render('index',{req})
+  });
+
   // All regular routes use the Angular engine
-  server.get('*', (req, res, next) => {
+  server.get('', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
 
     commonEngine

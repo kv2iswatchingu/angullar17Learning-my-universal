@@ -1,7 +1,7 @@
+import { ApiService } from '@/app/service/api.service';
+import { PlayerService } from '@/app/service/player.service';
 import { NgOptimizedImage } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-test',
@@ -20,7 +20,8 @@ export class TestComponent {
   files: any[] = [];
 
   constructor(
-    private http:HttpClient
+    private playerService:PlayerService,
+    private apiService:ApiService
   ){}
 
   playLocalMusic(event: any) {
@@ -40,21 +41,79 @@ export class TestComponent {
       for(let i = 0; i < this.files.length; i++){
         const file = this.files[i];
         console.log(file)
+        this.playerService.postMusic(file).subscribe(res =>{
+          console.log(res)
+        })
       }
     }
     
   }
 
-  myMockApi = "https://mock.apifox.com/m1/2316549-2454116-default"
-  myfun(){
-    /* this.footerplayerService.getMusicList().subscribe(res => {
-      console.log(res);
-      
-    }) */
-    this.http.get<any>(this.myMockApi + "/getFooterMusicList")
-    .pipe(map(res => res))
-    .subscribe(res=>{
+  getMucsc(){
+    const a = "Awake.mp3";
+    let url = "";
+    this.playerService.getMusic(a).subscribe(res=>{
       console.log(res)
+      if(res[0]){
+        const buffer = res[0].musicRaw;
+        let arr = buffer.split(',')
+        //let mime = arr[0].match(/:(.*?);/)[1]
+        let bstr = atob(arr[0])
+        let n = bstr.length
+        let u8arr = new Uint8Array(n)
+        while(n --){
+          u8arr[n] = bstr.charCodeAt(n)
+        }
+        const blob = new Blob([u8arr],{type:"audio/mpeg"})
+        const reader = new FileReader();
+        
+        console.log(blob)
+        url = URL.createObjectURL(blob)
+       
+      }
+    })
+    setTimeout(() => {
+      console.log(url)
+      this.audioPlayer.nativeElement.src = url;
+      this.audioPlayer.nativeElement.play();
+    }, 2000);
+
+    
+  }
+
+  uploadLocalImg(event:any){
+    this.files = event.target.files;
+    if(this.files){
+      for(let i = 0; i < this.files.length; i++){
+        const file = this.files[i];
+        console.log(file)
+        this.playerService.postT(file).subscribe(res =>{
+          console.log(res)
+        })
+      }
+    }
+    
+  }
+
+
+  uploadSongList(event:any){
+    this.files = event.target.files;
+    if(this.files){
+      for(let i = 0; i < this.files.length; i++){
+        const file = this.files[i];
+        console.log(file)
+        this.playerService.postSongList(file).subscribe(res =>{
+          console.log(res)
+        })
+      }
+    }
+    
+  }
+  getLIST(){
+    this.apiService.getAllSongList().subscribe(res=>{
+      console.log("resAAAAAAAAAAAAAAAAA",res)
     })
   }
+
+  myMockApi = "https://mock.apifox.com/m1/2316549-2454116-default"
 }
