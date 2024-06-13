@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,13 +30,15 @@ export class HeaderComponent {
     }
 
     homepageFuntion(){
-        console.log("home")
+       // console.log("home")
+       this.router.navigate(['']);
     }
     searchFuntion(){
         console.log(this.searchInput)
     }
     cdlistFuntion(){
         console.log("cdlist")
+        this.router.navigate(['/edit']);
     }
     collectionFuntion(){
         console.log("mycollection")

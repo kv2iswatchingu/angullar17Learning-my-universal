@@ -30,3 +30,17 @@ export type LyricRaw = {
 export type LyricApi = {
     lyric:string
 }
+
+export type AblumInfo ={
+    ablumName:string;
+    ablumBand:string;
+    ablumYear:string;
+}
+
+export type AblumApi = {
+    ablumName:string;
+    coverRaw:string;
+    coverType:string;
+    ablumBand:string;
+    ablumYear:string;
+}

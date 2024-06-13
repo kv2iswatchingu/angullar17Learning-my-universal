@@ -1,0 +1,99 @@
+<div class="editPage">
+    <div class="title">
+        编辑、上传页面
+    </div>
+
+    <div class="main">
+        <div class="add">
+
+            <div class="ablumAdd">
+                <div class="ablumAddTitle">
+                    新建专辑
+                </div>
+                <div class="ablumAddMain">
+                    <div class="leftlabel">
+                        <div>
+                            <mat-form-field class="angularInput">
+                                <mat-label>专辑名称</mat-label>
+                                <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
+                            </mat-form-field>
+                        </div>
+                            <div><mat-form-field class="angularInput">
+                                <mat-label>专辑乐队/作者</mat-label>
+                                <input matInput type="text" [(ngModel)]="ablumInfo.ablumBand">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="angularInput">
+                                <mat-label>专辑时代/年份</mat-label>
+                                <input matInput type="text" [(ngModel)]="ablumInfo.ablumYear">
+                            </mat-form-field>
+                        </div>
+                        
+                        <label class="inputBtn">
+                            <span>选择专辑封面</span>
+                            <input 
+                                class="input"
+                                type="file" 
+                                (change)="uploadCover($event)" 
+                            />
+                        </label>
+                    </div>
+                    <div class="rightImage">
+                        @if(ablumCoverBase64 != undefined ){
+                            <img 
+                                class="ablumCover"
+                                src="{{ablumCoverBase64}}"
+                            />
+                        }
+                        @else{
+                            <div class="ablumCoverNone">
+                                <div class="ablumCoverNone-tip">
+                                    预览专辑封面
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <button
+                    class="ablumSubmitBtn"
+                    (click)="submitAblumInfo()"
+                    mat-flat-button>
+                    上传专辑
+                </button>
+            </div>
+
+
+            <div class="musicInfoAdd">
+                <div class="musicInfoAddTitle">
+                    上传歌曲
+                </div>
+                <div class="musicInfoAddMain">
+                    <div>
+                        <mat-form-field>
+                            <mat-label>选择目标专辑</mat-label>
+                            <mat-select [formControl]="ablumControl" required>
+                              <mat-option>--</mat-option>
+                              @for (ablum of ablumList; track ablum) {
+                                <mat-option [value]="ablum">{{ablum.ablumName}}</mat-option>
+                              }
+                            </mat-select>
+                            @if (ablumControl.hasError('required')) {
+                              <mat-error>必需有目标专辑</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    
+                </div>
+
+            </div>
+        
+        </div>
+
+
+
+        <div class="edit">
+            edit
+        </div>
+</div>
+
