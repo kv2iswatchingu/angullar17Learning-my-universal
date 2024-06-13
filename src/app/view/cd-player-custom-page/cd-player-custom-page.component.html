@@ -8,7 +8,6 @@
     <div class="mainLocal">
         <div class="left">
             <div class="uploadLocal"> 
-                <!--  -->
                 <label class="inputFile">
                     <span>选择本地音乐</span>
                     <input 
@@ -21,7 +20,7 @@
             </div>
             <div class="currentSongInfo">
                 <div class="leftImg">
-                    <img [src]="localCurrentSong?.ablumCover" class="currentSongImg">
+                    <img [src]="localCurrentSong?.coverRaw" class="currentSongImg">
                 </div>
                 
                 <div class="rightInfo">
@@ -47,7 +46,7 @@
                     <div class="ablum">
                         所属专辑: 
                         <span>
-                            {{localCurrentSong?.ablumName}}
+                            <!-- {{localCurrentSong?.ablumName}} -->
                         </span>
                     </div>
                     
@@ -110,14 +109,4 @@
             </div>
         </div>
     </div>
-
-
-    
-     <!-- <img ngSrc="{{test}}" priority> -->
-     <!-- <audio controls src="{{audio}}" >-->
-         
-     
-    
-
-
 </div>

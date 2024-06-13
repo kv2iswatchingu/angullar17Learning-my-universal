@@ -1,9 +1,9 @@
 
 import { PlayerService } from '@/app/service/player.service';
-import { MusicInfo, defalutSrc } from '@/app/interface/main-interface.interface';
+import { defalutSrc } from '@/app/interface/main-interface.interface';
 import { playMode } from '@/app/store/reducers/player.reducer';
 import { getCurrentIndex, getPlayList, getPlayMode, getPlaying, getRawSong, getSongList } from '@/app/store/selectors/player.selector';
-import { Component, ElementRef, Inject, InjectFlags, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,8 @@ import { playerTimeFormat } from './playerTimeFormat.pipe';
 import { setCurrentIndex, setPlayList, setPlayMode } from '@/app/store/actions/player.action';
 import { DOCUMENT } from '@angular/common';
 import { PlayerLycPanelComponent } from './detailPanel/player-lyc-panel/player-lyc-panel.component';
+import { MusicInformation } from '@/app/interface/type.interface';
+
 
 const REPEAT_ONE = "repeat_one"
 const MODE_TYPE:playMode[] = [
@@ -49,10 +51,10 @@ export class AudioPlayerComponent {
 
 
   defalutSrc:defalutSrc | undefined
-  currentPlaySong:MusicInfo | undefined;
+  currentPlaySong:MusicInformation | undefined;
 
-  playList:MusicInfo[] = [];
-  songList:MusicInfo[] = [];
+  playList:MusicInformation[] = [];
+  songList:MusicInformation[] = [];
   currentIndex:number = 0;
 
   songPercent = 0;
@@ -108,11 +110,11 @@ export class AudioPlayerComponent {
   }
 
 
-  private watchSongList(songList:MusicInfo[]){
+  private watchSongList(songList:MusicInformation[]){
     console.log('songlist',songList)
     this.songList = songList;
   }
-  private watchPlayList(playList:MusicInfo[]){
+  private watchPlayList(playList:MusicInformation[]){
     console.log('playList',playList)
     this.playList = playList;
   }
@@ -131,15 +133,10 @@ export class AudioPlayerComponent {
         this.updateShuffleCurrentIndex(list,this.currentPlaySong!)
         this.store$.dispatch(setPlayList({playingList:list}));
       }
-      //console.log(list)
-     
     }
-    
-
-
   }
   
-  private watchRawSong(raw:MusicInfo){
+  private watchRawSong(raw:MusicInformation){
     if(this.currentIndex != -1){
       console.log('raw',raw)
       this.currentPlaySong = raw
@@ -175,8 +172,8 @@ export class AudioPlayerComponent {
   getRandomInt(range:[number,number]):number{
     return Math.floor(Math.random() * (range[1]- range[0] + 1) + range[0]);
   }
-  updateShuffleCurrentIndex(list:MusicInfo[],song:MusicInfo){
-    const newIndex = list.findIndex(item => item.id == song.id)
+  updateShuffleCurrentIndex(list:MusicInformation[],song:MusicInformation){
+    const newIndex = list.findIndex(item => item._id == song._id)
     this.store$.dispatch(setCurrentIndex({currentIndex:newIndex}))
   }
 
@@ -193,10 +190,6 @@ export class AudioPlayerComponent {
     this.currentTime = audio.currentTime;
     if(this.currentTime && this.durationTime){
       this.songPercent = this.currentTime / this.durationTime * 100;
-      /* const buffered = this.audioPlayer.nativeElement.buffered;
-      if(buffered.length && this.songBuffer < 100){
-        this.songBuffer =  (buffered.end(0) / this.durationTime) * 100
-      } */
     }
   }
   onEnded(){
@@ -310,7 +303,7 @@ export class AudioPlayerComponent {
     this.store$.dispatch(setPlayMode({playMode:temp}))
   }
 
-  onChangeSong(song:MusicInfo){
+  onChangeSong(song:MusicInformation){
     this.currentPlaySong = song;
     this.updateShuffleCurrentIndex(this.playList,this.currentPlaySong!)
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '../interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo } from '../interface/main-interface.interface';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -47,12 +47,5 @@ export class MainService {
     }
     return this.http.get<EasyAblumInfo[]>(url).pipe(map(res => res));
   }
-  ////
-  getMainPageFullMusicInfoList(fake?:string):Observable<MusicInfo[]>{
-    let url =  this.myMockApi + `/getLatestMusicList`
-    if(fake != undefined){
-      url += `?fake=${fake}`
-    }
-    return this.http.get<MusicInfo[]>(url).pipe(map(res => res));
-  }
+  
 }

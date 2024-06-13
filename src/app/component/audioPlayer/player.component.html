@@ -51,7 +51,7 @@
             </div>
             <div class="cover">
                 <img 
-                    src="{{currentPlaySong != undefined ? currentPlaySong.ablumCover : defalutSrc?.src}}" 
+                    src="{{currentPlaySong != undefined ? currentPlaySong.coverRaw : defalutSrc?.src}}" 
                     alt="cover" 
                     class="coverImg"
                 >
@@ -60,7 +60,7 @@
             <div class="mainwork">
                 <audio 
                     #audioPlayer
-                    [src]="currentPlaySong?.musicUrl"
+                    [src]="currentPlaySong?.musicRaw"
                     (canplay)="canPlay($event)"
                     (timeupdate)="onTimeUpdate($event)"
                     (ended)="onEnded()"

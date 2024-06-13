@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
-import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo, apiLyric, defalutSrc } from '@/app/interface/main-interface.interface';
+import { Observable, catchError, map, retry, throwError } from 'rxjs';
+import { Banner, CategoryInfo, EasyAblumInfo, defalutSrc } from '@/app/interface/main-interface.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { MusicInformation, SongList } from '../interface/type.interface';
+import { LyricApi, LyricRaw, MusicInformation, SongList } from '../interface/type.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -29,5 +29,22 @@ export class ApiService {
 
     //PART MUSICINFO
 
+
+
+    //PART Lyric
+    //上传歌词接口
+    createLyric(lyricData:LyricRaw){
+        let url = this.serverAddress + `/lyric`;
+        return this.http.post(url,lyricData).pipe(map(res => res))
+    }
+    //根据歌曲的Id获取歌词
+    getLyricById(musicInfoId:string):Observable<LyricApi>{
+        let url = this.serverAddress + `/lyric/${musicInfoId}`
+        return this.http.get<LyricApi>(url).pipe(map(res => res))
+    }
+
+
+
+    
     
 }

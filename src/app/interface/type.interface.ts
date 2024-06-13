@@ -10,12 +10,23 @@ export type SongList = {
 
 export type MusicInformation = {
     _id:string;
-    _AblumId:string;
+    coverRaw:string;
+    coverType:string;
     musicRaw:string;
+    musicType:string;
     musicName:string;
     musicStyle:string;
     musicSinger:string;
     musicAuthor:string;
     musicLong:number;
     musicUploadTime:string;
+}
+
+export type LyricRaw = {
+    _MusicInfoId:string;
+    lyricContent:string;
+}
+
+export type LyricApi = {
+    lyric:string
 }

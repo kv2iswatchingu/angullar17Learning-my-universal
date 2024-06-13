@@ -18,16 +18,26 @@
        <br>
        <br>
        <br>
+       <span>创建歌单</span>
        <input type="file" multiple (change)="uploadSongList($event)" />
+
+       <span>上传歌曲</span>
        <input type="file" multiple (change)="uploadLocalMusic($event)" />
+
+       <span>创建专辑</span>
        <input type="file" multiple (change)="uploadLocalImg($event)" />
+
+
        <audio #audioPlayer controls preload="none">
          Your browser does not support the audio element.
        </audio>
 
        <button (click)="getLIST()">
-          getMucsclllllll
+          getMuc444
        </button>
+
+       <button (click)="postLyric()">postlyric</button>
+       <button (click)="getLyric()">getlyric</button>
 
       
      

@@ -7,16 +7,15 @@ import { MainService } from '@/app/service/main.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
-import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo } from '@/app/interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo } from '@/app/interface/main-interface.interface';
 import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
-import { EasypalyerlistComponent } from '@/app/component/easypalyerlist/easypalyerlist.component';
 import { AudioPlayerComponent } from '@/app/component/audioPlayer/player.component';
 import { PlayerService } from '@/app/service/player.service';
 import { Store } from '@ngrx/store';
 import { setCurrentIndex, setPlayList, setSongList } from '@/app/store/actions/player.action';
 import { playerState } from '@/app/store/reducers/player.reducer';
 import { ApiService } from '@/app/service/api.service';
-import { SongList } from '@/app/interface/type.interface';
+import { MusicInformation, SongList } from '@/app/interface/type.interface';
 
 
 @Component({
@@ -31,7 +30,6 @@ import { SongList } from '@/app/interface/type.interface';
     CarouselComponent,
     AlbumListComponent,
     MainPageRecommendTabComponent,
-    EasypalyerlistComponent,
     AudioPlayerComponent,
     HttpClientModule
 
@@ -51,11 +49,11 @@ export class MainPageComponent implements OnInit{
   
   personalAblumRecommend:EasyAblumInfo[] = [];
   recommendCategory:CategoryInfo[] = [];
-  latestMusicList: MusicInfo[] = [];
+  latestMusicList: MusicInformation[] = [];
 
   //playerListMainPageId:string = ""
   songListIdCurrent:string= ""
-  playerMusicList:MusicInfo[] = []
+  playerMusicList:MusicInformation[] = []
 
   constructor(
     private http:HttpClient,
@@ -101,32 +99,42 @@ export class MainPageComponent implements OnInit{
     })
   }
   getLatestMusic(){
-    this.mainService.getMainPageFullMusicInfoList().subscribe(res => {
+    /* this.mainService.getMainPageFullMusicInfoList().subscribe(res => {
       //console.log(res);
       this.latestMusicList= res;
-    })
+    }) */
   }
 
   //获取歌单内数据
   getPlayList(songListId:string){
     //console.log(id)
     this.songListIdCurrent = songListId;
-    
-    /* this.playerService.getMusicList(,'true').subscribe(res => {
-      console.log(res);
-      this.playerMusicList = res;
+    this.apiService.getMusicInfoBySongList(songListId).subscribe(res =>{
+      if(res){
+        //console.log(res)
+        for(let i = 0 ;i < res.length; i ++){
+          const musicUrl = this.base64ToUrl(res[i].musicRaw,res[i].musicType);
+          const coverUrl = this.base64ToUrl(res[i].coverRaw,res[i].coverType);
+          res[i].musicRaw = musicUrl;
+          res[i].coverRaw = coverUrl;
+        }
+        //console.log(res)
+      }
       this.stroe$.dispatch(setSongList({songList:res}))
       this.stroe$.dispatch(setPlayList({playingList:res}))
       this.stroe$.dispatch(setCurrentIndex({currentIndex:0}))
-
-      
-    }) */
-    this.apiService.getMusicInfoBySongList(songListId).subscribe(res =>{
-      /* this.stroe$.dispatch(setSongList({songList:res}))
-      this.stroe$.dispatch(setPlayList({playingList:res}))
-      this.stroe$.dispatch(setCurrentIndex({currentIndex:0})) */
-      console.log(res)
     })
   }
     
+  base64ToUrl(base64:string,type:string):string{
+    let brianyArr = base64.split(',');
+    let bstr = atob(brianyArr[0]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+    while(n--){
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    const blob = new Blob([u8arr],{type:type})
+    return URL.createObjectURL(blob)
+  }
 }

@@ -1,13 +1,14 @@
-import { MusicInfo } from "@/app/interface/main-interface.interface"
+
 import { Action, createReducer, on } from "@ngrx/store"
 import { setCurrentIndex, setPlayList, setPlayMode, setPlaying, setSongList } from "../actions/player.action"
+import { MusicInformation } from "@/app/interface/type.interface";
 
 export const playerFeatureKey = "player";
 export type playerState = {
     isPlaying:boolean,
     playMode:playMode,
-    songList:MusicInfo[] ,
-    playingList:MusicInfo[],
+    songList:MusicInformation[] ,
+    playingList:MusicInformation[],
     currentIndex:number
 }
 export type playMode = {
@@ -32,15 +33,3 @@ export const playerReducer = createReducer(
 );
 
 
-/*
-import { increment, decrement, reset } from '../actions/player.action';
-
- export const initialState2 = 0; 
-
-/* export const counterReducer = createReducer(
-  initialState2,
-  on(increment, (state) => state + 1),
-  on(decrement, (state) => state - 1),
-  on(reset, (state) => 0)
-);
- */

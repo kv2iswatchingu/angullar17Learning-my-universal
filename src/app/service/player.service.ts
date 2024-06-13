@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { Banner, CategoryInfo, EasyAblumInfo, MusicInfo, apiLyric, defalutSrc } from '@/app/interface/main-interface.interface';
+import { Banner, CategoryInfo, EasyAblumInfo, defalutSrc } from '@/app/interface/main-interface.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 
@@ -14,35 +14,12 @@ export class PlayerService {
       
   }
    
-  getMusicList(ablumId:string,fake?:string):Observable<MusicInfo[]>{
-    let url =  this.myMockApi + `/getFooterMusicList?ablumId=${ablumId}`
-    if(fake){
-      url += `&fake=${fake}`
-    }
-    return this.http.get<MusicInfo[]>(url).pipe(map(res => res));
-    /* return this.http.get<EasyMusicInfo[]>(this.myMockApi + "/getFooterMusicList")
-    .pipe(map(res => res)); */
-  }
-  
-  getCurentMusicRaw(id:string,fake?:string):Observable<MusicInfo>{
-    let url =  this.myMockApi + `/getFooterMusic?id=${id}`
-    if(fake){
-      url += `&fake=${fake}`
-    }
-    return this.http.get<MusicInfo>(url).pipe(map(res => res));
-  }
+ 
   getMusicCoverDefalut():Observable<defalutSrc>{
     return this.http.get<defalutSrc>(this.myMockApi + "/getDefalutSrc")
     .pipe(map(res => res));
   }
   
-  getMusicLyric(id:string,fake?:string):Observable<apiLyric>{
-    let url = this.myMockApi + `/getMusicLyric?id=${id}`
-    if(fake){
-      url += `&fake=${fake}`
-    }
-    return this.http.get<apiLyric>(url).pipe(map(res => res));
-  }
 
   /////LOCOALHOST3000
   serverAddress = "http://localhost:3000/";
@@ -82,7 +59,7 @@ export class PlayerService {
   postMusic(file:File):Observable<string>{
     const formData = new FormData();
     formData.append('file',file)
-    formData.append('_AblumId',"66682e49e52fb36d4e474477")
+    formData.append('_AblumId',"666a5886d0adb60f07bf71d6")
     formData.append('musicName','Awake')
     formData.append('musicStyle','JRock')
     formData.append('musicSinger','yuiko')
@@ -96,7 +73,7 @@ export class PlayerService {
   postSongList(file:File):Observable<string>{
     const formData = new FormData();
     formData.append('file',file)
-    let arr = ['66694ee162135ef3e12aa36f']
+    let arr = ['666a5908d0adb60f07bf71db']
     for(let i = 0; i < arr.length; i ++){
       formData.append('_MusicIdList',arr[i])
     }

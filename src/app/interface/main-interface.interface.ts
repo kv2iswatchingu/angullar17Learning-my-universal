@@ -12,7 +12,7 @@ export type EasyAblumInfo = {
 export type CategoryInfo = {
     category:string
 }
-export type MusicInfo = {
+/* export type MusicInfo = {
     id:string,
     ablumName:string,
     ablumCover:string,
@@ -28,13 +28,11 @@ export type MusicInfo = {
     musicUploadTime:string,
     musicLike:string,
     musicLong:number
-}
+} */
 export type defalutSrc = {
     src:string
 }
-export type apiLyric = {
-    lyric:string
-}
+
 export interface LyricAnalysised {
     lyricText:string,
     lyricTime:number

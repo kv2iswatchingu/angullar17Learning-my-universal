@@ -1,3 +1,4 @@
+import { LyricRaw } from '@/app/interface/type.interface';
 import { ApiService } from '@/app/service/api.service';
 import { PlayerService } from '@/app/service/player.service';
 import { NgOptimizedImage } from '@angular/common';
@@ -112,6 +113,20 @@ export class TestComponent {
   getLIST(){
     this.apiService.getAllSongList().subscribe(res=>{
       console.log("resAAAAAAAAAAAAAAAAA",res)
+    })
+  }
+
+
+  postLyric(){
+    let lyricData:LyricRaw = {
+      _MusicInfoId:"666a5908d0adb60f07bf71db",
+      lyricContent:"[00:00.00] 纯音乐"
+    }
+    this.apiService.createLyric(lyricData).subscribe();
+  }
+  getLyric(){
+    this.apiService.getLyricById("666a5908d0adb60f07bf71db").subscribe(res=>{
+      console.log(res);
     })
   }
 

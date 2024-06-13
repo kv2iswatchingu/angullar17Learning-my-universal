@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import * as Jsmedia  from '@/app/pluginsScrpit/jsmediatags.min.js'
-import { MusicInfo } from '@/app/interface/main-interface.interface';
 import { playerState } from '@/app/store/reducers/player.reducer';
 import { Store } from '@ngrx/store';
 import { setCurrentIndex, setPlayList, setSongList } from '@/app/store/actions/player.action';
@@ -11,6 +10,7 @@ import { getCurrentIndex, getPlayList, getPlayMode, getPlaying, getRawSong, getS
 import { playerTimeFormat } from '@/app/component/audioPlayer/playerTimeFormat.pipe';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MusicInformation } from '@/app/interface/type.interface';
 
 
 
@@ -31,12 +31,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./cd-player-custom-page.component.scss']
 })
 export class CdPlayerCustomPageComponent {
-  
   files: any[] = [];
   localplayIndex:number = 0;
-  localSongList:MusicInfo[] = []
-  localPlayList:MusicInfo[] | undefined
-  localCurrentSong:MusicInfo | undefined
+  localSongList:MusicInformation[] = []
+  localPlayList:MusicInformation[] | undefined
+  localCurrentSong:MusicInformation | undefined
   constructor(
     private store$:Store<playerState>
   ){
@@ -54,20 +53,20 @@ export class CdPlayerCustomPageComponent {
     })
   }
 
-  private watchSongList(songList:MusicInfo[]){
+  private watchSongList(songList:MusicInformation[]){
     this.localSongList = songList;
   }
-  private watchPlayList(playList:MusicInfo[]){
+  private watchPlayList(playList:MusicInformation[]){
     this.localPlayList = playList;
   }
   private watchCurrentIndex(currentIndex:number){
     this.localplayIndex = currentIndex;
   }
-  private watchRawSong(raw:MusicInfo){
+  private watchRawSong(raw:MusicInformation){
     if(this.localplayIndex != -1){
       this.localCurrentSong = raw
       const index =  this.localSongList?.findIndex(item=>
-        item.id == this.localCurrentSong?.id
+        item._id == this.localCurrentSong?._id
       )
       if(index != -1 || index != undefined){
         this.localplayIndex = index;
@@ -86,8 +85,8 @@ export class CdPlayerCustomPageComponent {
     this.store$.dispatch(setCurrentIndex({currentIndex:0}))
   }
   setlocalSonglist(){
-    return new Promise<MusicInfo[]>(async (resolve,reject)=>{
-      let songlist:MusicInfo[] = []
+    return new Promise<MusicInformation[]>(async (resolve,reject)=>{
+      let songlist:MusicInformation[] = []
       for(let i = 0; i < this.files.length; i++){
         const file = this.files[i];
         const localurl = URL.createObjectURL(file);
@@ -99,8 +98,8 @@ export class CdPlayerCustomPageComponent {
     })
   }
   setJsmedia(file:any,localurl:string,durationTime:number){
-    return new Promise<MusicInfo>((resolve,reject)=>{
-      let localmusic:MusicInfo; 
+    return new Promise<MusicInformation>((resolve,reject)=>{
+      let localmusic:MusicInformation; 
       Jsmedia.read(file,{
         onSuccess:function(tag:any){
           //console.log(tag)
@@ -136,20 +135,16 @@ export class CdPlayerCustomPageComponent {
             localmusciCover = "http://dummyimage.com/600x600/000/FFF&text=无封面"
           }
           localmusic = {
-            id:"local"+ localmusicName,
-            ablumName:localmusicAblum,
-            ablumCover:localmusciCover,
-            ablumView:0,
+            _id:"local"+ localmusicName,
+            coverRaw:localmusciCover,
+            coverType:"",
+            musicRaw:localurl,
+            musicType:"",
             musicName:localmusicName,
-            musicPlaytimes:0,
-            musicUrl:localurl,
             musicStyle:localmusicGenre,
             musicAuthor:localmusicAuthor,
             musicSinger:localmusicAuthor,
-            musicBand:"不支持本地音乐显示乐队",
-            musicLatestTime:"",
             musicUploadTime:"",
-            musicLike:"0",
             musicLong:durationTime
           }
           //console.log(localmusic)
@@ -180,9 +175,9 @@ export class CdPlayerCustomPageComponent {
       }
     }
   }
-  onChangeSong(song:MusicInfo){
+  onChangeSong(song:MusicInformation){
     this.localCurrentSong = song;
-    const newIndex = this.localPlayList!.findIndex(item => item.id == song.id)
+    const newIndex = this.localPlayList!.findIndex(item => item._id == song._id)
     this.store$.dispatch(setCurrentIndex({currentIndex:newIndex}))
   }
 }
