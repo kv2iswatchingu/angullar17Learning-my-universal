@@ -14,24 +14,23 @@
     </app-main-page-recommend-tab>
     <app-album-list
         class="app-album-list"
-        [mainPageListData]="songListMainPage"
+        [songListData]="songListMainPage"
         (onAddtoListMain)="getPlayList($event)"
     >
     </app-album-list>
 
     <app-main-page-recommend-tab
         class="app-main-page-recommend-tab"
-        [recommendTitle]="'个人推荐'"
+        [recommendTitle]="'精选专辑'"
         [showMore]="false"
     >
     </app-main-page-recommend-tab>
-    <!-- <app-album-list
+    <app-album-list
         class="app-album-list"
-        [mainPageListData]="personalAblumRecommend"
-        (onAddtoListMain)="getPlayList($event)"
+        [ablumListData]="ablumListData"
+        (onAddtoListMain)="getPlayListAblum($event)"
     >
-        
-    </app-album-list> -->
+    </app-album-list>
     
 
 

@@ -22,6 +22,24 @@ export type MusicInformation = {
     musicUploadTime:string;
 }
 
+export type MusicInfoUpload = {
+    _AblumId:string;
+    musicName:string;
+    musicStyle:string;
+    musicSinger:string;
+    musicAuthor:string;
+    musicLong:number;
+    musicUploadTime:string;
+}
+
+export type MusicInfoJsMedia = {
+    musicTitle:string;
+    musicSingerAuthor:string;
+    musicStyle:string;
+    musicDuration:number;
+}
+
+
 export type LyricRaw = {
     _MusicInfoId:string;
     lyricContent:string;
@@ -38,6 +56,7 @@ export type AblumInfo ={
 }
 
 export type AblumApi = {
+    ablumId:string;
     ablumName:string;
     coverRaw:string;
     coverType:string;

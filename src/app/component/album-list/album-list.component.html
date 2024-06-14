@@ -1,13 +1,25 @@
 
 <div class="album-list">
-    @for(item of mainPageListData; track $index){
-        <app-album-card
-            [ablumEasyInfoId] = "item._id"
-            [ablumEasyInfoTitle] ="item.songListName"
-            [ablumEasyInfoImg] ="item.ImgRaw"
-            (onAddtoList)="onAddtoList($event)"
-        >
-        </app-album-card>
+    @if(songListData.length > 0){
+        @for(item of songListData; track $index){
+            <app-album-card
+                [ablumEasyInfoId] = "item._id"
+                [ablumEasyInfoTitle] ="item.songListName"
+                [ablumEasyInfoImg] ="item.ImgRaw"
+                (onAddtoList)="onAddtoList($event)"
+            >
+            </app-album-card>
+        }
     }
-    
+    @if(ablumListData.length > 0){
+        @for(item of ablumListData; track $index){
+            <app-album-card
+                [ablumEasyInfoId] = "item.ablumId"
+                [ablumEasyInfoTitle] ="item.ablumName"
+                [ablumEasyInfoImg] ="item.coverRaw"
+                (onAddtoList)="onAddtoList($event)"
+            >
+            </app-album-card>
+        }
+    }
 </div>

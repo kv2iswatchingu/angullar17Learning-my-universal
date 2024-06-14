@@ -79,28 +79,18 @@ export class LyricAnalysis {
        return index === -1 ? this.lyricAnalsised.length -1 : index; 
     }
 
+    //bug
     private playRest(){
         let currentPlay = this.lyricAnalsised[this.currentNum];
         const delay = currentPlay.lyricTime - (Date.now() - this.startStemp);
-        /* this. timermachine = timer(delay).subscribe(()=>{
-            this.callHander(this.currentNum ++);
-            if(this.currentNum < this.lyricAnalsised.length && this,this.playing){
-                this.playRest();
-            }
-        }) */
         this.timermachine = timer(delay).subscribe(()=>{
             this.callHander(this.currentNum ++);
+            console.log(this.currentNum)
             if(this.currentNum < this.lyricAnalsised.length && this,this.playing){
                 this.playRest();
             }
         })
         
-        /* setTimeout(() => {
-            this.callHander(this.currentNum ++);
-            if(this.currentNum < this.lyricAnalsised.length && this,this.playing){
-                this.playRest();
-            }
-        },delay) */
     }
 
     private callHander(index:number){

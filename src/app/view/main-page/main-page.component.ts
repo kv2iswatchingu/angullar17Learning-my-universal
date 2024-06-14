@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
 import { setCurrentIndex, setPlayList, setSongList } from '@/app/store/actions/player.action';
 import { playerState } from '@/app/store/reducers/player.reducer';
 import { ApiService } from '@/app/service/api.service';
-import { MusicInformation, SongList } from '@/app/interface/type.interface';
+import { AblumApi, MusicInformation, SongList } from '@/app/interface/type.interface';
 
 
 @Component({
@@ -47,13 +47,14 @@ export class MainPageComponent implements OnInit{
   //mainPageAblumList:EasyAblumInfo[] = [];
   songListMainPage:SongList[] = [];
   
-  personalAblumRecommend:EasyAblumInfo[] = [];
+  /* personalAblumRecommend:EasyAblumInfo[] = []; */
   recommendCategory:CategoryInfo[] = [];
   latestMusicList: MusicInformation[] = [];
 
   //playerListMainPageId:string = ""
   songListIdCurrent:string= ""
   playerMusicList:MusicInformation[] = []
+  ablumListData:AblumApi[] = [];
 
   constructor(
     private http:HttpClient,
@@ -68,7 +69,7 @@ export class MainPageComponent implements OnInit{
       this.getBanner();
       this.getSongListMainPage();
       this.getCategory();
-      this.getPersonalRecommend();
+      this.getAblumListMain();
       
   }
   //获取全部歌单数据
@@ -92,10 +93,9 @@ export class MainPageComponent implements OnInit{
       this.recommendCategory= res;
     })
   }
-  getPersonalRecommend(){
-    this.mainService.getpersonalRecommend().subscribe(res => {
-      //console.log(res);
-      this.personalAblumRecommend= res;
+  getAblumListMain(){
+    this.apiService.getAllAblum().subscribe(res=>{
+      this.ablumListData = res;
     })
   }
   getLatestMusic(){
@@ -119,6 +119,23 @@ export class MainPageComponent implements OnInit{
           res[i].coverRaw = coverUrl;
         }
         //console.log(res)
+      }
+      this.stroe$.dispatch(setSongList({songList:res}))
+      this.stroe$.dispatch(setPlayList({playingList:res}))
+      this.stroe$.dispatch(setCurrentIndex({currentIndex:0}))
+    })
+  }
+
+  getPlayListAblum(ablumId:string){
+    this.songListIdCurrent = ablumId;
+    this.apiService.getMusicInfoByAblumId(ablumId).subscribe(res =>{
+      if(res){
+        for(let i = 0 ;i < res.length; i ++){
+          const musicUrl = this.base64ToUrl(res[i].musicRaw,res[i].musicType);
+          const coverUrl = this.base64ToUrl(res[i].coverRaw,res[i].coverType);
+          res[i].musicRaw = musicUrl;
+          res[i].coverRaw = coverUrl;
+        }
       }
       this.stroe$.dispatch(setSongList({songList:res}))
       this.stroe$.dispatch(setPlayList({playingList:res}))

@@ -2,7 +2,7 @@ import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { AlbumCardComponent } from '../album-card/album-card.component';
 import { EasyAblumInfo } from '@/app/interface/main-interface.interface';
 import { MainService } from '@/app/service/main.service';
-import { SongList } from '@/app/interface/type.interface';
+import { AblumApi, AblumInfo, SongList } from '@/app/interface/type.interface';
 
 
 @Component({
@@ -15,7 +15,8 @@ import { SongList } from '@/app/interface/type.interface';
   styleUrl: './album-list.component.scss'
 })
 export class AlbumListComponent {
-  @Input() mainPageListData:SongList[] = [];
+  @Input() songListData:SongList[] = [];
+  @Input() ablumListData:AblumApi[] = [];
   @Output() onAddtoListMain= new EventEmitter<string>();
 
   constructor(){}
@@ -25,5 +26,5 @@ export class AlbumListComponent {
     this.onAddtoListMain.emit(id)
   }
 
-  //getMainpageAblumList
+
 }

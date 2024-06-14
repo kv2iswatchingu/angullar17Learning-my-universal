@@ -102,7 +102,7 @@ export class CdPlayerCustomPageComponent {
       let localmusic:MusicInformation; 
       Jsmedia.read(file,{
         onSuccess:function(tag:any){
-          //console.log(tag)
+          console.log(tag)
           const rawinfo = tag.tags;
           let  localmusicName;
           let  localmusicAuthor;
