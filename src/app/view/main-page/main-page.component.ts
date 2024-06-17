@@ -44,14 +44,12 @@ export class MainPageComponent implements OnInit{
 
   isLoading = false;
   bannerData:Banner[] = [];
-  //mainPageAblumList:EasyAblumInfo[] = [];
   songListMainPage:SongList[] = [];
   
-  /* personalAblumRecommend:EasyAblumInfo[] = []; */
   recommendCategory:CategoryInfo[] = [];
   latestMusicList: MusicInformation[] = [];
 
-  //playerListMainPageId:string = ""
+ 
   songListIdCurrent:string= ""
   playerMusicList:MusicInformation[] = []
   ablumListData:AblumApi[] = [];
@@ -74,7 +72,7 @@ export class MainPageComponent implements OnInit{
   }
   //获取全部歌单数据
   getSongListMainPage(){
-    this.apiService.getAllSongList().subscribe(res => {
+    this.apiService.getMainPageSonglist().subscribe(res => {
       if(res){
         this.songListMainPage = res;
       }
@@ -83,7 +81,6 @@ export class MainPageComponent implements OnInit{
 
   getBanner(){
     this.mainService.getMainPageBanners().subscribe(res => {
-      //console.log(res);
       this.bannerData = res;
     })
   }

@@ -18,6 +18,11 @@ export class ApiService {
         let url = this.serverAddress + `/songList/all`;
         return this.http.get<SongList[]>(url).pipe(map(res => res));
     }
+    //获取首页随机八个歌单列表
+    getMainPageSonglist():Observable<SongList[]>{
+        let url = this.serverAddress + `/songList/mainPage`;
+        return this.http.get<SongList[]>(url).pipe(map(res => res));
+    }
     
 
 

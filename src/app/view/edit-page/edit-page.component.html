@@ -206,7 +206,71 @@
             <div class="songlistAddTitle">
                 创建歌单
             </div>
+            <div class="songlistAddMain">
+                
+                <div class="=leftlabel">
+                   <div class="leaftlabelTilte">
+                        歌单信息
+                   </div>
+                   <div>
+                        <mat-form-field class="angularInput">
+                            <mat-label>歌单名称</mat-label>
+                            <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="angularInput">
+                            <mat-label>歌单描述</mat-label>
+                            <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="angularInput">
+                            <mat-label>歌单风格</mat-label>
+                            <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
+                        </mat-form-field>
+                    </div>
+
+
+
+                </div>
+                <div class="middle">
+                    @if(ablumCover != undefined ){
+                        <img 
+                            class="songListImg"
+                            src="{{ablumCoverBase64}}"
+                        />
+                    }
+                    @else{
+                        <div class="songListImgNone">
+                            <div class="songListImgNone-tip">
+                                预览专辑封面
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="right">
+                    <!-- 封装 -->
+                    <div class="rightTitle">
+                        搜寻歌曲
+                    </div>
+                    <div>
+                        搜索栏
+                        <div>筛选器</div>
+                    </div>
+                    <!-- 封装 -->
+                    <div>
+                        展示列表
+                        按钮提示加入此歌单
+                    </div>
+                </div>
+            </div>
+            <button
+            class="songSubmitBtn"
             
+            mat-flat-button>
+            创建歌单
+        </button>
         </div>
         
         

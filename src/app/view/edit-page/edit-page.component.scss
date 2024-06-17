@@ -233,5 +233,75 @@
     }
 }
 .songlistAdd{
+    .songlistAddTitle{
+
+    }
     
+    .songlistAddMain{
+        display: flex;
+        margin-top: 1rem;
+        .input{
+            display: none;
+        }
+        .inputBtn{
+            //width: 100%;
+            width: 13.1875rem;
+            display: block;
+            font-size: 1rem;
+            height: 2rem;
+            line-height: 2rem;
+            padding:0.75rem 0rem;
+            border-radius: 0.25rem;
+            border: none;
+            cursor: pointer;
+            background-color: pink;
+            color: #ff226c;
+            border-radius: 5px;
+            text-align: center; 
+        }
+        .inputBtn:active{
+            background-color: #ff91a3;
+            color: #ba1a4f;
+        }
+    }
+    .songSubmitBtn{
+        margin-top: 1rem;
+        width: 32.75rem;
+        height: 2.5rem;
+        border-radius: 5px;
+        background-color: #ff226c;
+        color: #fff;
+        font-size: 1.2rem;
+    }
+    .right{
+        .rightTitle{
+
+        }
+    }
+    .middle{
+        margin-top: 0.25rem;
+        margin-left: 2rem;
+        .songListImg{
+            width: 17rem;
+            height: 17rem;
+            border: #ff226c 0.25rem solid;
+            border-radius: 10px;
+        }
+        
+        .songListImgNone{
+            width: 17rem;
+            height: 17rem;
+            border: #ff226c 0.25rem dashed;
+            border-radius: 10px;
+            position: relative;
+            &-tip{
+                color: #ff226c;
+                font-size: 1rem;
+                transform: translate(-50%,-50%);
+                top:50%;
+                left: 50%;
+                position: absolute;
+            }
+        }
+    }
 }

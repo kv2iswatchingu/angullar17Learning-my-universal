@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-listpage',
   standalone: true,
   imports: [],
-  templateUrl: './listpage.component.html',
-  styleUrl: './listpage.component.scss'
+  templateUrl: './list-page.component.html',
+  styleUrl: './list-page.component.scss'
 })
-export class ListpageComponent {
+export class ListPageComponent {
 
 }
