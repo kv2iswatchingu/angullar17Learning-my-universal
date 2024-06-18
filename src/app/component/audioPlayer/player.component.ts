@@ -9,9 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { Store} from '@ngrx/store';
-import { Observable, Subscription, fromEvent } from 'rxjs';
+import { Observable, Subscription, findIndex, fromEvent } from 'rxjs';
 import { playerTimeFormat } from './playerTimeFormat.pipe';
-import { setCurrentIndex, setPlayList, setPlayMode } from '@/app/store/actions/player.action';
+import { setCurrentIndex, setPlayList, setPlayMode, setSongList } from '@/app/store/actions/player.action';
 import { DOCUMENT } from '@angular/common';
 import { PlayerLycPanelComponent } from './detailPanel/player-lyc-panel/player-lyc-panel.component';
 import { MusicInformation } from '@/app/interface/type.interface';
@@ -40,7 +40,7 @@ const MODE_TYPE:playMode[] = [
     MatSliderModule,
     FormsModule,
     playerTimeFormat,
-    PlayerLycPanelComponent
+    PlayerLycPanelComponent,
   ],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
@@ -85,7 +85,7 @@ export class AudioPlayerComponent {
 
 
   constructor(
-    //private mainPageView:MainPageComponent,
+    //public dialog: MatDialog,
     private store$ : Store,
     private footservice:PlayerService,
     @Inject(DOCUMENT) private doc:Document
@@ -122,7 +122,6 @@ export class AudioPlayerComponent {
     console.log('currentIndex',currentIndex)
     this.currentIndex = currentIndex;
   }
-  
   private watchPlayMode(mode:playMode){
     this.currentMode = mode;
     this.getModeIcon(this.currentMode.type)
@@ -130,12 +129,11 @@ export class AudioPlayerComponent {
       let list = this.songList.slice();
       if(mode.type == "random"){
         list = this.shuffle(this.songList);
-        this.updateShuffleCurrentIndex(list,this.currentPlaySong!)
-        this.store$.dispatch(setPlayList({playingList:list}));
       }
+      this.updateShuffleCurrentIndex(list,this.currentPlaySong!)
+      this.store$.dispatch(setPlayList({playingList:list}));
     }
   }
-  
   private watchRawSong(raw:MusicInformation){
     if(this.currentIndex != -1){
       console.log('raw',raw)
@@ -307,4 +305,36 @@ export class AudioPlayerComponent {
     this.currentPlaySong = song;
     this.updateShuffleCurrentIndex(this.playList,this.currentPlaySong!)
   }
+
+  onClearAll(){
+    
+
+
+
+    this.store$.dispatch(setSongList({songList:[]}))
+    this.store$.dispatch(setPlayList({playingList:[]}))
+    this.store$.dispatch(setCurrentIndex({currentIndex:-1}))
+  }
+
+  onDeleteSong(music:MusicInformation){
+    const songList = this.songList.slice();
+    const playList = this.playList.slice();
+    let currentIndex = this.currentIndex;
+    const indexS = songList.findIndex(item => item._id == music._id);
+    const indexP = playList.findIndex(item => item._id == music._id);
+    songList.splice(indexS,1)
+    playList.splice(indexP,1)
+    if(currentIndex > indexP || currentIndex == playList.length){
+      currentIndex--;
+    }
+    this.store$.dispatch(setSongList({songList:songList}))
+    this.store$.dispatch(setPlayList({playingList:playList}))
+    this.store$.dispatch(setCurrentIndex({currentIndex:currentIndex}))
+  }
+
+
+
+
 }
+
+

@@ -176,8 +176,12 @@
             [playing]="isPlaying"
             (outputClosePanel)="showMusicList()"
             (outputOnChangeSong)="onChangeSong($event)"
+            (outputOndClearAllSong)="onClearAll()"
+            (outputOnDeleteSong)="onDeleteSong($event)"
         >
         </app-player-lyc-panel>
     </div> 
-    <!--  -->
+    
+   
+
 </div>

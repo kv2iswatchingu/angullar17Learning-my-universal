@@ -14,7 +14,7 @@
                     </mat-icon>
                     收藏全部
                 </button>
-                <button mat-button class="btn-clearall">
+                <button mat-button class="btn-clearall" (click)="clearAll()">
                     <mat-icon>
                         delete
                     </mat-icon>
@@ -57,7 +57,7 @@
                                     download
                                 </mat-icon>
                             </button>
-                            <button mat-icon-button class="icon">
+                            <button mat-icon-button class="icon" (click)="deleteSong(item)">
                                 <mat-icon>
                                     delete
                                 </mat-icon>

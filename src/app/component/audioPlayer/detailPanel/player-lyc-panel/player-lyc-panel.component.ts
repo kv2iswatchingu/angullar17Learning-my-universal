@@ -31,8 +31,13 @@ export class PlayerLycPanelComponent {
   @Input() currentSong:MusicInformation | undefined;
   @Input() show:boolean = false;
   @Input() playing:boolean = false;
+
   @Output() outputClosePanel = new EventEmitter();
   @Output() outputOnChangeSong = new EventEmitter<MusicInformation>();
+  @Output() outputOnDeleteSong = new EventEmitter<MusicInformation>();
+  @Output() outputOndClearAllSong = new EventEmitter();
+
+
   @ViewChild('lyric',{static:true}) private lyricDom!:ScrollComponnetComponent;
  // @ViewChild('lyric',{static:true}) private lyricHtml!:ElementRef;
   currentIndex:number | undefined = 0;
@@ -57,12 +62,10 @@ export class PlayerLycPanelComponent {
       }
     }
     if(changes['songList']){
-      
+      this.currentIndex = this.songList?.findIndex(item=>item._id == this.currentSong?._id)
     }
     if(changes['currentSong']){
-      const index =  this.songList?.findIndex(item=>
-        item._id == this.currentSong?._id
-      )
+      const index =  this.songList?.findIndex(item=>item._id == this.currentSong?._id)
       if(index != -1 || index != undefined){
         this.currentIndex = index;
         if(this.currentSong){
@@ -83,9 +86,11 @@ export class PlayerLycPanelComponent {
   closePanel(){
     this.outputClosePanel.emit()
   }
+
   onChangeSong(song:MusicInformation){
     this.outputOnChangeSong.emit(song)
   }
+
   updateLyc(id:string){
     this.resetLyric();
     if(this.location.path().toString().includes('local') == false){
@@ -103,7 +108,6 @@ export class PlayerLycPanelComponent {
     }
     
   }
-
   private handleLyric(){
     this.songLyric?.handler.subscribe(({lineNumber})=>{
       //console.log(lineNumber)
@@ -120,7 +124,6 @@ export class PlayerLycPanelComponent {
       this.currentLyricLineNum = lineNumber;
     })
   }
-  
   resetLyric(){
     if(this.songLyric){
       this.songLyric.stop();
@@ -130,10 +133,18 @@ export class PlayerLycPanelComponent {
       this.lyricRefs = undefined;
     }
   }
-
   seekLyric(time:number){
     if(this.songLyric){
       this.songLyric.seek(time);
     }
   }
+
+  clearAll(){
+    this.outputOndClearAllSong.emit();
+  }
+
+  deleteSong(music:MusicInformation){
+    this.outputOnDeleteSong.emit(music);
+  }
+
 }
