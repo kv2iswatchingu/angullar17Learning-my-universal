@@ -7,6 +7,20 @@ export type SongList = {
     songListStyle:string;
     songListPop:number;
 } 
+export type songListSearch = {
+    page?: number;
+    limit?: number;
+    sortBy?:string;
+    name?:string;
+    category?:string;
+}
+
+export type SongListPost = {
+    _MusicIdList:string[];
+    songListName:string;
+    songListDesprition:string;
+    songListStyle:string;
+}
 
 export type MusicInformation = {
     _id:string;
@@ -37,6 +51,17 @@ export type MusicInfoJsMedia = {
     musicSingerAuthor:string;
     musicStyle:string;
     musicDuration:number;
+}
+
+export type MusicInfoSearch = {
+    page?: number;
+    limit?: number;
+    name?:string;
+    style?:string;
+    singer?:string;
+    author?:string;
+    //
+    //
 }
 
 

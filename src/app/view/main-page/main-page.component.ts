@@ -8,7 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from '@/app/component/carousel/carousel.component';
 import { AlbumListComponent } from '@/app/component/album-list/album-list.component';
 import { Banner, CategoryInfo, EasyAblumInfo } from '@/app/interface/main-interface.interface';
-import { MainPageRecommendTabComponent } from '@/app/component/main-page-recommend-tab/main-page-recommend-tab.component';
+import { CategoryTabComponent } from '@/app/component/category-tab/category-tab.component';
 import { AudioPlayerComponent } from '@/app/component/audioPlayer/player.component';
 import { PlayerService } from '@/app/service/player.service';
 import { Store } from '@ngrx/store';
@@ -29,7 +29,7 @@ import { AblumApi, MusicInformation, SongList } from '@/app/interface/type.inter
     HttpClientModule,
     CarouselComponent,
     AlbumListComponent,
-    MainPageRecommendTabComponent,
+    CategoryTabComponent,
     AudioPlayerComponent,
     HttpClientModule
 

@@ -101,8 +101,9 @@
     
     
 }
+
 .musicInfoAdd{
-    margin-top: 4rem;
+    margin-top: 3rem;
     .musicInfoAddTitle{
         height: 2rem;
         line-height: 2rem;
@@ -232,38 +233,16 @@
         color: #ba1a4f;
     }
 }
-.songlistAdd{
-    .songlistAddTitle{
 
-    }
-    
-    .songlistAddMain{
-        display: flex;
-        margin-top: 1rem;
-        .input{
-            display: none;
-        }
-        .inputBtn{
-            //width: 100%;
-            width: 13.1875rem;
-            display: block;
-            font-size: 1rem;
-            height: 2rem;
-            line-height: 2rem;
-            padding:0.75rem 0rem;
-            border-radius: 0.25rem;
-            border: none;
-            cursor: pointer;
-            background-color: pink;
-            color: #ff226c;
-            border-radius: 5px;
-            text-align: center; 
-        }
-        .inputBtn:active{
-            background-color: #ff91a3;
-            color: #ba1a4f;
-        }
-    }
+.songlistAdd{
+    margin-top: 3rem;
+    .songlistAddTitle{
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ff226c;
+    }   
     .songSubmitBtn{
         margin-top: 1rem;
         width: 32.75rem;
@@ -274,34 +253,157 @@
         font-size: 1.2rem;
     }
     .right{
-        .rightTitle{
-
-        }
-    }
-    .middle{
-        margin-top: 0.25rem;
         margin-left: 2rem;
-        .songListImg{
-            width: 17rem;
-            height: 17rem;
-            border: #ff226c 0.25rem solid;
-            border-radius: 10px;
-        }
-        
-        .songListImgNone{
-            width: 17rem;
-            height: 17rem;
-            border: #ff226c 0.25rem dashed;
-            border-radius: 10px;
-            position: relative;
-            &-tip{
-                color: #ff226c;
-                font-size: 1rem;
-                transform: translate(-50%,-50%);
-                top:50%;
-                left: 50%;
-                position: absolute;
+        .rightTitle{
+            margin-left: 0.5rem;
+            height: 2rem;
+            line-height: 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff5656;
+        }  
+    }
+    .songListSearchList{
+        .list-item{
+            ::ng-deep .mdc-list-item__primary-text{
+                display: flex;
+                width: 100%;
+                height: 2rem;
+                align-items: center;
+            }
+            .list-item-title{
+                width: 40%;
+                color: #7d0032;
+                display: inline-flex;
+                align-items: center;
+            }
+            .list-item-title > span{
+                white-space: nowrap;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+            .list-item-style{
+                width: 10%;
+                height: 2rem;
+                color: #7d0032;
+                display: inline-flex;
+                align-items: center;
+            }
+            .list-item-style > span{
+                white-space: nowrap;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+            .list-item-author{
+                width: 35%;
+                height: 2rem;
+                color: #7d0032;
+                display: inline-flex;
+                align-items: center;
+            }
+            .list-item-author > span{
+                padding: 0 1rem;
+                white-space: nowrap;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+            
+            .list-item-share{
+                display: flex;
+                justify-content: space-between;
+                width: 10%;
+                height: 2rem;
+                align-items:center;
             }
         }
+    }
+}
+.songlistAddMain{
+    display: flex;
+    margin-top: 0.5rem;
+    .input{
+        display: none;
+    }
+    .inputBtn{
+        //width: 100%;
+        width: 13.1875rem;
+        display: block;
+        font-size: 1rem;
+        height: 2rem;
+        line-height: 2rem;
+        padding:0.75rem 0rem;
+        border-radius: 0.25rem;
+        border: none;
+        cursor: pointer;
+        background-color: pink;
+        color: #ff226c;
+        border-radius: 5px;
+        text-align: center; 
+    }
+    .inputBtn:active{
+        background-color: #ff91a3;
+        color: #ba1a4f;
+    }
+    .leftlabel{
+        .leaftlabelTilte{
+            margin-left: 0.5rem;
+            height: 2rem;
+            line-height: 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff5656;
+        }
+        .leftlabel-up{
+            display: flex;
+            margin-top: 0.5rem;
+        }
+        .leftlabel-right{
+            margin-top: 0.4rem;
+            margin-left: 2rem;
+            .songListImg{
+                width: 12rem;
+                height: 12rem;
+                border: #ff226c 0.25rem solid;
+                border-radius: 10px;
+            }
+            
+            .songListImgNone{
+                width: 12rem;
+                height: 12rem;
+                border: #ff226c 0.25rem dashed;
+                border-radius: 10px;
+                position: relative;
+                &-tip{
+                    width:100%;
+                    text-align: center;
+                    color: #ff226c;
+                    font-size: 1rem;
+                    transform: translate(-50%,-50%);
+                    top:50%;
+                    left: 50%;
+                    position: absolute;
+                }
+            }
+        }
+    }
+}
+.rightMain{
+    margin-left: 0.75rem;
+    .songListSearch{
+        display: flex;
+    }
+    .songListSearch-check{
+        margin-right: 1rem;
+        width: 15rem;
+        ::ng-deep
+            .mat-mdc-form-field-subscript-wrapper,
+            .mat-mdc-form-field-bottom-align{
+                display: none;
+        }
+    }
+    .songListSearchBtn{
+        margin-top: 0.75rem;
+        height: 1.5rem;
+        width: 45.5rem;
     }
 }

@@ -208,61 +208,151 @@
             </div>
             <div class="songlistAddMain">
                 
-                <div class="=leftlabel">
-                   <div class="leaftlabelTilte">
+                <div class="leftlabel">
+                    <div class="leaftlabelTilte">
                         歌单信息
-                   </div>
-                   <div>
-                        <mat-form-field class="angularInput">
-                            <mat-label>歌单名称</mat-label>
-                            <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
-                        </mat-form-field>
                     </div>
-                    <div>
-                        <mat-form-field class="angularInput">
-                            <mat-label>歌单描述</mat-label>
-                            <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <mat-form-field class="angularInput">
-                            <mat-label>歌单风格</mat-label>
-                            <input matInput type="text" [(ngModel)]="ablumInfo.ablumName">
-                        </mat-form-field>
-                    </div>
-
-
-
-                </div>
-                <div class="middle">
-                    @if(ablumCover != undefined ){
-                        <img 
-                            class="songListImg"
-                            src="{{ablumCoverBase64}}"
-                        />
-                    }
-                    @else{
-                        <div class="songListImgNone">
-                            <div class="songListImgNone-tip">
-                                预览专辑封面
-                            </div>
+                    <div class="leftlabel-up">
+                        <div class="leftlabel-left">
+                                <div>
+                                <mat-form-field class="angularInput">
+                                    <mat-label>歌单名称</mat-label>
+                                    <input matInput type="text" [(ngModel)]="songListPost.songListName">
+                                </mat-form-field>
+                                </div>
+                                <div>
+                                <mat-form-field class="angularInput">
+                                    <mat-label>歌单风格</mat-label>
+                                    <input matInput type="text" [(ngModel)]="songListPost.songListStyle">
+                                </mat-form-field>
+                                </div>
+                                <label class="inputBtn">
+                                <span>选择歌单封面</span>
+                                <input 
+                                    class="input"
+                                    type="file" 
+                                    (change)="uploadSongListImg($event)" 
+                                />
+                                </label>
                         </div>
-                    }
+                        <div class="leftlabel-right">
+                            @if(songListImg != undefined ){
+                                <img 
+                                    class="songListImg"
+                                    src="{{songListImgUrl}}"
+                                />
+                            }
+                            @else{
+                                <div class="songListImgNone">
+                                    <div class="songListImgNone-tip">
+                                        预览歌单图片
+                                    </div>
+                                </div>
+                            }
+                        </div>   
+                    </div>
+                    
+                    <div>
+                        <mat-form-field class="angularTextArea">
+                            <mat-label>歌单描述</mat-label>
+                            <textarea matInput [(ngModel)]="songListPost.songListDesprition"></textarea>
+                        </mat-form-field>
+                    </div>
                 </div>
+
                 <div class="right">
-                    <!-- 封装 -->
                     <div class="rightTitle">
                         搜寻歌曲
                     </div>
-                    <div>
-                        搜索栏
-                        <div>筛选器</div>
+                    <div class="rightMain">
+                        <div class="songListSearch">
+                            <div class="songListSearch-check">
+                                <section >
+                                    <mat-checkbox [(ngModel)]="searchName">
+                                        搜索歌曲名称
+                                    </mat-checkbox>
+                                </section>
+                                <div [hidden]="!searchName">
+                                    <mat-form-field class="angularInput" >
+                                        <mat-label>歌曲名称</mat-label>
+                                        <input matInput type="text" [(ngModel)]="musicSearch.name" >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+    
+                            <div class="songListSearch-check">
+                                <section>
+                                    <mat-checkbox [(ngModel)]="searchStyle">
+                                        搜索歌曲风格
+                                    </mat-checkbox>
+                                </section>
+                                <div [hidden]="!searchStyle">
+                                    <mat-form-field class="angularInput" [hidden]="searchStyle">
+                                        <mat-label>歌曲风格</mat-label>
+                                        <input matInput type="text" [(ngModel)]="musicSearch.style">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+    
+                            <div class="songListSearch-check">
+                                <section>
+                                    <mat-checkbox [(ngModel)]="searchSinger">
+                                        搜索作者、歌手
+                                    </mat-checkbox>
+                                </section>
+                                <div [hidden]="!searchSinger">
+                                    <mat-form-field class="angularInput" [hidden]="searchSinger">
+                                        <mat-label>歌曲作者、歌手</mat-label>
+                                        <input matInput type="text" [(ngModel)]="musicSearch.style">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <button 
+                            class="songListSearchBtn" 
+                            mat-flat-button color="accent" 
+                            (click)="searchFuntion()">
+                            <mat-icon>search</mat-icon>
+                            <span>获取歌曲信息</span>
+                        </button> 
+                     
+                        <div class="songListSearchList">
+                            <mat-selection-list #selectMusic (selectionChange)="selectionChange()">
+                                @for(item of searchMusicList; track $index){
+                                    <mat-list-option class="list-item" [value]="item._id">
+                                        <div class="list-item-title">
+                                            <span>
+                                                {{item.musicName}}
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="list-item-author">
+                                            <span>
+                                                {{item.musicAuthor}}、
+                                                {{item.musicSinger}}
+                                            </span>
+                                        </div>
+                                        <div class="list-item-style">
+                                            <span>
+                                                {{item.musicStyle}}
+                                            </span>
+                                        </div>
+                                        <div class="list-item-share">
+                                            <div>
+                                                <span>
+                                                    {{item.musicLong | playerTimeFormat}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                    </mat-list-option>
+                                }
+                            </mat-selection-list>
+                        </div>
+                        
                     </div>
-                    <!-- 封装 -->
-                    <div>
-                        展示列表
-                        按钮提示加入此歌单
-                    </div>
+                    
                 </div>
             </div>
             <button

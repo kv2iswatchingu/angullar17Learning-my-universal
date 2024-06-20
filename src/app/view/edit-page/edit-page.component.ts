@@ -1,14 +1,16 @@
-import { AblumApi, AblumInfo, MusicInfoJsMedia, MusicInfoUpload } from '@/app/interface/type.interface';
+import { AblumApi, AblumInfo, MusicInfoJsMedia, MusicInfoSearch, MusicInfoUpload, MusicInformation, SongListPost } from '@/app/interface/type.interface';
 import { ApiService } from '@/app/service/api.service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import * as Jsmedia  from '@/app/pluginsScrpit/jsmediatags.min.js'
 import { playerTimeFormat } from '@/app/component/audioPlayer/playerTimeFormat.pipe';
+import { MatListModule, MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'app-edit-page',
@@ -22,6 +24,9 @@ import { playerTimeFormat } from '@/app/component/audioPlayer/playerTimeFormat.p
     MatSelectModule,  
     ReactiveFormsModule,
     playerTimeFormat,
+    MatCheckboxModule,
+    playerTimeFormat,
+    MatListModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.scss'
@@ -43,8 +48,24 @@ export class EditPageComponent {
   musicInfo:MusicInfoUpload = { _AblumId:"",musicName:"",musicStyle:"",musicSinger:"",musicAuthor:"",musicLong:0,musicUploadTime:""}
   musicJs:MusicInfoJsMedia = { musicTitle:"",musicSingerAuthor:"",musicStyle:"",musicDuration:0}
 
-  //
-  
+  //part3
+  songListPost:SongListPost = {_MusicIdList:[],songListName:"",songListDesprition:"",songListStyle:""}
+  songListImg:File | undefined;
+  songListImgUrl:string | undefined;
+
+  searchInput:string = "";
+  searchName:boolean = true;
+  searchStyle:boolean = true;
+  searchSinger:boolean = true;
+  searchMusicList:MusicInformation[] = [];
+
+  musicSearch:MusicInfoSearch ={
+    page:1,
+    limit:10
+  }
+  //@ViewChild('selectMusic',{static:false}) selectMusic!: ElementRef;
+  @ViewChild(MatSelectionList,{static: false }) selectMusic!: MatSelectionList;
+  musicIdList:string[] | null | undefined;
 
   constructor(
     private apiservice:ApiService
@@ -54,10 +75,11 @@ export class EditPageComponent {
 
   ngOnInit(){
     this.getAllAblum();
+    
   }
 
  
-
+ 
   //part01
   uploadCover(event:any){
     if (event.target.files[0] && !event.target.files[0].type.startsWith('image/')) {
@@ -169,6 +191,37 @@ export class EditPageComponent {
     this.musicInfo.musicUploadTime = new Date().toLocaleTimeString();
     //console.log(this.musicInfo)
     this.apiservice.postMusicInfo(this.musicInfoRaw,this.musicInfo).subscribe();
+  }
+
+
+
+  //part03
+  getMusicSearch(){
+    this.apiservice.getMusicInfoBySearch(this.musicSearch).subscribe(res=>{
+      console.log(res,"editSearch");
+      this.searchMusicList=res
+    })
+  }
+  uploadSongListImg(event:any){
+    if (event.target.files[0] && !event.target.files[0].type.startsWith('image/')) {
+      console.log("err")
+      return
+    }
+    this.songListImg = event.target.files[0];
+    if(this.songListImg){
+      this.songListImgUrl = URL.createObjectURL(this.songListImg)
+    }
+  }
+
+  selectionChange(){
+    this.musicIdList =  this.selectMusic._value
+    console.log(this.musicIdList)
+  }
+
+
+  searchFuntion(){
+    console.log(this.searchName,this.searchSinger)
+    this.getMusicSearch();
   }
 
 }

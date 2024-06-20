@@ -52,5 +52,6 @@ export class HeaderComponent {
     }
     localFunction(){
         console.log("local")
+        this.router.navigate(['/local']);
     }
 }

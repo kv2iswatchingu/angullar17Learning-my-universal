@@ -4,14 +4,14 @@
     >
 
     </app-carousel>
-    <app-main-page-recommend-tab
+    <category-tab
         class="app-main-page-recommend-tab"
         [recommendTitle]="'热门推荐'"
         [recommendCategory]="recommendCategory"
         [showMore]="true"
     >
-
-    </app-main-page-recommend-tab>
+    </category-tab>
+    
     <app-album-list
         class="app-album-list"
         [songListData]="songListMainPage"
@@ -19,12 +19,12 @@
     >
     </app-album-list>
 
-    <app-main-page-recommend-tab
+    <category-tab
         class="app-main-page-recommend-tab"
         [recommendTitle]="'精选专辑'"
         [showMore]="false"
     >
-    </app-main-page-recommend-tab>
+    </category-tab>
     <app-album-list
         class="app-album-list"
         [ablumListData]="ablumListData"
@@ -35,11 +35,11 @@
 
 
 
-    <app-main-page-recommend-tab
+    <category-tab
         class="app-main-page-recommend-tab"
         [recommendTitle]="'最近在听'"
         [showMore]="true"
-    ></app-main-page-recommend-tab>
+    ></category-tab>
     <!-- <app-easypalyerlist
         [latestMusicList]="latestMusicList"
     >
