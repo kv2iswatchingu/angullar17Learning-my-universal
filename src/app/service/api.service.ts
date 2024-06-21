@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, retry, throwError } from 'rxjs';
 import { Banner, CategoryInfo, EasyAblumInfo, defalutSrc } from '@/app/interface/main-interface.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AblumApi, AblumInfo, LyricApi, LyricRaw, MusicInfoSearch, MusicInfoUpload, MusicInformation, SongList, songListSearch } from '../interface/type.interface';
+import { AblumApi, AblumInfo, LyricApi, LyricRaw, MusicInfoSearch, MusicInfoUpload, MusicInformation, SongList, SongListPost, songListSearch } from '../interface/type.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +30,17 @@ export class ApiService {
         return this.http.get<SongList[]>(url,{params:songListSearch}).pipe(map(res => res));
     }
 
-
+    //上传新的歌单
+    postSongList(file:File,songListInfo:SongListPost){
+        const formData = new FormData();
+        formData.append('file',file);
+        formData.append('_MusicIdList',songListInfo._MusicIdList.toString())
+        formData.append('songListName',songListInfo.songListName)
+        formData.append('songListDesprition',songListInfo.songListDesprition)
+        formData.append('songListStyle',songListInfo.songListStyle)
+        let url = this.serverAddress + `/songList`;
+        return this.http.post<string>(url,formData).pipe(map(res => res));
+    }
 
 
     //PART MUSICINFO
@@ -48,6 +58,14 @@ export class ApiService {
         let url = this.serverAddress + `/musicInfo/search`;
         return this.http.get<MusicInformation[]>(url,{params:musicSearch}).pipe(map(res => res));
     }
+    //获取歌曲分页数量
+    getTotalBySearch(musicSearch?:MusicInfoSearch ):Observable<number>{
+        let url = this.serverAddress + `/musicInfo/search/total`;
+        return this.http.get<number>(url,{params:musicSearch}).pipe(map(res => res));
+    }
+
+
+
 
     //上传一首歌
     postMusicInfo(file:File,musicInfo:MusicInfoUpload){

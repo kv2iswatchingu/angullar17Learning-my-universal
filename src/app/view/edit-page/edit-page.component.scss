@@ -18,11 +18,6 @@
     margin-left: 2.5rem;
     margin-top: 1rem;
 }
-
-.edit{
-
-}
-
 .ablumAdd{
     .ablumAddTitle{
         height: 2rem;
@@ -34,10 +29,6 @@
     .ablumAddMain{
         display: flex;
         margin-top: 1rem;
-        .leftlabel{
-            
-            
-        }
         .rightImage{
             margin-top: 0.25rem;
             margin-left: 2rem;
@@ -114,9 +105,6 @@
     .musicInfoAddMain{
         display: flex;
         margin-top: 1rem;
-        .leftlabel{
-            
-        }
         .middlelabel{
             margin-top: 0.25rem;
             margin-left: 2rem;
@@ -244,8 +232,8 @@
         color: #ff226c;
     }   
     .songSubmitBtn{
-        margin-top: 1rem;
-        width: 32.75rem;
+        //margin-top: 0.5rem;
+        width: 86.25rem;
         height: 2.5rem;
         border-radius: 5px;
         background-color: #ff226c;
@@ -256,18 +244,20 @@
         margin-left: 2rem;
         .rightTitle{
             margin-left: 0.5rem;
-            height: 2rem;
-            line-height: 2rem;
-            font-size: 1.3rem;
+            height: 1.3rem;
+            line-height: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #ff5656;
         }  
     }
     .songListSearchList{
+        height: 18rem;
+        position: relative;
         .list-item{
             ::ng-deep .mdc-list-item__primary-text{
                 display: flex;
-                width: 100%;
+                
                 height: 2rem;
                 align-items: center;
             }
@@ -317,6 +307,30 @@
             }
         }
     }
+    .paginator{
+        height: 2rem;
+        background-color: #ffcfd7;
+        border-radius: 5px;
+    }
+    ::ng-deep .mat-mdc-paginator-container{
+        min-height: 2rem;
+        background-color: #ffcfd7;
+        border-radius: 5px;
+    }
+    ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base{
+        width:1.5rem;
+        height: 1.5rem;
+        padding: 0px;
+    }
+    .songListSearchTips{
+        left: 50%;
+        top:50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ff226c;
+    }
 }
 .songlistAddMain{
     display: flex;
@@ -347,15 +361,16 @@
     .leftlabel{
         .leaftlabelTilte{
             margin-left: 0.5rem;
-            height: 2rem;
-            line-height: 2rem;
-            font-size: 1.3rem;
+            height: 1.3rem;
+            line-height: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #ff5656;
         }
         .leftlabel-up{
             display: flex;
             margin-top: 0.5rem;
+            
         }
         .leftlabel-right{
             margin-top: 0.4rem;
@@ -385,16 +400,22 @@
                 }
             }
         }
+        .angularTextArea{
+            margin-top: 1rem;
+            width: 28rem;
+            height: 13.5rem;
+        }
     }
 }
 .rightMain{
-    margin-left: 0.75rem;
+   margin-left: 0.75rem;
     .songListSearch{
         display: flex;
+        justify-content: space-between;
     }
     .songListSearch-check{
-        margin-right: 1rem;
-        width: 15rem;
+        //margin-right: 1rem;
+        //width: 18.5rem;
         ::ng-deep
             .mat-mdc-form-field-subscript-wrapper,
             .mat-mdc-form-field-bottom-align{
@@ -404,6 +425,6 @@
     .songListSearchBtn{
         margin-top: 0.75rem;
         height: 1.5rem;
-        width: 45.5rem;
+        width: 55.5rem;
     }
 }

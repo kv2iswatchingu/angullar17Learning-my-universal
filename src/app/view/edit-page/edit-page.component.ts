@@ -11,6 +11,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import * as Jsmedia  from '@/app/pluginsScrpit/jsmediatags.min.js'
 import { playerTimeFormat } from '@/app/component/audioPlayer/playerTimeFormat.pipe';
 import { MatListModule, MatSelectionList } from '@angular/material/list';
+import {PageEvent, MatPaginatorModule, MatPaginatorIntl, MatPaginator} from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-edit-page',
@@ -26,7 +28,8 @@ import { MatListModule, MatSelectionList } from '@angular/material/list';
     playerTimeFormat,
     MatCheckboxModule,
     playerTimeFormat,
-    MatListModule
+    MatListModule,
+    MatPaginatorModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.scss'
@@ -54,28 +57,32 @@ export class EditPageComponent {
   songListImgUrl:string | undefined;
 
   searchInput:string = "";
-  searchName:boolean = true;
-  searchStyle:boolean = true;
-  searchSinger:boolean = true;
+  searchFirst:boolean = true;
   searchMusicList:MusicInformation[] = [];
-
+  
   musicSearch:MusicInfoSearch ={
     page:1,
-    limit:10
+    limit:6
   }
   //@ViewChild('selectMusic',{static:false}) selectMusic!: ElementRef;
   @ViewChild(MatSelectionList,{static: false }) selectMusic!: MatSelectionList;
-  musicIdList:string[] | null | undefined;
+  musicIdList:string[] = []
+  musicIdListCurrentPage:string[] | null | undefined;
+  pageLength:number = 0;
+  pageIndex:number = 0;
 
   constructor(
-    private apiservice:ApiService
+    private apiservice:ApiService,
+    private matPage: MatPaginatorIntl
   ){
-
+    matPage.firstPageLabel = "第一页"
+    matPage.lastPageLabel = "最后一页"
+    matPage.nextPageLabel = "下一页"
+    matPage.previousPageLabel = "上一页"
   }
 
   ngOnInit(){
     this.getAllAblum();
-    
   }
 
  
@@ -196,12 +203,6 @@ export class EditPageComponent {
 
 
   //part03
-  getMusicSearch(){
-    this.apiservice.getMusicInfoBySearch(this.musicSearch).subscribe(res=>{
-      console.log(res,"editSearch");
-      this.searchMusicList=res
-    })
-  }
   uploadSongListImg(event:any){
     if (event.target.files[0] && !event.target.files[0].type.startsWith('image/')) {
       console.log("err")
@@ -212,16 +213,65 @@ export class EditPageComponent {
       this.songListImgUrl = URL.createObjectURL(this.songListImg)
     }
   }
-
+  searchMusic(){
+    this.musicSearch.page = 1;
+    this.pageIndex = 0;
+    this.musicIdList = [];
+    this.musicIdListCurrentPage = [];
+    this.musicSearchApi();
+  }
+  musicSearchApi(){
+    this.apiservice.getTotalBySearch(this.musicSearch).subscribe(res=>{
+      this.pageLength = res;
+    })
+    this.apiservice.getMusicInfoBySearch(this.musicSearch).subscribe(res=>{
+      //console.log(res,"editSearch");
+      this.searchMusicList = res;
+      this.searchFirst = false;
+    })
+  }
+  pageChange(event:PageEvent){
+    this.musicSearch.page = event.pageIndex + 1;
+    if( this.musicIdListCurrentPage){
+      this.musicIdListCurrentPage.forEach(item =>{
+        if(!this.musicIdList.includes(item)){
+          this.musicIdList.push(item)
+        }
+      })
+    }
+    this.musicSearchApi();
+    this.pageIndex = event.pageIndex;
+  }
   selectionChange(){
-    this.musicIdList =  this.selectMusic._value
-    console.log(this.musicIdList)
+    this.musicIdListCurrentPage =  this.selectMusic._value;
   }
+  
 
 
-  searchFuntion(){
-    console.log(this.searchName,this.searchSinger)
-    this.getMusicSearch();
+  songListSubmit(){
+    if( this.musicIdListCurrentPage){
+      this.musicIdListCurrentPage.forEach(item =>{
+        if(!this.musicIdList.includes(item)){
+          this.musicIdList.push(item)
+        }
+      })
+    }
+    if(this.musicIdList.length == 0){
+      console.log("err")
+      return;
+    }else{
+      this.songListPost._MusicIdList = this.musicIdList;
+    }
+    if(this.songListImg == undefined){
+      console.log("err")
+      return;
+    }
+    if(this.songListPost._MusicIdList.length == 0 || this.songListPost.songListName == "" || this.songListPost.songListStyle == ""  || this.songListPost.songListDesprition == ""){
+      console.log("err")
+      return;
+    }
+    this.apiservice.postSongList(this.songListImg,this.songListPost).subscribe();
   }
+
 
 }

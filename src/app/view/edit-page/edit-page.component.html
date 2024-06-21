@@ -267,60 +267,51 @@
                     <div class="rightMain">
                         <div class="songListSearch">
                             <div class="songListSearch-check">
-                                <section >
-                                    <mat-checkbox [(ngModel)]="searchName">
-                                        搜索歌曲名称
-                                    </mat-checkbox>
-                                </section>
-                                <div [hidden]="!searchName">
-                                    <mat-form-field class="angularInput" >
-                                        <mat-label>歌曲名称</mat-label>
-                                        <input matInput type="text" [(ngModel)]="musicSearch.name" >
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field class="angularInput">
+                                    <mat-label>歌曲名称</mat-label>
+                                    <input matInput type="text" [(ngModel)]="musicSearch.name" >
+                                </mat-form-field>
                             </div>
     
                             <div class="songListSearch-check">
-                                <section>
-                                    <mat-checkbox [(ngModel)]="searchStyle">
-                                        搜索歌曲风格
-                                    </mat-checkbox>
-                                </section>
-                                <div [hidden]="!searchStyle">
-                                    <mat-form-field class="angularInput" [hidden]="searchStyle">
-                                        <mat-label>歌曲风格</mat-label>
-                                        <input matInput type="text" [(ngModel)]="musicSearch.style">
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field class="angularInput">
+                                    <mat-label>歌曲风格</mat-label>
+                                    <input matInput type="text" [(ngModel)]="musicSearch.style">
+                                </mat-form-field>
                             </div>
     
                             <div class="songListSearch-check">
-                                <section>
-                                    <mat-checkbox [(ngModel)]="searchSinger">
-                                        搜索作者、歌手
-                                    </mat-checkbox>
-                                </section>
-                                <div [hidden]="!searchSinger">
-                                    <mat-form-field class="angularInput" [hidden]="searchSinger">
-                                        <mat-label>歌曲作者、歌手</mat-label>
-                                        <input matInput type="text" [(ngModel)]="musicSearch.style">
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field class="angularInput">
+                                    <mat-label>歌曲歌手</mat-label>
+                                    <input matInput type="text" [(ngModel)]="musicSearch.singer">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="songListSearch-check">
+                                <mat-form-field class="angularInput">
+                                    <mat-label>歌曲作者</mat-label>
+                                    <input matInput type="text" [(ngModel)]="musicSearch.author">
+                                </mat-form-field>
                             </div>
     
                         </div>
                         <button 
                             class="songListSearchBtn" 
                             mat-flat-button color="accent" 
-                            (click)="searchFuntion()">
+                            (click)="searchMusic()">
                             <mat-icon>search</mat-icon>
                             <span>获取歌曲信息</span>
                         </button> 
-                     
-                        <div class="songListSearchList">
-                            <mat-selection-list #selectMusic (selectionChange)="selectionChange()">
-                                @for(item of searchMusicList; track $index){
-                                    <mat-list-option class="list-item" [value]="item._id">
+                        <mat-selection-list 
+                            class="songListSearchList"
+                            #selectMusic 
+                            (selectionChange)="selectionChange()">
+                            @if(searchMusicList.length > 0){
+                                @for(item of searchMusicList; track item._id){
+                                    <mat-list-option 
+                                        class="list-item" 
+                                        [selected]="musicIdList.includes(item._id)"
+                                        [value]="item._id">
                                         <div class="list-item-title">
                                             <span>
                                                 {{item.musicName}}
@@ -348,19 +339,38 @@
                                         
                                     </mat-list-option>
                                 }
-                            </mat-selection-list>
-                        </div>
-                        
+                            }
+                            @else if(!searchFirst){
+                                <div class="songListSearchTips">暂无数据</div>
+                            }
+                            @else{
+                                <div class="songListSearchTips">搜索并选择歌曲加入歌单</div>
+                            }
+                        </mat-selection-list>
+                        @if(searchMusicList.length > 0){
+                            <mat-paginator 
+                                #paginator
+                                class="paginator"
+                                [length]="pageLength" 
+                                [pageSize]="6" 
+                                [pageIndex]="pageIndex"
+                                [hidePageSize]="true"
+                                [showFirstLastButtons]="true"
+                                (page)="pageChange($event)"
+                                >
+                            </mat-paginator>
+                        }
                     </div>
+                        
                     
                 </div>
             </div>
             <button
-            class="songSubmitBtn"
-            
-            mat-flat-button>
-            创建歌单
-        </button>
+                class="songSubmitBtn"
+                mat-flat-button
+                (click)="songListSubmit()">
+                创建歌单
+            </button>
         </div>
         
         
