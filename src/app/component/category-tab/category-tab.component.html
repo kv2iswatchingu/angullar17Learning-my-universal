@@ -4,13 +4,13 @@
         <span>
             {{recommendTitle}}
         </span>
-        @for (item of recommendCategory; track $index) {
+        @for (item of category; track $index) {
             <button
                 mat-button
-                (click)="gotoCategory($index,item.category)"
+                (click)="gotoCategory($index,item)"
                 
             >
-                {{item.category}}
+                {{item}}
             </button>
         }
     </div>

@@ -3,6 +3,7 @@ import { Observable, catchError, map, retry, throwError } from 'rxjs';
 import { Banner, CategoryInfo, EasyAblumInfo, defalutSrc } from '@/app/interface/main-interface.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AblumApi, AblumInfo, LyricApi, LyricRaw, MusicInfoSearch, MusicInfoUpload, MusicInformation, SongList, SongListPost, songListSearch } from '../interface/type.interface';
+import { getSongList } from '../store/selectors/player.selector';
 
 @Injectable({
     providedIn: 'root'
@@ -25,10 +26,20 @@ export class ApiService {
     }
     //获取歌单列表分页排序搜索
     getSongList(songListSearch?:songListSearch):Observable<SongList[]>{
-        console.log(songListSearch)
         let url = this.serverAddress + `/songList/songList`;
         return this.http.get<SongList[]>(url,{params:songListSearch}).pipe(map(res => res));
     }
+    //获取歌单分页数量
+    getSonglistTotal(songListSearch?:songListSearch):Observable<number>{
+        let url = this.serverAddress + `/songList/total`;
+        return this.http.get<number>(url,{params:songListSearch}).pipe(map(res => res));
+    }
+    //获取歌单的风格
+    getSongListStyle():Observable<string[]>{
+        let url = this.serverAddress + `/songList/category`;
+        return this.http.get<string[]>(url).pipe(map(res => res));
+    }
+
 
     //上传新的歌单
     postSongList(file:File,songListInfo:SongListPost){

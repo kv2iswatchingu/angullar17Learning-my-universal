@@ -1,15 +1,46 @@
 <div class="songListPage">
-    <div>
-       <!--  filter组件 -->
+    <div class="header">
+       <div class="category">
+            {{categoryName}}
+            <mat-form-field>
+                <mat-label>选择分类</mat-label>
+                <mat-select  (selectionChange)="styleChanged($event)">
+                @for (item of styleList; track item) {
+                    <mat-option [value]="item">{{item}}</mat-option>
+                }
+                </mat-select>
+            </mat-form-field>
+        </div>
+       <div class="sortby">
+            <mat-button-toggle-group 
+                (change)="groupChange($event)"
+                [hideSingleSelectionIndicator]="true">
+                <mat-button-toggle value="time" checked="true">时间</mat-button-toggle>
+                <mat-button-toggle value="pop">热度</mat-button-toggle>
+            </mat-button-toggle-group>
+            
+       </div>
     </div>
     <app-album-list
         [songListData] = "songList"
         (onAddtoListMain)="getPlayList($event)"
     >
-
     </app-album-list>
 
-
+    @if(pageLength > 18){
+        <mat-paginator 
+            #paginator
+            class="paginator"
+            [length]="pageLength" 
+            [pageSize]="6" 
+            [pageIndex]="pageIndex"
+            [hidePageSize]="true"
+            [showFirstLastButtons]="true"
+            (page)="pageChange($event)"
+            >
+        </mat-paginator>
+    }
+    
 
 
 

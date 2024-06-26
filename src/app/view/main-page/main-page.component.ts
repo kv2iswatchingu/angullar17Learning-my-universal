@@ -46,7 +46,8 @@ export class MainPageComponent implements OnInit{
   bannerData:Banner[] = [];
   songListMainPage:SongList[] = [];
   
-  recommendCategory:CategoryInfo[] = [];
+  //recommendCategory:CategoryInfo[] = [];
+  songlistStyle:string[] = [];
   latestMusicList: MusicInformation[] = [];
 
  
@@ -85,9 +86,12 @@ export class MainPageComponent implements OnInit{
     })
   }
   getCategory(){
-    this.mainService.getMainPageRecommendCategory('true').subscribe(res => {
+    /* this.mainService.getMainPageRecommendCategory('true').subscribe(res => {
       //console.log(res);
       this.recommendCategory= res;
+    }) */
+    this.apiService.getSongListStyle().subscribe(res => {
+      this.songlistStyle = res
     })
   }
   getAblumListMain(){

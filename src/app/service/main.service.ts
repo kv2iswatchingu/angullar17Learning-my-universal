@@ -28,17 +28,6 @@ export class MainService {
     }
     return this.http.get<EasyAblumInfo[]>(url).pipe(map(res => res));
   }
-  //获取首页分类信息
-  getMainPageRecommendCategory(fake?:string):Observable<CategoryInfo[]>{
-    let url =  this.myMockApi + `/getMainpageCategory`
-    if(fake != undefined){
-      url += `?fake=${fake}`
-    }
-    return this.http.get<CategoryInfo[]>(url).pipe(map(res => res));
-
-    /* return this.http.get<CategoryInfo[]>(this.myMockApi + "/getMainpageCategory")
-    .pipe(map(res => res)); */
-  }
   //
   getpersonalRecommend(fake?:string):Observable<EasyAblumInfo[]>{
     let url =  this.myMockApi + `/getPersonalRecommend`

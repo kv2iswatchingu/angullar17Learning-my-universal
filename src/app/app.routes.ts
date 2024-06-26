@@ -4,6 +4,7 @@ import { TestComponent } from './view/test/test.component';
 import { CdPlayerCustomPageComponent } from './view/cd-player-custom-page/cd-player-custom-page.component';
 import { EditPageComponent } from './view/edit-page/edit-page.component';
 import { SongListPageComponent } from './view/list-page/songList-page.component';
+import { SearchPageComponent } from './view/search-page/search-page.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path:'list',
         component:SongListPageComponent
+    },
+    {
+        path:'search',
+        component:SearchPageComponent
     },
 ];

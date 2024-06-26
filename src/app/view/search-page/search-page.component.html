@@ -1,0 +1,65 @@
+<div class="searchPage">
+    <p>search-page works!</p>
+    <div class="search">
+        <input 
+            class="searchInput" 
+            placeholder="输入并搜索"
+            [(ngModel)]="searchInput"
+        />
+        <button class="searchBtn" mat-flat-button color="accent" (click)="search()">
+            <mat-icon>search</mat-icon>
+        </button> 
+        <mat-list 
+            class="songListSearchList"
+            >
+                @for(item of musicList; track item._id){
+                    <mat-list-item
+                        class="list-item" 
+                        >
+                        <div class="list-item-title">
+                            <span>
+                                {{item.musicName}}
+                            </span>
+                        </div>
+                        
+                        <div class="list-item-author">
+                            <span>
+                                {{item.musicAuthor}}、
+                                {{item.musicSinger}}
+                            </span>
+                        </div>
+                        <div class="list-item-style">
+                            <span>
+                                {{item.musicStyle}}
+                            </span>
+                        </div>
+                        <div class="list-item-share">
+                            <div>
+                                <span>
+                                    {{item.musicLong | playerTimeFormat}}
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </mat-list-item>
+                }
+                @empty{
+                    <div>noine</div>
+                }
+        </mat-list>
+
+        
+            <mat-paginator 
+                #paginator
+                class="paginator"
+                [length]="pageLength" 
+                [pageSize]="30" 
+                [pageIndex]="pageIndex"
+                [hidePageSize]="true"
+                [showFirstLastButtons]="true"
+                (page)="pageChange($event)"
+                >
+            </mat-paginator>
+    </div>
+</div>
+

@@ -3,3 +3,16 @@
     margin: auto;
     margin-top: 3.5rem;
 }
+.header{
+    display: flex;
+    margin-top: 3rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #ff6675 5px solid;
+    height: 5rem;
+    .category{
+        font-size: 1.5rem;
+        color:#ff6675;
+        font-weight: 600;
+    }
+}

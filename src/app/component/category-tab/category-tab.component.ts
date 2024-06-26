@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class  CategoryTabComponent {
   @Input() recommendTitle = "";
-  @Input() recommendCategory:CategoryInfo[] = [];
+  @Input() category:string[] = [];
   @Input() showMore:boolean = true;
 
   constructor(

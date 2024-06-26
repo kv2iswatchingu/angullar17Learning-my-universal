@@ -24,24 +24,22 @@ import { Router } from '@angular/router';
     styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-    searchInput = "";
+    searchInput:string = "";
     
     constructor(private router: Router) {
     }
 
     homepageFuntion(){
-       // console.log("home")
        this.router.navigate(['']);
     }
     searchFuntion(){
         console.log(this.searchInput)
+        this.router.navigate(['/search']);
     }
     cdlistFuntion(){
-        console.log("cdlist")
         this.router.navigate(['/edit']);
     }
     collectionFuntion(){
-        console.log("mycollection")
         this.router.navigate(['/test']);
     }
     loginFuntion(){
@@ -51,7 +49,6 @@ export class HeaderComponent {
         console.log("register")
     }
     localFunction(){
-        console.log("local")
         this.router.navigate(['/local']);
     }
 }

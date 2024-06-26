@@ -6,11 +6,21 @@ import { playerState } from '@/app/store/reducers/player.reducer';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Location } from '@angular/common'
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
+import { CategoryTabComponent } from '@/app/component/category-tab/category-tab.component';
 
 @Component({
   selector: 'app-listpage',
   standalone: true,
-  imports: [AlbumListComponent,],
+  imports: [
+    AlbumListComponent,
+    MatButtonToggleModule,
+    MatPaginatorModule,
+    MatSelectModule,  
+  ],
   templateUrl: './songList-page.component.html',
   styleUrl: './songList-page.component.scss'
 })
@@ -19,39 +29,85 @@ export class SongListPageComponent {
   songList:SongList[] = [];
   songListSearch:songListSearch = {
     page:1,
-    limit:35
+    limit:35,
+    sortBy:'time'
   }
+  categoryName:string = "全部";
+  pageLength:number = 0;
+  pageIndex:number = 0;
+  styleList:string[] = [];
 
   constructor(
     private apiService:ApiService,
     private location:Location,
-    private stroe$:Store<playerState>
+    private stroe$:Store<playerState>,
+    private matPage: MatPaginatorIntl,
+    private router: Router,
   ){
-
+    matPage.firstPageLabel = "第一页"
+    matPage.lastPageLabel = "最后一页"
+    matPage.nextPageLabel = "下一页"
+    matPage.previousPageLabel = "上一页"
   }
 
   ngOnInit(){
+    this.initSongList();
+    this.getSongListLength();
     this.getSongList();
+    this.getSongListStyle();
   }
 
-  
 
-  getSongList(){
+  initSongList(){
     let category = this.getPathAfter(decodeURI(this.location.path().toString()));
+    this.categoryName = category
     //console.log(category)
     if(category == "/list"){
       category = ""
+      this.categoryName = "全部"
     }
     this.songListSearch.category = category
+  }
+
+  getSongListStyle(){
+    this.apiService.getSongListStyle().subscribe(res=>{
+      const all = ["全部"]
+      this.styleList = all.concat(res)
+    })
+  }
+  getSongListLength(){
+    this.apiService.getSonglistTotal(this.songListSearch).subscribe(res=>{
+      this.pageLength = res;
+    })
+  }
+  getSongList(){
     this.apiService.getSongList(this.songListSearch).subscribe(res=>{
       this.songList = res;
     })
   }
+  
 
 
 
 
+  groupChange(event:any){
+    const sortby = event.value
+    this.songListSearch.sortBy = sortby
+  }
 
+
+  styleChanged(event:any){
+    let cate = event.value
+    this.router.navigate(['/list'],{queryParams:{styles:cate}});
+    this.categoryName = cate
+    if(cate == "全部"){
+      cate = ""
+      this.categoryName = "全部"
+    }
+    this.songListSearch.category = cate
+    this.getSongListLength();
+    this.getSongList();
+  }
 
 
   getPlayList(songListId:string){
@@ -72,7 +128,18 @@ export class SongListPageComponent {
       this.stroe$.dispatch(setCurrentIndex({currentIndex:0}))
     })
   }
-
+  pageChange(event:PageEvent){
+   /*  this.musicSearch.page = event.pageIndex + 1;
+    if( this.musicIdListCurrentPage){
+      this.musicIdListCurrentPage.forEach(item =>{
+        if(!this.musicIdList.includes(item)){
+          this.musicIdList.push(item)
+        }
+      })
+    }
+    this.musicSearchApi();
+    this.pageIndex = event.pageIndex; */
+  }
 
 
 
