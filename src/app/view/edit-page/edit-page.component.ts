@@ -12,7 +12,7 @@ import * as Jsmedia  from '@/app/pluginsScrpit/jsmediatags.min.js'
 import { playerTimeFormat } from '@/app/component/audioPlayer/playerTimeFormat.pipe';
 import { MatListModule, MatSelectionList } from '@angular/material/list';
 import {PageEvent, MatPaginatorModule, MatPaginatorIntl, MatPaginator} from '@angular/material/paginator';
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-edit-page',
@@ -29,7 +29,8 @@ import {PageEvent, MatPaginatorModule, MatPaginatorIntl, MatPaginator} from '@an
     MatCheckboxModule,
     playerTimeFormat,
     MatListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.scss'
@@ -65,11 +66,25 @@ export class EditPageComponent {
     limit:6
   }
   //@ViewChild('selectMusic',{static:false}) selectMusic!: ElementRef;
-  @ViewChild(MatSelectionList,{static: false }) selectMusic!: MatSelectionList;
+  @ViewChild('selectMusic',{static: false }) selectMusic!: MatSelectionList;
   musicIdList:string[] = []
   musicIdListCurrentPage:string[] | null | undefined;
   pageLength:number = 0;
   pageIndex:number = 0;
+
+
+  //part4
+  lyricSearch:MusicInfoSearch ={
+    page:1,
+    limit:7
+  }
+  @ViewChild('selectMusicLyric',{static: false }) selectLyric!: MatSelectionList;
+  pagelyricLength:number = 0;
+  pagelyricIndex:number = 0;
+  searchLyricFirst:boolean = true;
+  searchLyricList:MusicInformation[] = [];
+  searchLyricCurrent:string = "";
+  searchLyricCurrentInfo:MusicInformation | undefined;
 
   constructor(
     private apiservice:ApiService,
@@ -244,6 +259,7 @@ export class EditPageComponent {
   }
   selectionChange(){
     this.musicIdListCurrentPage =  this.selectMusic._value;
+    console.log(this.selectMusic._value);
   }
   
 
@@ -273,5 +289,46 @@ export class EditPageComponent {
     this.apiservice.postSongList(this.songListImg,this.songListPost).subscribe();
   }
 
+  //partFour
+  searchLyric(){
+    this.lyricSearch.page = 1;
+    this.pagelyricIndex = 0;
+    //this.IdList = [];
+    //this.musicIdListCurrentPage = [];
+    this.lyricSearchApi();
+  }
+  lyricSearchApi(){
+    this.apiservice.getTotalBySearch(this.lyricSearch).subscribe(res=>{
+      this.pagelyricLength = res;
+    })
+    this.apiservice.getMusicInfoBySearch(this.lyricSearch).subscribe(res=>{
+      
+      this.searchLyricList = res;
+      this.searchLyricFirst = false;
+    })
+  }
+  pageChangeLyric(e:PageEvent){
+    this.lyricSearch.page = e.pageIndex + 1;
+    this.lyricSearchApi();
+    this.pagelyricIndex = e.pageIndex;
+  }
 
+  
+  selectionLyricChange(){
+    if(this.selectLyric._value){
+      this.searchLyricCurrent = this.selectLyric._value[0]
+    }
+    this.getMusicInfoById();
+  }
+  getMusicInfoById(){
+    //console.log(this.searchLyricCurrent)
+    this.apiservice.getMusicInfoById(this.searchLyricCurrent).subscribe(res=>{
+      this.searchLyricCurrentInfo = res;
+    })
+  }
+
+
+  lyricSubmit(){
+
+  }
 }

@@ -1,31 +1,45 @@
 .editPage{
     width: 80%;
     margin: auto;
-    //height: 100%;
-    margin-top: 3.5rem;
+    min-height: calc(100vh - 3.5rem);
+    padding-top: 3.5rem;
     background-color: #ffeeee;
+    .title{
+        padding: 1.5rem;
+        padding-bottom: 0.25rem;
+        height: 3rem;
+        line-height: 3rem;
+        font-size: 2.3rem;
+        font-weight: 600;
+        color: #ffadad;
+    }
 }
-.title{
-    padding: 1.5rem;
-    padding-bottom: 0.25rem;
-    height: 3rem;
-    line-height: 3rem;
-    font-size: 2.3rem;
-    font-weight: 600;
-    color: #ffadad;
-}
+
 .main{
     margin-left: 2.5rem;
     margin-top: 1rem;
-}
-.ablumAdd{
-    .ablumAddTitle{
+    .create{
+        margin-top: 2rem;
+    }
+    .edit{
+        margin-top: 2rem;
+    }
+    .tabTitle{
         height: 2rem;
         line-height: 2rem;
         font-size: 1.5rem;
         font-weight: 600;
         color: #ff226c;
     }
+    ::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline{
+        border-color: #fe7777 !important;
+    }
+}
+
+
+.ablumAdd{
+    margin-top: 3rem;
+    overflow: hidden;
     .ablumAddMain{
         display: flex;
         margin-top: 1rem;
@@ -95,13 +109,7 @@
 
 .musicInfoAdd{
     margin-top: 3rem;
-    .musicInfoAddTitle{
-        height: 2rem;
-        line-height: 2rem;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #ff226c;
-    }
+    overflow: hidden;
     .musicInfoAddMain{
         display: flex;
         margin-top: 1rem;
@@ -224,6 +232,7 @@
 
 .songlistAdd{
     margin-top: 3rem;
+    overflow: hidden;
     .songlistAddTitle{
         height: 2rem;
         line-height: 2rem;
@@ -427,4 +436,139 @@
         height: 1.5rem;
         width: 55.5rem;
     }
+}
+.lyricAdd{
+    margin-top: 3rem;
+    overflow: hidden;
+    display: flex;
+    .lyricRight{
+        width: 50%;
+    }
+    .lyricLeft{
+        width: 50%;
+    }
+    .lyricTitle{
+        margin-left: 0.5rem;
+        height: 1.3rem;
+        line-height: 1.3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #ff5656;
+    }
+    .lyricRightUpper{
+        margin-top: 1rem;
+        margin-left: 0.75rem;
+        display: flex;
+    }
+    .lyricRightInfo{
+        margin-left: 0.75rem;
+    }
+    .musicSearchBtn{
+        width: 13.1875rem;
+        font-size: 1rem;
+        height: 3.5rem;
+        line-height: 2rem;
+        border-radius: 0.25rem;
+        border: none;
+        cursor: pointer;
+        background-color: pink;
+        color: #ff226c;
+        border-radius: 5px;
+        text-align: center; 
+        padding: 0.75rem 0;
+    }
+    .contentRight{
+
+    }
+    .contentLeft{
+       margin-left: 1rem;
+       width: 65%;
+    }
+    .lyricSearchList{
+        height: 21rem;
+        padding: 0;
+        position: relative;
+        .list-item{
+            ::ng-deep .mdc-list-item__primary-text{
+                display: flex;
+                
+                height: 2rem;
+                align-items: center;
+            }
+            .list-item-title{
+                width: 40%;
+                color: #7d0032;
+                display: inline-flex;
+                align-items: center;
+            }
+            .list-item-title > span{
+                white-space: nowrap;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+            .list-item-style{
+                width: 20%;
+                height: 2rem;
+                color: #7d0032;
+                display: inline-flex;
+                align-items: center;
+            }
+            .list-item-style > span{
+                white-space: nowrap;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+            .list-item-author{
+                width: 40%;
+                height: 2rem;
+                color: #7d0032;
+                display: inline-flex;
+                align-items: center;
+            }
+            .list-item-author > span{
+                padding: 0 1rem;
+                white-space: nowrap;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+        }
+        ::ng-deep .mdc-list-item--with-trailing-radio .mdc-list-item__end{
+            margin: 0;
+        }
+    }
+    .paginator{
+        height: 2rem;
+        background-color: #ffcfd7;
+        border-radius: 5px;
+    }
+    ::ng-deep .mat-mdc-paginator-container{
+        min-height: 2rem;
+        background-color: #ffcfd7;
+        border-radius: 5px;
+    }
+    ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base{
+        width:1.5rem;
+        height: 1.5rem;
+        padding: 0px;
+    }
+    .lyricSearchTips{
+        width: 100%;
+        text-align: center;
+        left: 50%;
+        top:50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ff226c;
+    }
+}
+.lyricSubmitBtn{
+    margin-top: 0.5rem;
+    width: 97.5%;
+    height: 2.5rem;
+    border-radius: 5px;
+    background-color: #ff226c;
+    color: #fff;
+    font-size: 1.2rem;
 }

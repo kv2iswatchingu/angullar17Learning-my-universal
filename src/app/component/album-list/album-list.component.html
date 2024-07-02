@@ -6,6 +6,7 @@
                 [ablumEasyInfoId] = "item._id"
                 [ablumEasyInfoTitle] ="item.songListName"
                 [ablumEasyInfoImg] ="item.ImgRaw"
+                [songListPop]="item.songListPop"
                 (onAddtoList)="onAddtoList($event)"
             >
             </app-album-card>
@@ -17,6 +18,7 @@
                 [ablumEasyInfoId] = "item.ablumId"
                 [ablumEasyInfoTitle] ="item.ablumName"
                 [ablumEasyInfoImg] ="item.coverRaw"
+                [songListPop]="item.ablumPop"
                 (onAddtoList)="onAddtoList($event)"
             >
             </app-album-card>

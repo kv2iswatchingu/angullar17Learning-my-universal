@@ -95,7 +95,7 @@ export class MainPageComponent implements OnInit{
     })
   }
   getAblumListMain(){
-    this.apiService.getAllAblum().subscribe(res=>{
+    this.apiService.getMainPageAblum().subscribe(res=>{
       this.ablumListData = res;
     })
   }
@@ -108,8 +108,13 @@ export class MainPageComponent implements OnInit{
 
   //获取歌单内数据
   getPlayList(songListId:string){
-    //console.log(id)
     this.songListIdCurrent = songListId;
+    this.apiService.updateSongListPop(songListId).subscribe(res=>{
+      const index = this.songListMainPage.findIndex(item => item._id == songListId);
+      if(index != -1){
+        this.songListMainPage[index].songListPop = res.songListPop
+      }
+    });
     this.apiService.getMusicInfoBySongList(songListId).subscribe(res =>{
       if(res){
         //console.log(res)
@@ -129,6 +134,14 @@ export class MainPageComponent implements OnInit{
 
   getPlayListAblum(ablumId:string){
     this.songListIdCurrent = ablumId;
+    this.apiService.updateAblumPop(ablumId).subscribe(res=>{
+      const index =  this.ablumListData.findIndex(item => item.ablumId == ablumId);
+      if(index != -1){
+        this.ablumListData[index].ablumPop = res.ablumPop;
+      }
+    });
+
+
     this.apiService.getMusicInfoByAblumId(ablumId).subscribe(res =>{
       if(res){
         for(let i = 0 ;i < res.length; i ++){

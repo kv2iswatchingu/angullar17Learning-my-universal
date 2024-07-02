@@ -19,6 +19,7 @@ export class AlbumCardComponent {
   @Input() ablumEasyInfoImg = "";
   @Input() ablumEasyInfoId = "";
   @Input() ablumEasyInfoTitle = "";
+  @Input() songListPop = 0;
   @Output() onAddtoList = new EventEmitter<string>();
 
   addSongtoPlayerList(){

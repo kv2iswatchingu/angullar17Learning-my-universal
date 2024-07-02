@@ -87,4 +87,5 @@ export type AblumApi = {
     coverType:string;
     ablumBand:string;
     ablumYear:string;
+    ablumPop:number;
 }

@@ -53,6 +53,13 @@ export class ApiService {
         return this.http.post<string>(url,formData).pipe(map(res => res));
     }
 
+    //更新播放数量
+    updateSongListPop(songListId:string):Observable<SongList>{
+        const body = null;
+        let url = this.serverAddress + `/songList/pop/${songListId}`;
+        return this.http.put<SongList>(url,body).pipe(map(res => res));
+    }
+
 
     //PART MUSICINFO
     //根据歌单的Id获取歌曲列表
@@ -60,6 +67,7 @@ export class ApiService {
         let url = this.serverAddress + `/musicInfo/songListId/${songListId}`;
         return this.http.get<MusicInformation[]>(url).pipe(map(res => res));
     }
+    //根据专辑的Id获取歌曲列表
     getMusicInfoByAblumId(ablumId:string):Observable<MusicInformation[]>{
         let url = this.serverAddress + `/musicInfo/ablumId/${ablumId}`;
         return this.http.get<MusicInformation[]>(url).pipe(map(res => res));
@@ -74,7 +82,11 @@ export class ApiService {
         let url = this.serverAddress + `/musicInfo/search/total`;
         return this.http.get<number>(url,{params:musicSearch}).pipe(map(res => res));
     }
-
+    //根据歌曲Id获取歌曲信息
+    getMusicInfoById(musicInfoId:string):Observable<MusicInformation>{
+        let url = this.serverAddress + `/musicInfo/musicInfo/${musicInfoId}`;
+        return this.http.get<MusicInformation>(url).pipe(map(res => res));
+    }
 
 
 
@@ -100,6 +112,12 @@ export class ApiService {
         let url = this.serverAddress + `/ablum/getAll`;
         return this.http.get<AblumApi[]>(url).pipe(map(res=>res));
     }
+    //获取首页专辑列表
+    getMainPageAblum():Observable<AblumApi[]>{
+        let url = this.serverAddress + `/ablum/getMainPage`;
+        return this.http.get<AblumApi[]>(url).pipe(map(res=>res));
+    }
+
     //上传专辑
     postAblum(file:File,ablumData:AblumInfo){
         const formData = new FormData();
@@ -109,7 +127,13 @@ export class ApiService {
         formData.append('ablumYear',ablumData.ablumYear)
         return this.http.post<string>(this.serverAddress + '/ablum',formData).pipe(map(res => res));
     }
-    
+
+    //更新专辑播放数量
+    updateAblumPop(songListId:string):Observable<AblumApi>{
+        const body = null;
+        let url = this.serverAddress + `/ablum/pop/${songListId}`;
+        return this.http.put<AblumApi>(url,body).pipe(map(res => res));
+    }
 
 
     //PART Lyric

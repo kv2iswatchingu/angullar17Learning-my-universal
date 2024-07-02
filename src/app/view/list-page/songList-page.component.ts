@@ -93,6 +93,8 @@ export class SongListPageComponent {
   groupChange(event:any){
     const sortby = event.value
     this.songListSearch.sortBy = sortby
+    this.getSongListLength();
+    this.getSongList();
   }
 
 
@@ -112,6 +114,13 @@ export class SongListPageComponent {
 
   getPlayList(songListId:string){
     //this.songListIdCurrent = songListId;
+    this.apiService.updateSongListPop(songListId).subscribe(res=>{
+      const index = this.songList.findIndex(item => item._id == songListId);
+      if(index != -1){
+        this.songList[index].songListPop = res.songListPop
+      }
+    });
+
     this.apiService.getMusicInfoBySongList(songListId).subscribe(res =>{
       if(res){
         //console.log(res)
