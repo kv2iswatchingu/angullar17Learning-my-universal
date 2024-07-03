@@ -1,17 +1,17 @@
 <div class="editPage">
     <div class="title">
-        编辑、上传页面
+        创建、上传页面
     </div>
 
     
     <div class="main">
-        <mat-tab-group>
+        <!-- <mat-tab-group>
             <mat-tab>
                 <ng-template mat-tab-label>
                     <div class="tabTitle">
                         上传工作区
                     </div>
-                </ng-template>
+                </ng-template> -->
                 <mat-tab-group class="create">
                     <mat-tab>
                         <ng-template mat-tab-label>
@@ -274,7 +274,11 @@
                                     <div>
                                         <mat-form-field class="angularTextArea">
                                             <mat-label>歌单描述</mat-label>
-                                            <textarea matInput [(ngModel)]="songListPost.songListDesprition"></textarea>
+                                            <textarea 
+                                                class="angularTextArea-input"
+                                                matInput 
+                                                [(ngModel)]="songListPost.songListDesprition">
+                                            </textarea>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -505,45 +509,90 @@
                                     
                                     
                                 </div>
+                                <div class="infoMusic">歌曲信息</div>
+                                <audio 
+                                    #lyricPlayer 
+                                    controls 
+                                    preload="none" 
+                                    class="lyricaudio"
+                                    [hidden]="searchLyricCurrentInfo == undefined"
+                                >
+                                    你的浏览器不支持音频，你是拿IBM访问的吗？
+                                </audio>
                                 <div class="lyricRightInfo">
-                                    <div class="infoAblum">专辑信息</div>
+                                    
                                     @if(searchLyricCurrentInfo != undefined){
-                                        <div class="infoAblumLabel">
-                                            专辑名称：
-                                            <span>{{searchLyricCurrentInfo.musicName}}</span>
+                                        <div class="infoMusicRight">
+                                            <div class="infoMusicLabel">
+                                                歌曲名称：
+                                                <span>{{searchLyricCurrentInfo.musicName}}</span>
+                                            </div>
+                                            <div class="infoMusicLabel">
+                                                歌曲作者：
+                                                <span>{{searchLyricCurrentInfo.musicAuthor}}</span>
+                                            </div>
+                                            <div class="infoMusicLabel">
+                                                歌曲歌手：
+                                                <span>{{searchLyricCurrentInfo.musicSinger}}</span>
+                                            </div>
+                                            <div class="infoMusicLabel">
+                                                歌曲风格：
+                                                <span>{{searchLyricCurrentInfo.musicStyle}}</span>
+                                            </div>
+                                            <div class="infoMusicLabel">
+                                                歌曲风格：
+                                                <span>{{searchLyricCurrentInfo.musicStyle}}</span>
+                                            </div>
+                                            <div class="infoMusicLabel">
+                                                歌曲风格：
+                                                <span>{{searchLyricCurrentInfo.musicStyle}}</span>
+                                            </div>
+                                            
                                         </div>
-                                        <div class="infoAblumLabel">
-                                            专辑乐队：
-                                            <span>{{searchLyricCurrentInfo.musicAuthor}}</span>
+                                        <div class="infoMusicLeft">
+                                            <div class="infoMusicLabel">
+                                                歌曲、专辑封面：
+                                            </div>
+                                            <img 
+                                                class="infoMusicImg"
+                                                src="data:{{searchLyricCurrentInfo.coverType}};base64,{{searchLyricCurrentInfo.coverRaw}}" 
+                                            />
                                         </div>
-                                        <div class="infoAblumLabel">
-                                            专辑时代：
-                                            <span>{{searchLyricCurrentInfo.musicSinger}}</span>
-                                        </div>
-                                        <div class="infoAblumLabel">
-                                            专辑时代：
-                                            <span>{{searchLyricCurrentInfo.musicStyle}}</span>
-                                        </div>
-                                        <div class="infoAblumLabel">
-                                            专辑封面：
-                                        </div>
-                                        <img 
-                                            class="infoAblumImg"
-                                            src="data:{{searchLyricCurrentInfo.coverType}};base64,{{searchLyricCurrentInfo.coverRaw}}" 
-                                        />
+                                        
                                     }
                                     @else{
-                                        <div class="infoAblumTips">
-                                            选择目标专辑后可预览该专辑信息
+                                        <div class="infoMusicTips">
+                                            选择目标歌曲后可预览该歌曲信息
                                         </div>
                                     }
                                 </div>
                             </div>
                             
                             <div class="lyricLeft">
+                                <div class="lyricTitle">
+                                    歌词编辑、上传
+                                </div>
+                                
+                                
+                                <label [ngClass]="lyricRaw._MusicInfoId == '' ? 'lyricBtnDis' : 'lyricBtn'">
+                                    <span>选择lyric文件</span>
+                                    <input 
+                                        [disabled]="lyricRaw._MusicInfoId == ''"
+                                        class="input"
+                                        type="file" 
+                                        (change)="uploadLyric($event)" 
+                                    />
+                                </label>
 
+                                <mat-form-field class="lyricTextArea">
+                                    <mat-label>歌词编辑</mat-label>
+                                    <textarea 
+                                        class="lyricTextArea-input"
+                                        matInput 
+                                        [(ngModel)]="lyricRaw.lyricContent">
+                                    </textarea>
+                                </mat-form-field>
                             </div>
-
                            
                             
                                     
@@ -556,7 +605,7 @@
                         </button>
                     </mat-tab>
                 </mat-tab-group>
-            </mat-tab>
+           <!--  </mat-tab>
 
             <mat-tab>
                 <ng-template mat-tab-label>
@@ -594,7 +643,7 @@
 
 
             </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
     </div>
 </div>
 

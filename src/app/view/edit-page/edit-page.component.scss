@@ -13,6 +13,25 @@
         font-weight: 600;
         color: #ffadad;
     }
+    .audio{
+        width: 25rem;
+        margin-top:0.75rem;
+        border-radius: 10px;
+        background-color: #ffbbd2;
+    }
+    .audio::-webkit-media-controls-panel{
+        background-color: #ffbbd2;
+    }
+    .lyricaudio{
+        width: 95%;
+        margin-left: 2.5%;
+        margin-top:1rem;
+        border-radius: 10px;
+        background-color: #ffbbd2;
+    }
+    .lyricaudio::-webkit-media-controls-panel{
+        background-color: #ffbbd2;
+    }
 }
 
 .main{
@@ -24,6 +43,9 @@
     .edit{
         margin-top: 2rem;
     }
+    .lyric{
+        margin-top: 1rem;
+    }
     .tabTitle{
         height: 2rem;
         line-height: 2rem;
@@ -31,8 +53,19 @@
         font-weight: 600;
         color: #ff226c;
     }
+    .lyricTabTitle{
+        margin-left: 0.5rem;
+        height: 1.3rem;
+        line-height: 1.3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #ff5656;
+    }
     ::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline{
         border-color: #fe7777 !important;
+    }
+    ::ng-deep .mat-mdc-tab-body-content{
+        overflow: hidden;
     }
 }
 
@@ -186,15 +219,7 @@
             font-weight: 600;
             color: #ffadad;
         }
-        .audio{
-            width: 25rem;
-            margin-top:0.75rem;
-            border-radius: 10px;
-            background-color: #ffbbd2;
-        }
-        .audio::-webkit-media-controls-panel{
-            background-color: #ffbbd2;
-        }
+        
     }
     .musicSubmitBtn{
         margin-top: 1rem;
@@ -412,7 +437,10 @@
         .angularTextArea{
             margin-top: 1rem;
             width: 28rem;
-            height: 13.5rem;
+            height: autor;
+        }
+        .angularTextArea-input{
+            min-height: 10rem;
         }
     }
 }
@@ -441,12 +469,12 @@
     margin-top: 3rem;
     overflow: hidden;
     display: flex;
+    
     .lyricRight{
         width: 50%;
+        height: 50rem;
     }
-    .lyricLeft{
-        width: 50%;
-    }
+   
     .lyricTitle{
         margin-left: 0.5rem;
         height: 1.3rem;
@@ -460,8 +488,52 @@
         margin-left: 0.75rem;
         display: flex;
     }
+    .infoMusic{
+        margin-top: 2rem;
+        margin-left: 0.5rem;
+        height: 1.3rem;
+        line-height: 1.3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #ff5656;
+    }
     .lyricRightInfo{
         margin-left: 0.75rem;
+        display: flex;
+        height: 16.625rem;
+        position: relative;
+        .infoMusicRight{
+            width: 60%;
+        }
+        .infoMusicLeft{ 
+            width: 40%;
+        }
+        .infoMusicTips{
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffadad;
+        }
+        .infoMusicLabel{
+            margin-top:1rem;
+            margin-left: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffadad;
+        }
+        .infoMusicImg{
+            margin-top:0.75rem;
+            margin-left: 4rem;
+            width: 12rem;
+            height: 12rem;
+            border: #ff226c 2px solid;
+            border-radius: 10px;
+        }
     }
     .musicSearchBtn{
         width: 13.1875rem;
@@ -477,9 +549,7 @@
         text-align: center; 
         padding: 0.75rem 0;
     }
-    .contentRight{
-
-    }
+    
     .contentLeft{
        margin-left: 1rem;
        width: 65%;
@@ -571,4 +641,59 @@
     background-color: #ff226c;
     color: #fff;
     font-size: 1.2rem;
+}
+.lyricLeft{
+    width: 50%;
+    .lyricTextArea{
+        margin-top: 1rem;
+        margin-left: 1rem;
+        width: 42rem;
+        height: autor;
+    }
+    .lyricTextArea-input{
+        height: 40rem;
+        resize:none
+
+    }.input{
+        display: none;
+    }
+    .lyricBtn{
+        //width: 100%;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        width: 42rem;
+        display: block;
+        font-size: 1.2rem;
+        height: 2rem;
+        line-height: 2rem;
+        padding:0.75rem 0rem;
+        border-radius: 0.25rem;
+        border: none;
+        cursor: pointer;
+        background-color: pink;
+        color: #ff226c;
+        border-radius: 5px;
+        text-align: center; 
+    }
+    .lyricBtn:active{
+        background-color: #ff91a3;
+        color: #ba1a4f;
+    }
+    .lyricBtnDis{
+        margin-top: 1rem;
+        margin-left: 1rem;
+        width: 42rem;
+        display: block;
+        font-size: 1.2rem;
+        height: 2rem;
+        line-height: 2rem;
+        padding:0.75rem 0rem;
+        border-radius: 0.25rem;
+        border: none;
+        border-radius: 5px;
+        text-align: center; 
+        background-color: #ccc;
+        color: #eee;
+        cursor: not-allowed;
+    }
 }

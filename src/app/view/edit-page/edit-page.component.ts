@@ -1,4 +1,4 @@
-import { AblumApi, AblumInfo, MusicInfoJsMedia, MusicInfoSearch, MusicInfoUpload, MusicInformation, SongListPost } from '@/app/interface/type.interface';
+import { AblumApi, AblumInfo, LyricRaw, MusicInfoJsMedia, MusicInfoSearch, MusicInfoUpload, MusicInformation, SongListPost } from '@/app/interface/type.interface';
 import { ApiService } from '@/app/service/api.service';
 import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ import { playerTimeFormat } from '@/app/component/audioPlayer/playerTimeFormat.p
 import { MatListModule, MatSelectionList } from '@angular/material/list';
 import {PageEvent, MatPaginatorModule, MatPaginatorIntl, MatPaginator} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-edit-page',
@@ -30,7 +31,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     playerTimeFormat,
     MatListModule,
     MatPaginatorModule,
-    MatTabsModule
+    MatTabsModule,
+    CommonModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.scss'
@@ -71,6 +73,7 @@ export class EditPageComponent {
   musicIdListCurrentPage:string[] | null | undefined;
   pageLength:number = 0;
   pageIndex:number = 0;
+  @ViewChild('lyricPlayer',{static:false}) lyricPlayer!: ElementRef;
 
 
   //part4
@@ -85,6 +88,11 @@ export class EditPageComponent {
   searchLyricList:MusicInformation[] = [];
   searchLyricCurrent:string = "";
   searchLyricCurrentInfo:MusicInformation | undefined;
+  
+  lyricRaw:LyricRaw = { _MusicInfoId:"",lyricContent:""}
+  lyricFile:File |undefined;
+
+
 
   constructor(
     private apiservice:ApiService,
@@ -317,18 +325,63 @@ export class EditPageComponent {
   selectionLyricChange(){
     if(this.selectLyric._value){
       this.searchLyricCurrent = this.selectLyric._value[0]
+      this.lyricRaw._MusicInfoId = this.selectLyric._value[0]
     }
     this.getMusicInfoById();
+    this.getLyricById();
   }
   getMusicInfoById(){
     //console.log(this.searchLyricCurrent)
     this.apiservice.getMusicInfoById(this.searchLyricCurrent).subscribe(res=>{
       this.searchLyricCurrentInfo = res;
+      const url  = this.base64ToUrl(res.musicRaw,res.musicType);
+      this.lyricPlayer.nativeElement.src = url;
     })
   }
 
+  getLyricById(){
+    this.apiservice.getLyricById(this.searchLyricCurrent).subscribe(res=>{
+      if(res){
+        this.lyricRaw.lyricContent = res.lyric;
+      }else{
+        this.lyricRaw.lyricContent = "";
+      }
+    })
+  }
+
+  uploadLyric(event:any){
+    this.lyricFile = event.target.files[0];
+    if(this.lyricFile){
+      const reader = new FileReader();
+      reader.onload = (e:any) =>{
+        const content = e.target.result;
+        //console.log(content);
+        this.lyricRaw.lyricContent = content;
+      }
+      reader.readAsText(this.lyricFile); 
+    }
+  }
 
   lyricSubmit(){
+    console.log(this.lyricRaw)
+    if(this.lyricRaw._MusicInfoId == "" || this.lyricRaw.lyricContent == ""){
+      return;
+    }else{
+      //this.apiservice.pos
+    }
+  }
 
+
+
+  base64ToUrl(base64:string,type:string):string{
+    let brianyArr = base64.split(',');
+    let bstr = atob(brianyArr[0]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+    while(n--){
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    const blob = new Blob([u8arr],{type:type})
+    return URL.createObjectURL(blob)
   }
 }
